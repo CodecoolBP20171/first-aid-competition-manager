@@ -2,6 +2,11 @@
 <!--It's a html page, not thymeleaf!!-->
 <html lang="en">
 <head>
+
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
@@ -9,6 +14,12 @@
     <!-- Theme -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
           integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <script src="registrationValidation.js"></script>
 
     <meta charset="UTF-8">
     <meta name="author" content="Codecool"/>
@@ -50,12 +61,12 @@
                     </div>
                 </div>
 
+                <!--Javascript can handle this-->
                 <div class="form-group">
                     <label for="password" class="col-lg-2 control-label">Jelszó</label>
                     <div class="col-lg-10">
                         <div class="input-group">
-                            <input pattern="[A-Za-z1-9]" minlength="5" maxlength="15" class="form-control" type="password" name="password" id="password" placeholder="Jelszó" required>
-    <!--Javascript can handle this-->
+                            <input minlength="5" maxlength="15" class="form-control" type="password" name="password" id="password" placeholder="Jelszó" required>
                         </div>
                     </div>
                 </div>
@@ -76,5 +87,11 @@
             </form>
         </div>
     </div>
+
+    <div>
+        <button class="btn-btn-default" id="checkPassword">Check password</button>
+    </div>
+
+
 </body>
 </html>
