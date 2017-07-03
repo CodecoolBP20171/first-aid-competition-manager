@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!--It's a html page, not thymeleaf-->
+<!--It's a html page, not thymeleaf!!-->
 <html lang="en">
 <head>
     <!-- Latest compiled and minified CSS -->
@@ -22,30 +22,14 @@
             <div>
                 <h1 class="header-title">Regisztrációs űrlap</h1>
             </div>
-            <form class="form-horizontal" method="#">
-                <div class="form-group">
-                    <label for="first_name" class="col-lg-2 control-label">Vezetéknév</label>
-                    <div class="col-lg-10">
-                        <div class="input-group">
-                            <input class="form-control" type="text" name="first_name" id="first_name" placeholder="Vezetéknév">
-                        </div>
-                    </div>
-                </div>
 
-                <!--Form group-->
+            <!--Form group-->
+            <form class="form-horizontal" method="/">
                 <div class="form-group">
-                    <label for="last_name" class="col-lg-2 control-label">Keresztnév</label>
+                    <label for="name" class="col-lg-2 control-label">Teljes név</label>
                     <div class="col-lg-10">
                         <div class="input-group">
-                            <input class="form-control" type="text" name="last_name" id="last_name" placeholder="Keresztnév">
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="email" class="col-lg-2 control-label">Email cím</label>
-                    <div class="col-lg-10">
-                        <div class="input-group">
-                            <input class="form-control" type="text" name="email" id="email" placeholder="Email cím">
+                            <input minlength="5" maxlength="50" class="form-control" type="text" name="name" id="name" placeholder="Vezetéknév">
                         </div>
                     </div>
                 </div>
@@ -53,27 +37,44 @@
                     <label for="user_name" class="col-lg-2 control-label">Felhasználónév</label>
                     <div class="col-lg-10">
                         <div class="input-group">
-                            <input class="form-control" type="text" name="user_name" id="user_name" placeholder="Keresztnév">
+                            <input minlength="3" maxlength="15" class="form-control" type="text" name="user_name" id="user_name" placeholder="Keresztnév" required>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="email" class="col-lg-2 control-label">Email cím</label>
+                    <div class="col-lg-10">
+                        <div class="input-group">
+                            <input maxlength="100" class="form-control" type="text" name="email" id="email" placeholder="Email cím" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
                     <label for="password" class="col-lg-2 control-label">Jelszó</label>
                     <div class="col-lg-10">
                         <div class="input-group">
-                            <input class="form-control" type="password" name="password" id="password" placeholder="Jelszó">
+                            <input pattern="[A-Za-z1-9]" minlength="5" maxlength="15" class="form-control" type="password" name="password" id="password" placeholder="Jelszó" required>
+    <!--Javascript can handle this-->
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password2" class="col-lg-2 control-label">Jelszó ismét</label>
+                    <div class="col-lg-10">
+                        <div class="input-group">
+                            <input minlength="5" maxlength="15" class="form-control" type="password" name="password2" id="password2" placeholder="Jelszó ismét" required>
                         </div>
                     </div>
                 </div>
 
                 <!--Buttons with fake js code-->
                 <div class="form-group">
-                    <input onclick="alert('leadás')" type="Mentés" class="btn btn-success" id="submit_button" value="submit">
-                    <input onclick="alert('törlés')" type="Törlés" class="btn btn-danger" value="reset">
+                    <input onclick="alert('leadás')" type="submit" class="btn btn-success" id="submit_button" value="Leadás">
+                    <input onclick="alert('törlés')" type="reset" class="btn btn-danger" value="Törlés">
                 </div>
             </form>
         </div>
     </div>
-
 </body>
 </html>
