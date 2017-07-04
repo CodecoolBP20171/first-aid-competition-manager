@@ -3,6 +3,8 @@ package com.codecool.firstaidcompetition.model;
 import javax.persistence.*;
 //import javax.validation.constraints.Max;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "competitions")
 public class Competition {
@@ -19,6 +21,9 @@ public class Competition {
 
     @Column(name = "owner_id")
     private int ownerId;
+
+    @OneToMany(mappedBy = "competitionID")
+    private Set<Station> stations = new HashSet<>();
 
     public Competition() {
 
