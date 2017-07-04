@@ -13,13 +13,13 @@ public class Main {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("first-aid-competition");
         EntityManager em = emf.createEntityManager();
 
-        TeamCategory a = TeamCategory.CHILD;
         // example team
-        Team team = new Team("Csapatnév", 2, 0456, a, 1);
+        Team team = new Team("Csapatnév", 2, 0456, TeamCategory.CHILD, 1);
 
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
         em.persist(team);
+//        em.persist(TeamCategory.CHILD);
         transaction.commit();
         System.out.println("ende");
 

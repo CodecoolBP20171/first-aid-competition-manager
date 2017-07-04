@@ -19,16 +19,24 @@
     </properties>
 
     <dependencies>
+        <!--<dependency>-->
+            <!--<groupId>org.eclipse.persistence</groupId>-->
+            <!--<artifactId>org.eclipse.persistence.jpa</artifactId>-->
+            <!--<version>${version.eclipselink}</version>-->
+        <!--</dependency>-->
+        <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
+
         <dependency>
-            <groupId>org.eclipse.persistence</groupId>
-            <artifactId>org.eclipse.persistence.jpa</artifactId>
-            <version>${version.eclipselink}</version>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.2.10.Final</version>
         </dependency>
-         <dependency>
-         <groupId>org.hibernate</groupId>
-         <artifactId>hibernate-validator</artifactId>
-         <version>${version.hibernate.validator}</version>
-         </dependency>
+
+        <!--<dependency>-->
+         <!--<groupId>org.hibernate</groupId>-->
+         <!--<artifactId>hibernate-validator</artifactId>-->
+         <!--<version>${version.hibernate.validator}</version>-->
+         <!--</dependency>-->
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.el</artifactId>
