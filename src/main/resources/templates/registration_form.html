@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<!--It's a html page, not thymeleaf!!-->
+<html lang="en">
+<head>
+
+    <!-- Latest compiled and minified Jquery -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+    <!-- Theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <script src="registrationValidation.js"></script>
+
+    <meta charset="UTF-8">
+    <meta name="author" content="Codecool"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Vöröskereszt</title>
+
+</head>
+<body>
+    <div class="container">
+        <div class="col-lg 12">
+            <div>
+                <h1 class="header-title">Regisztrációs űrlap</h1>
+            </div>
+
+            <!--Form group-->
+            <form class="form-horizontal" method="/">
+                <div class="form-group">
+                    <label for="name" class="col-lg-2 control-label">Teljes név</label>
+                    <div class="col-lg-10">
+                        <div class="input-group">
+                            <input minlength="5" maxlength="50" class="form-control" type="text" name="name" id="name" placeholder="Vezetéknév">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="user_name" class="col-lg-2 control-label">Felhasználónév</label>
+                    <div class="col-lg-10">
+                        <div class="input-group">
+                            <input minlength="3" maxlength="15" class="form-control" type="text" name="user_name" id="user_name" placeholder="Keresztnév" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="col-lg-2 control-label">Email cím</label>
+                    <div class="col-lg-10">
+                        <div class="input-group">
+                            <input maxlength="100" class="form-control" type="text" name="email" id="email" placeholder="Email cím" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="col-lg-2 control-label">Jelszó</label>
+                    <div class="col-lg-10">
+                        <div class="input-group">
+                            <input minlength="5" maxlength="15" class="form-control" type="password" name="password" id="password" placeholder="Jelszó" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="password2" class="col-lg-2 control-label">Jelszó ismét</label>
+                    <div class="col-lg-10">
+                        <div class="input-group">
+                            <input minlength="5" maxlength="15" class="form-control" type="password" name="password2" id="password2" placeholder="Jelszó ismét" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Buttons-->
+                <div class="form-group">
+                    <input onclick="alert('leadás')" type="submit" class="btn btn-success" id="submit_button" value="Leadás">
+                    <input onclick="alert('törlés')" type="reset" class="btn btn-danger" value="Törlés">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!--Validate password-->
+    <div>
+        <button class="btn-btn-default" id="checkPassword">Check password</button>
+    </div>
+
+
+</body>
+</html>
