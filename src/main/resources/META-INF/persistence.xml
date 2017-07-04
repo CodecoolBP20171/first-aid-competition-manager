@@ -6,8 +6,8 @@
 
     <persistence-unit name="first-aid-competition" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>com.codecool.firstaidcompetition.Model.Team</class>
-        <class>com.codecool.firstaidcompetition.Model.util.TeamCategory</class>
+        <class>com.codecool.firstaidcompetition.model.Team</class>
+        <class>com.codecool.firstaidcompetition.model.util.TeamCategory</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect"/>
             <property name="hibernate.hbm2dll.auto" value="create-drop"/>

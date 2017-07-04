@@ -1,4 +1,4 @@
-package com.codecool.firstaidcompetition.Model;
+package com.codecool.firstaidcompetition.model;
 
 import javax.persistence.*;
 

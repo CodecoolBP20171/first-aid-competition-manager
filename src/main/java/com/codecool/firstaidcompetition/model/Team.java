@@ -1,6 +1,4 @@
-package com.codecool.firstaidcompetition.Model;
-
-import com.codecool.firstaidcompetition.Model.util.TeamCategory;
+package com.codecool.firstaidcompetition.model;
 
 import javax.persistence.*;
 

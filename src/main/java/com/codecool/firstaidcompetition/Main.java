@@ -1,7 +1,7 @@
 package com.codecool.firstaidcompetition;
 
-import com.codecool.firstaidcompetition.Model.Team;
-import com.codecool.firstaidcompetition.Model.util.TeamCategory;
+import com.codecool.firstaidcompetition.model.Team;
+import com.codecool.firstaidcompetition.model.TeamCategory;
 
 import javax.persistence.*;
 

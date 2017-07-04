@@ -1,6 +1,4 @@
-package com.codecool.firstaidcompetition.Model.util;
-
-import javax.persistence.Entity;
+package com.codecool.firstaidcompetition.model;
 
 /**
  * Created by keli on 2017.07.04..

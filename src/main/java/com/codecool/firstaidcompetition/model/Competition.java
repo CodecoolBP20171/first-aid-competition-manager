@@ -1,7 +1,7 @@
 package com.codecool.firstaidcompetition.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
+//import javax.validation.constraints.Max;
 import java.util.Date;
 
 @Entity(name = "competitions")
