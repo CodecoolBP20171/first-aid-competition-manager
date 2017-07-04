@@ -22,12 +22,24 @@ public class User {
     @Column(name = "password", length = 15)
     private String password;
 
+    @ManyToOne
+    private Competition competition;
+
     public User(){}
 
-    public User(String userName, String email, String password) {
+    public Competition getCompetition() {
+        return competition;
+    }
+
+    public void setCompetition(Competition competition) {
+        this.competition = competition;
+    }
+
+    public User(String userName, String email, String password, Competition competition) {
         this.userName = userName;
         this.email = email;
         this.password = password;
+        this.competition = competition;
     }
 
     public String getFullName() {

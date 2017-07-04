@@ -12,11 +12,11 @@ public class Protest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "team_id")
-    private Team teamId;
+    @OneToOne
+    private Team team;
 
-    @Column(name = "task_id")
-    private Task taskId;
+    @OneToOne
+    private Task task;
 
     @Column
     private String justification;
@@ -24,11 +24,12 @@ public class Protest {
     @Column
     private String decision;
 
+
     public Protest(){}
 
-    public Protest(Team teamId, Task taskId, String justification, String decision) {
-        this.teamId = teamId;
-        this.taskId = taskId;
+    public Protest(Team team, Task task, String justification, String decision) {
+        this.team = team;
+        this.task = task;
         this.justification = justification;
         this.decision = decision;
     }
@@ -41,20 +42,20 @@ public class Protest {
         this.id = id;
     }
 
-    public Team getTeamId() {
-        return teamId;
+    public Team getTeam() {
+        return team;
     }
 
-    public void setTeamId(Team teamId) {
-        this.teamId = teamId;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
-    public Task getTaskId() {
-        return taskId;
+    public Task getTask() {
+        return task;
     }
 
-    public void setTaskId(Task taskId) {
-        this.taskId = taskId;
+    public void setTask(Task task) {
+        this.task = task;
     }
 
     public String getJustification() {

@@ -22,8 +22,11 @@ public class Competition {
     @Column(name = "owner_id")
     private int ownerId;
 
-    @OneToMany(mappedBy = "competitionID")
+    @OneToMany(mappedBy = "competition")
     private Set<Station> stations = new HashSet<>();
+
+    @OneToMany(mappedBy = "competition")
+    private Set<User> users = new HashSet<>();
 
     public Competition() {
 

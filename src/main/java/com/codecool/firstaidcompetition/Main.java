@@ -10,8 +10,6 @@ import java.util.Date;
 
 public class Main {
 
-
-
     public static void main(String[] args) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("first-aid-competition");
         EntityManager em = emf.createEntityManager();
@@ -20,11 +18,11 @@ public class Main {
         Station station = new Station("allomas", 12, "egyik allomas", competition);
 
         // example team
-        Team team = new Team("Csapatnév", 2, 0456, TeamCategory.CHILD, 1);
+//        Team team = new Team("Csapatnév", 2, 0456, TeamCategory.CHILD, 1);
 
         EntityTransaction transaction = em.getTransaction();
         transaction.begin();
-        em.persist(team);
+//        em.persist(team);
         em.persist(competition);
         em.persist(station);
 //        em.persist(TeamCategory.CHILD);

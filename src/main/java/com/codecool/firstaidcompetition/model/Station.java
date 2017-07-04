@@ -18,24 +18,25 @@ public class Station {
     private String description;
 
     @ManyToOne
-    private Competition competitionID;
+    private Competition competition;
+
 
     public Station() {
     }
 
-    public Station(String name, int number, String description, Competition competitionID) {
+    public Station(String name, int number, String description, Competition competition) {
         this.name = name;
         this.number = number;
         this.description = description;
-        this.competitionID = competitionID;
+        this.competition = competition;
     }
 
-    public Competition getCompetitionID() {
-        return competitionID;
+    public Competition getCompetition() {
+        return competition;
     }
 
-    public void setCompetitionID(Competition competitionID) {
-        this.competitionID = competitionID;
+    public void setCompetition(Competition competitionID) {
+        this.competition = competitionID;
     }
 
     public int getId() {

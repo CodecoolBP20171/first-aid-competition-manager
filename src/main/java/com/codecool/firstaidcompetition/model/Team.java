@@ -24,7 +24,11 @@ public class Team {
     @Enumerated(EnumType.STRING)
     private TeamCategory category;
 
-//    @Column
+    @OneToOne(mappedBy = "team")
+    private Protest protest;
+
+
+    //    @Column
 //    @OneToOne
     private int competitionId;
 
