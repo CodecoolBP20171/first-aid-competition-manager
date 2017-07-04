@@ -1,6 +1,7 @@
 package com.codecool.firstaidcompetition.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
 import java.util.Date;
 
 @Entity(name = "competitions")
@@ -9,7 +10,7 @@ public class Competition {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
+    @Column(length = 100)
     private String name;
     private String location;
 
