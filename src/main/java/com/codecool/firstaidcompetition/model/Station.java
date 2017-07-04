@@ -12,18 +12,30 @@ public class Station {
     private String name;
 
     @Column
-    private short number;
+    private int number;
 
     @Column(length = 1000)
     private String description;
 
+    @ManyToOne
+    private Competition competitionID;
+
     public Station() {
     }
 
-    public Station(String name, short number, String description) {
+    public Station(String name, int number, String description, Competition competitionID) {
         this.name = name;
         this.number = number;
         this.description = description;
+        this.competitionID = competitionID;
+    }
+
+    public Competition getCompetitionID() {
+        return competitionID;
+    }
+
+    public void setCompetitionID(Competition competitionID) {
+        this.competitionID = competitionID;
     }
 
     public int getId() {
@@ -42,11 +54,11 @@ public class Station {
         this.name = name;
     }
 
-    public short getNumber() {
+    public int getNumber() {
         return number;
     }
 
-    public void setNumber(short number) {
+    public void setNumber(int number) {
         this.number = number;
     }
 
