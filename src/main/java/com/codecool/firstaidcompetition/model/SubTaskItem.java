@@ -2,8 +2,8 @@ package com.codecool.firstaidcompetition.model;
 
 import javax.persistence.*;
 
-@Entity(name = "tasks")
-public class Task {
+@Entity(name = "sub_task_items")
+public class SubTaskItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -12,12 +12,12 @@ public class Task {
     private String name;
 
     @Column
-    private int score;
+    private short score;
 
-    public Task() {
+    public SubTaskItem() {
     }
 
-    public Task(String name, int score) {
+    public SubTaskItem(String name, short score) {
         this.name = name;
         this.score = score;
     }
@@ -38,11 +38,11 @@ public class Task {
         this.name = name;
     }
 
-    public int getScore() {
+    public short getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(short score) {
         this.score = score;
     }
 }
