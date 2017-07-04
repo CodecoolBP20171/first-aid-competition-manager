@@ -1,7 +1,5 @@
 package com.codecool.firstaidcompetition.model;
 
-import org.eclipse.persistence.annotations.Customizer;
-
 import javax.persistence.*;
 import java.util.Date;
 

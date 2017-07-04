@@ -1,8 +1,8 @@
 package com.codecool.firstaidcompetition.Model;
 
+import com.codecool.firstaidcompetition.Model.util.TeamCategory;
+
 import javax.persistence.*;
-import javax.validation.Constraint;
-import javax.validation.constraints.Max;
 
 /**
  * Created by keli on 2017.07.04..
@@ -24,15 +24,15 @@ public class Team {
     private int pinCode;
 
     @Enumerated(EnumType.STRING)
-    private int category;
+    private TeamCategory category;
 
-    @Column
-    @OneToOne
+//    @Column
+//    @OneToOne
     private int competitionId;
 
     public Team(){}
 
-    public Team(String name, int teamNumber, int pinCode, int category, int competitionId) {
+    public Team(String name, int teamNumber, int pinCode, TeamCategory category, int competitionId) {
         this.name = name;
         this.teamNumber = teamNumber;
         this.pinCode = pinCode;
@@ -72,11 +72,11 @@ public class Team {
         this.pinCode = pinCode;
     }
 
-    public int getCategory() {
+    public TeamCategory getCategory() {
         return category;
     }
 
-    public void setCategory(int category) {
+    public void setCategory(TeamCategory category) {
         this.category = category;
     }
 
