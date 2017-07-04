@@ -1,9 +1,13 @@
 package com.codecool.firstaidcompetition.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  * Created by keli on 2017.07.04..
  */
 public enum TeamCategory {
+
     CHILD("Gyermek"), JUNIOR("Ifjúsági"), SENIOR("Felnőtt");
     private String value;
 
@@ -14,4 +18,5 @@ public enum TeamCategory {
     public String getCategory() {
         return value;
     }
+
 }

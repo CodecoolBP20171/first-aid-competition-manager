@@ -28,6 +28,9 @@ public class Competition {
     @OneToMany(mappedBy = "competition")
     private Set<User> users = new HashSet<>();
 
+    @OneToMany(mappedBy = "competition")
+    private Set<Team> team = new HashSet<>();
+
     public Competition() {
 
     }

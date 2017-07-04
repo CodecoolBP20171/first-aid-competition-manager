@@ -27,19 +27,17 @@ public class Team {
     @OneToOne(mappedBy = "team")
     private Protest protest;
 
-
-    //    @Column
-//    @OneToOne
-    private int competitionId;
+    @ManyToOne
+    private Competition competition;
 
     public Team(){}
 
-    public Team(String name, int teamNumber, int pinCode, TeamCategory category, int competitionId) {
+    public Team(String name, int teamNumber, int pinCode, TeamCategory category, Competition competition) {
         this.name = name;
         this.teamNumber = teamNumber;
         this.pinCode = pinCode;
         this.category = category;
-        this.competitionId = competitionId;
+        this.competition = competition;
     }
 
     public int getId() {
@@ -82,12 +80,12 @@ public class Team {
         this.category = category;
     }
 
-    public int getCompetitionId() {
-        return competitionId;
+    public Competition getCompetition() {
+        return competition;
     }
 
-    public void setCompetitionId(int competitionId) {
-        this.competitionId = competitionId;
+    public void setCompetition(Competition competitionId) {
+        this.competition = competitionId;
     }
 }
 

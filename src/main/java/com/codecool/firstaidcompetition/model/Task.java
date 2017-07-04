@@ -19,13 +19,34 @@ public class Task {
     @OneToOne(mappedBy = "task")
     private Protest protest;
 
-    public Task() {
-    }
+    @OneToMany(mappedBy = "task")
+    private Set<Station> stations = new HashSet<>();
 
-    public Task(String name, int score, Protest protest) {
+    @ManyToMany
+    @JoinTable(name="sub_task_of_tasks")
+    private Set<SubTask> subTasks = new HashSet<>();
+
+    public Task() {}
+
+    public Task(String name, int score) {
         this.name = name;
         this.score = score;
-        this.protest = protest;
+    }
+
+    public Set<Station> getStations() {
+        return stations;
+    }
+
+    public void setStations(Set<Station> stations) {
+        this.stations = stations;
+    }
+
+    public Set<SubTask> getSubTasks() {
+        return subTasks;
+    }
+
+    public void setSubTasks(Set<SubTask> subTasks) {
+        this.subTasks = subTasks;
     }
 
     public Protest getProtest() {

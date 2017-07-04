@@ -13,8 +13,7 @@
         <class>com.codecool.firstaidcompetition.model.Station</class>
         <class>com.codecool.firstaidcompetition.model.Competition</class>
         <class>com.codecool.firstaidcompetition.model.Protest</class>
-        <class>com.codecool.firstaidcompetition.model.SubTaskItem</class>
-        <class>com.codecool.firstaidcompetition.model.SubTaskOfTask</class>
+        <class>com.codecool.firstaidcompetition.model.SubTask</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect"/>
             <property name="hibernate.hbm2dll.auto" value="create-drop"/>

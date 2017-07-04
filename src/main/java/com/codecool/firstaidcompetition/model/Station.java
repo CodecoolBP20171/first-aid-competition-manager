@@ -20,6 +20,8 @@ public class Station {
     @ManyToOne
     private Competition competition;
 
+    @ManyToOne
+    private Task task;
 
     public Station() {
     }

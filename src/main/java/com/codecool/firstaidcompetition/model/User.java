@@ -9,6 +9,7 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
     @Column(name = "full_name", length = 50)
     private String fullName;
@@ -27,19 +28,20 @@ public class User {
 
     public User(){}
 
-    public Competition getCompetition() {
-        return competition;
-    }
-
-    public void setCompetition(Competition competition) {
-        this.competition = competition;
-    }
-
-    public User(String userName, String email, String password, Competition competition) {
+    public User(String fullName, String userName, String email, String password, Competition competition) {
+        this.fullName = fullName;
         this.userName = userName;
         this.email = email;
         this.password = password;
         this.competition = competition;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getFullName() {
@@ -73,4 +75,13 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public Competition getCompetition() {
+        return competition;
+    }
+
+    public void setCompetition(Competition competition) {
+        this.competition = competition;
+    }
+
 }

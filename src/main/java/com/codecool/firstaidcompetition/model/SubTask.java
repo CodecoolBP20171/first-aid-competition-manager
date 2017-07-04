@@ -1,9 +1,11 @@
 package com.codecool.firstaidcompetition.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
-@Entity(name = "sub_task_items")
-public class SubTaskItem {
+@Entity(name = "sub_task")
+public class SubTask {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -14,13 +16,16 @@ public class SubTaskItem {
     @Column
     private short score;
 
-    public SubTaskItem() {
-    }
+    @ManyToMany(mappedBy = "subTasks")
+    private Set<Task> tasks = new HashSet<>();
 
-    public SubTaskItem(String name, short score) {
+    public SubTask() {}
+
+    public SubTask(String name, short score) {
         this.name = name;
         this.score = score;
     }
+
 
     public int getId() {
         return id;
@@ -44,5 +49,13 @@ public class SubTaskItem {
 
     public void setScore(short score) {
         this.score = score;
+    }
+
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
     }
 }
