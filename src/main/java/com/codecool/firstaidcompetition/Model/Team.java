@@ -8,14 +8,13 @@ import javax.validation.constraints.Max;
  * Created by keli on 2017.07.04..
  */
 @Entity(name = "teams")
-public class Teams {
+public class Team {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
-    @Max(100)
+    @Column(length = 100)
     private String name;
 
     @Column(name = "team_number")
@@ -24,17 +23,16 @@ public class Teams {
     @Column(name = "pin_code")
     private int pinCode;
 
-    @Column
-    @OneToOne
+    @Enumerated(EnumType.STRING)
     private int category;
 
     @Column
     @OneToOne
     private int competitionId;
 
-    public Teams(){}
+    public Team(){}
 
-    public Teams(String name, int teamNumber, int pinCode, int category, int competitionId) {
+    public Team(String name, int teamNumber, int pinCode, int category, int competitionId) {
         this.name = name;
         this.teamNumber = teamNumber;
         this.pinCode = pinCode;
