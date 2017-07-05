@@ -5,6 +5,13 @@ import javax.persistence.*;
 /**
  * Created by keli on 2017.07.04..
  */
+@NamedQueries({
+        @NamedQuery(name = "selectAllTeams", query = "SELECT team from teams team"),
+        @NamedQuery(name = "selectTeamsById", query = "SELECT team from teams team where team.id = :id"),
+        @NamedQuery(name = "selectTeamsByName", query = "SELECT team from teams team where team.name = :name"),
+        @NamedQuery(name = "selectTeamsByPinCode", query = "SELECT team from teams team where team.pinCode = :pin_code"),
+        @NamedQuery(name = "selectTeamsByTeamNumber", query = "SELECT team from teams team where team.teamNumber = :team_number")
+})
 @Entity(name = "teams")
 public class Team {
 
