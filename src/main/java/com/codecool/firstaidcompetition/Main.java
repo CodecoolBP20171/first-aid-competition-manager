@@ -1,21 +1,38 @@
 package com.codecool.firstaidcompetition;
 
 import com.codecool.firstaidcompetition.model.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.query.*;
+import org.hibernate.query.Query;
 
 import javax.persistence.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("first-aid-competition");
         EntityManager em = emf.createEntityManager();
 
         // example
-        Competition competition = new Competition("verseny", "Budapest", new Date(), 2);
+        User user = new User("fullname", "username", "email", "pass");
+
+        // Date formatting example
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        Date date = simpleDateFormat.parse("2012-07-08");
+
+        Competition competition = new Competition("verseny", "Budapest", date, user);
         Station station = new Station("allomas", 12, "egyik allomas", competition);
 
-        User user = new User("fullname", "username", "email", "pass", competition);
 
         Task task = new Task("task name", 10);
         SubTask subTask = new SubTask("subtaskname", (short) 12);
@@ -39,10 +56,22 @@ public class Main {
 
         em.persist(protest);
         transaction.commit();
-        System.out.println("ende");
+        System.out.println("End");
+
+        //Named queries
+        List<Team> teams = em.createNamedQuery("selectAllTeams", Team.class).getResultList();
+        List<Team> teamsById = em.createNamedQuery("selectTeamsById", Team.class).setParameter("id", 3).getResultList();
+        List<Team> teamsByName = em.createNamedQuery("selectTeamsByName", Team.class).setParameter("name", "Csapatnév").getResultList();
+        List<Team> teamsByPin = em.createNamedQuery("selectTeamsByPinCode", Team.class).setParameter("pin_code", 302).getResultList();
+        List<Team> teamsByTeamNumber = em.createNamedQuery("selectTeamsByTeamNumber", Team.class).setParameter("team_number", 2).getResultList();
+
+        List<TeamResult> teamResults = em.createNamedQuery("selectAllTeamResults", TeamResult.class).getResultList();
+        List<TeamResult> teamResultsById = em.createNamedQuery("selectTeamResultsByID", TeamResult.class).
+                setParameter("id", 1).getResultList();
+        List<TeamResult> teamResultsByScore = em.createNamedQuery("selectTeamResultsByScore", TeamResult.class).
+                setParameter("result_score", 12).getResultList();
 
         em.close();
         emf.close();
-
     }
 }

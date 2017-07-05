@@ -1,10 +1,15 @@
 package com.codecool.firstaidcompetition.model;
 
 import javax.persistence.*;
+import java.util.List;
 
-/**
- * Created by keli on 2017.07.04..
- */
+@NamedQueries({
+        @NamedQuery(name = "findAllUsers", query = "select user from users user"),
+        @NamedQuery(name = "findUserById", query = "select user from users user where user.id = :userId"),
+        @NamedQuery(name = "findUserByFullName", query = "select user from users user where user.fullName = :userFullName"),
+        @NamedQuery(name = "findUserByUserName", query = "select user from users user where user.userName = :userUserName"),
+        @NamedQuery(name = "findUserByEmail", query = "select user from users user where user.email = :userEmail")
+})
 @Entity(name = "users")
 public class User {
     @Id
@@ -23,17 +28,17 @@ public class User {
     @Column(name = "password", length = 15)
     private String password;
 
-    @ManyToOne
-    private Competition competition;
+    @OneToMany (mappedBy = "owner")
+    private List<Competition> competitions;
 
     public User(){}
 
-    public User(String fullName, String userName, String email, String password, Competition competition) {
+    public User(String fullName, String userName, String email, String password) {
         this.fullName = fullName;
         this.userName = userName;
         this.email = email;
         this.password = password;
-        this.competition = competition;
+
     }
 
     public long getId() {
@@ -76,12 +81,12 @@ public class User {
         this.password = password;
     }
 
-    public Competition getCompetition() {
-        return competition;
+    public List<Competition> getCompetitions() {
+        return competitions;
     }
 
-    public void setCompetition(Competition competition) {
-        this.competition = competition;
+    public void addCompetition(Competition competition) {
+        this.competitions.add(competition);
     }
 
 }

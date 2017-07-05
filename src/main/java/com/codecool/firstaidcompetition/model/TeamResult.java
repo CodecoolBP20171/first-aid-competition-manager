@@ -2,7 +2,15 @@ package com.codecool.firstaidcompetition.model;
 
 import javax.persistence.*;
 
+@NamedQueries({
+        @NamedQuery(name = "selectAllTeamResults", query = "select teamResult from team_results teamResult"),
+        @NamedQuery(name = "selectTeamResultsByID", query = "select teamResult from team_results teamResult " +
+                "where teamResult.id = :id"),
+        @NamedQuery(name = "selectTeamResultsByScore", query = "select teamResult from team_results teamResult " +
+                "where teamResult.resultScore = :result_score")
+})
 @Entity(name = "team_results")
+@NamedQuery(name = "queryTeamResults", query = "SELECT teamResult from team_results teamResult")
 public class TeamResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

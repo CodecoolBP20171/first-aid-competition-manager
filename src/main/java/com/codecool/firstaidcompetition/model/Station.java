@@ -2,6 +2,15 @@ package com.codecool.firstaidcompetition.model;
 
 import javax.persistence.*;
 
+@NamedQueries({
+        @NamedQuery(name = "findAllStations", query = "select stat from stations stat"),
+        @NamedQuery(name = "findStationById",
+                query = "select stat from stations stat where stat.id = :stationId"),
+        @NamedQuery(name = "findStationByName",
+                query = "select stat from stations stat where stat.name = :stationName"),
+        @NamedQuery(name = "findStationByNumber",
+                query = "select stat from stations stat where stat.number = :stationNumber"),
+})
 @Entity(name = "stations")
 public class Station {
     @Id
