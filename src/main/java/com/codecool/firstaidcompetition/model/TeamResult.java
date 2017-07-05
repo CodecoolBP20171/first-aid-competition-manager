@@ -9,13 +9,24 @@ public class TeamResult {
     private int id;
 
     @Column(name = "result_score")
-    private short resultScore;
+    private int resultScore;
 
-    public TeamResult() {
+    @OneToOne
+    private Team team;
+
+    public TeamResult() {}
+
+    public TeamResult(int resultScore, Team team) {
+        this.resultScore = resultScore;
+        this.team = team;
     }
 
-    public TeamResult(short resultScore) {
-        this.resultScore = resultScore;
+    public Team getTeam() {
+        return team;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public int getId() {
@@ -26,11 +37,11 @@ public class TeamResult {
         this.id = id;
     }
 
-    public short getResultScore() {
+    public int getResultScore() {
         return resultScore;
     }
 
-    public void setResultScore(short resultScore) {
+    public void setResultScore(int resultScore) {
         this.resultScore = resultScore;
     }
 }

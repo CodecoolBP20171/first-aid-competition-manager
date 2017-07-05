@@ -31,9 +31,7 @@ public class Competition {
     @OneToMany(mappedBy = "competition")
     private Set<Team> team = new HashSet<>();
 
-    public Competition() {
-
-    }
+    public Competition() {}
 
     public Competition(String name, String location, Date dateOfEvent, int ownerId) {
         this.name = name;

@@ -30,6 +30,9 @@ public class Team {
     @ManyToOne
     private Competition competition;
 
+    @OneToOne(mappedBy = "team")
+    private TeamResult teamResult;
+
     public Team(){}
 
     public Team(String name, int teamNumber, int pinCode, TeamCategory category, Competition competition) {

@@ -14,14 +14,14 @@ public class SubTask {
     private String name;
 
     @Column
-    private short score;
+    private long score;
 
     @ManyToMany(mappedBy = "subTasks")
     private Set<Task> tasks = new HashSet<>();
 
     public SubTask() {}
 
-    public SubTask(String name, short score) {
+    public SubTask(String name, long score) {
         this.name = name;
         this.score = score;
     }
@@ -43,7 +43,7 @@ public class SubTask {
         this.name = name;
     }
 
-    public short getScore() {
+    public long getScore() {
         return score;
     }
 

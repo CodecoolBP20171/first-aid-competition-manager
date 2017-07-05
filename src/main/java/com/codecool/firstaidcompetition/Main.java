@@ -20,6 +20,8 @@ public class Main {
         Task task = new Task("task name", 10);
         SubTask subTask = new SubTask("subtaskname", (short) 12);
         Team team = new Team("Csapatnév", 2, 0456, TeamCategory.CHILD, competition);
+        TeamResult teamResult = new TeamResult(12, team);
+
         Protest protest = new Protest(team, task, "óvási leírás", "döntés megszületett");
 
 
@@ -31,10 +33,16 @@ public class Main {
         em.persist(task);
         em.persist(subTask);
         em.persist(competition);
+
         em.persist(team);
+        em.persist(teamResult);
+
         em.persist(protest);
         transaction.commit();
         System.out.println("ende");
+
+        em.close();
+        emf.close();
 
     }
 }
