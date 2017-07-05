@@ -24,8 +24,13 @@
 
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/red-cross-project"/>
+<<<<<<< HEAD
             <property name="javax.persistence.jdbc.user" value="postgres"/>
             <property name="javax.persistence.jdbc.password" value="postgres"/>
+=======
+            <property name="javax.persistence.jdbc.user" value="keli"/>
+            <property name="javax.persistence.jdbc.password" value="keligeri"/>
+>>>>>>> 53e965b429ba35f354d30b575647c344ad16ba50
             <!--<property name="javax.persistence.sql-load-script-source" value="insert.sql"/>-->
         </properties>
     </persistence-unit>

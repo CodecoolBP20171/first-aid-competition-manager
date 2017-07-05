@@ -21,10 +21,12 @@ public class Main {
         EntityManager em = emf.createEntityManager();
 
         // example
-        Competition competition = new Competition("verseny", "Budapest", new Date(), 2);
+        User user = new User("fullname", "username", "email", "pass");
+
+
+        Competition competition = new Competition("verseny", "Budapest", new Date(), user);
         Station station = new Station("allomas", 12, "egyik allomas", competition);
 
-        User user = new User("fullname", "username", "email", "pass", competition);
 
         Task task = new Task("task name", 10);
         SubTask subTask = new SubTask("subtaskname", (short) 12);
