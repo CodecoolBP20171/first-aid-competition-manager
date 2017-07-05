@@ -11,20 +11,26 @@ import org.hibernate.query.*;
 import org.hibernate.query.Query;
 
 import javax.persistence.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("first-aid-competition");
         EntityManager em = emf.createEntityManager();
 
         // example
         User user = new User("fullname", "username", "email", "pass");
 
+        // Date formatting example
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        Date date = simpleDateFormat.parse("2012-07-08");
 
-        Competition competition = new Competition("verseny", "Budapest", new Date(), user);
+        Competition competition = new Competition("verseny", "Budapest", date, user);
         Station station = new Station("allomas", 12, "egyik allomas", competition);
 
 

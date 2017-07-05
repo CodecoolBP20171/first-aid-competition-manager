@@ -24,6 +24,7 @@ public class Competition {
     private String location;
 
     @Column(name = "date_of_event")
+    @Temporal(TemporalType.DATE)
     private Date dateOfEvent;
 
     @ManyToOne
