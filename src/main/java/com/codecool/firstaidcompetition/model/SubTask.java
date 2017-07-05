@@ -6,9 +6,8 @@ import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name = "findAllSubTask", query = "select stask from sub_task stask"),
-        @NamedQuery(name = "findSubTaskById", query = "select stask from sub_task stask where stask.id = :staskId"),
+        @NamedQuery(name = "findSubTaskById", query = "select stask from sub_task stask where stask.id = :staskId")
 })
-
 @Entity(name = "sub_task")
 public class SubTask {
     @Id
@@ -30,7 +29,6 @@ public class SubTask {
         this.name = name;
         this.score = score;
     }
-
 
     public int getId() {
         return id;
