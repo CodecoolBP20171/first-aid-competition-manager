@@ -4,6 +4,7 @@ import com.codecool.firstaidcompetition.model.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 public class Main {
 
@@ -39,6 +40,14 @@ public class Main {
 
         em.persist(protest);
         transaction.commit();
+
+        Query query = em.createNamedQuery("findAllCompetitions",
+                Competition.class);
+        List<Competition> a = query.getResultList();
+        for (Competition competition1 : a) {
+            System.out.println(competition1.getName());
+        }
+
         System.out.println("ende");
 
         em.close();

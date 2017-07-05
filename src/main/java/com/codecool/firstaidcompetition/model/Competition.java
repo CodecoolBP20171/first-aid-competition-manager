@@ -6,6 +6,10 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+@NamedQuery(
+        name = "findAllCompetitions",
+        query = "select comp from competitions comp"
+)
 @Entity(name = "competitions")
 public class Competition {
     @Id
