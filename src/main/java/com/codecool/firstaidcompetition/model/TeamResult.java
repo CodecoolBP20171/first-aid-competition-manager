@@ -3,6 +3,7 @@ package com.codecool.firstaidcompetition.model;
 import javax.persistence.*;
 
 @Entity(name = "team_results")
+@NamedQuery(name = "queryTeamResults", query = "SELECT teamResult from team_results teamResult")
 public class TeamResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

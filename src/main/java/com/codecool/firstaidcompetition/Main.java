@@ -1,9 +1,18 @@
 package com.codecool.firstaidcompetition;
 
 import com.codecool.firstaidcompetition.model.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.annotations.*;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.query.*;
+import org.hibernate.query.Query;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 public class Main {
 
@@ -39,10 +48,18 @@ public class Main {
 
         em.persist(protest);
         transaction.commit();
-        System.out.println("ende");
+        System.out.println("End");
+
+        //Named queries
+        List<Team> teams = em.createNamedQuery("selectAllTeams", Team.class).getResultList();
+        List<Team> teamsById = em.createNamedQuery("selectTeamsById", Team.class).setParameter("id", 3).getResultList();
+        List<Team> teamsByName = em.createNamedQuery("selectTeamsByName", Team.class).setParameter("name", "Csapatnév").getResultList();
+        List<Team> teamsByPin = em.createNamedQuery("selectTeamsByPinCode", Team.class).setParameter("pin_code", 302).getResultList();
+        List<Team> teamsByTeamNumber = em.createNamedQuery("selectTeamsByTeamNumber", Team.class).setParameter("team_number", 2).getResultList();
+
+        List<TeamResult> teamResults = em.createNamedQuery("queryTeamResults", TeamResult.class).getResultList();
 
         em.close();
         emf.close();
-
     }
 }
