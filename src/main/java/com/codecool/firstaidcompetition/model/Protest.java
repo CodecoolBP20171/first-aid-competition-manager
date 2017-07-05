@@ -2,10 +2,14 @@ package com.codecool.firstaidcompetition.model;
 
 import javax.persistence.*;
 
-/**
- * Created by keli on 2017.07.04..
- */
-
+@NamedQueries({
+        @NamedQuery(name = "findAllProtests",
+                query = "select prot from protests prot"),
+        @NamedQuery(name = "findProtestById",
+                query = "select prot from protests prot where prot.id = :protestId"),
+        @NamedQuery(name = "findProtestByTeamId",
+                query = "select prot from protests prot where prot.team.id = :teamId")
+})
 @Entity(name = "protests")
 public class Protest {
     @Id
