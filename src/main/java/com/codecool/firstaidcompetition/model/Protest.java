@@ -28,7 +28,6 @@ public class Protest {
     @Column
     private String decision;
 
-
     public Protest(){}
 
     public Protest(Team team, Task task, String justification, String decision) {
