@@ -65,7 +65,11 @@ public class Main {
         List<Team> teamsByPin = em.createNamedQuery("selectTeamsByPinCode", Team.class).setParameter("pin_code", 302).getResultList();
         List<Team> teamsByTeamNumber = em.createNamedQuery("selectTeamsByTeamNumber", Team.class).setParameter("team_number", 2).getResultList();
 
-        List<TeamResult> teamResults = em.createNamedQuery("queryTeamResults", TeamResult.class).getResultList();
+        List<TeamResult> teamResults = em.createNamedQuery("selectAllTeamResults", TeamResult.class).getResultList();
+        List<TeamResult> teamResultsById = em.createNamedQuery("selectTeamResultsByID", TeamResult.class).
+                setParameter("id", 1).getResultList();
+        List<TeamResult> teamResultsByScore = em.createNamedQuery("selectTeamResultsByScore", TeamResult.class).
+                setParameter("result_score", 12).getResultList();
 
         em.close();
         emf.close();

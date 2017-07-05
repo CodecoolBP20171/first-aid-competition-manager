@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 create table competitions (id  serial not null, date_of_event timestamp, location varchar(255), name varchar(100), owner_id int4, primary key (id))
 create table protests (id  serial not null, decision varchar(255), justification varchar(255), task_id int4, team_id int4, primary key (id))
 create table stations (id  serial not null, description varchar(1000), name varchar(50), number int4, competition_id int4, task_id int4, primary key (id))
@@ -159,6 +158,7 @@ alter table sub_task_of_tasks add constraint FKopbku2nd2yfffrwcpt9169gt3 foreign
 alter table team_results add constraint FKsoncmvtxf60p7dj7eiu6sx7e2 foreign key (team_id) references teams
 alter table teams add constraint FKl8qf5a495ra0s5l9gjo157h7g foreign key (competition_id) references competitions
 alter table users add constraint FKn0dau3siu0cpmqqft6iktch42 foreign key (competition_id) references competitions
+<<<<<<< HEAD
 =======
 >>>>>>> 53e965b429ba35f354d30b575647c344ad16ba50
 create table competitions (id  serial not null, date_of_event date, location varchar(255), name varchar(100), owner_id int8, primary key (id))
@@ -179,3 +179,5 @@ alter table sub_task_of_tasks add constraint FKac3u6hjdjjog0oyfos23toam9 foreign
 alter table sub_task_of_tasks add constraint FKopbku2nd2yfffrwcpt9169gt3 foreign key (tasks_id) references tasks
 alter table team_results add constraint FKsoncmvtxf60p7dj7eiu6sx7e2 foreign key (team_id) references teams
 alter table teams add constraint FKl8qf5a495ra0s5l9gjo157h7g foreign key (competition_id) references competitions
+=======
+>>>>>>> cce6246bc296036368e54784765952d4c1513050
