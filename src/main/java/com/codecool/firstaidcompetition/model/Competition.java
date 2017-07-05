@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+
 @Entity(name = "competitions")
 public class Competition {
     @Id
@@ -19,25 +20,24 @@ public class Competition {
     @Column(name = "date_of_event")
     private Date dateOfEvent;
 
-    @Column(name = "owner_id")
-    private int ownerId;
+    @ManyToOne
+    @JoinColumn(name="owner_id")
+    private User owner;
 
     @OneToMany(mappedBy = "competition")
     private Set<Station> stations = new HashSet<>();
 
-    @OneToMany(mappedBy = "competition")
-    private Set<User> users = new HashSet<>();
 
     @OneToMany(mappedBy = "competition")
     private Set<Team> team = new HashSet<>();
 
     public Competition() {}
 
-    public Competition(String name, String location, Date dateOfEvent, int ownerId) {
+    public Competition(String name, String location, Date dateOfEvent, User owner) {
         this.name = name;
         this.location = location;
         this.dateOfEvent = dateOfEvent;
-        this.ownerId = ownerId;
+        this.owner = owner;
     }
 
     public int getId() {
@@ -56,8 +56,8 @@ public class Competition {
         return dateOfEvent;
     }
 
-    public int getOwnerId() {
-        return ownerId;
+    public User getOwner() {
+        return owner;
     }
 
     public void setId(int id) {
@@ -76,7 +76,4 @@ public class Competition {
         this.dateOfEvent = dateOfEvent;
     }
 
-    public void setOwnerId(int ownerId) {
-        this.ownerId = ownerId;
-    }
 }

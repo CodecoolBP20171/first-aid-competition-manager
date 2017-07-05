@@ -23,9 +23,9 @@
             <property name="javax.persistence.schema-generation.scripts.drop-target" value="src/main/resources/META-INF/drop-schema.ddl"/>
 
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/red-cross-orm-practice"/>
-            <property name="javax.persistence.jdbc.user" value="keli"/>
-            <property name="javax.persistence.jdbc.password" value="keligeri"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/red-cross-project"/>
+            <property name="javax.persistence.jdbc.user" value="tahin"/>
+            <property name="javax.persistence.jdbc.password" value="asdfg"/>
             <!--<property name="javax.persistence.sql-load-script-source" value="insert.sql"/>-->
         </properties>
     </persistence-unit>
