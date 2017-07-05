@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 alter table protests drop constraint FK6faqf2xa6mga7otralcduos7b
 alter table protests drop constraint FKr8f6hgye65cqlw84o02tlp59q
 alter table stations drop constraint FKnbulne0bfj46trxctqp31wdy4
@@ -159,5 +158,3 @@ drop table if exists tasks cascade
 drop table if exists team_results cascade
 drop table if exists teams cascade
 drop table if exists users cascade
-=======
->>>>>>> 53e965b429ba35f354d30b575647c344ad16ba50
