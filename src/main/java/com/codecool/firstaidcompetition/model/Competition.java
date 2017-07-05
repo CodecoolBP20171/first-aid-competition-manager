@@ -6,7 +6,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-
 @Entity(name = "competitions")
 public class Competition {
     @Id

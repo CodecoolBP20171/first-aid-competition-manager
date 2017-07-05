@@ -43,7 +43,6 @@ public class Main {
         em.persist(protest);
         transaction.commit();
 
-
         System.out.println("ende");
 
         em.close();
