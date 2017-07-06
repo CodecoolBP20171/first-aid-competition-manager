@@ -20,7 +20,7 @@ public class Protest {
     private Team team;
 
     @OneToOne
-    private Task task;
+    private Exercise exercise;
 
     @Column
     private String justification;
@@ -30,9 +30,9 @@ public class Protest {
 
     public Protest(){}
 
-    public Protest(Team team, Task task, String justification, String decision) {
+    public Protest(Team team, Exercise exercise, String justification, String decision) {
         this.team = team;
-        this.task = task;
+        this.exercise = exercise;
         this.justification = justification;
         this.decision = decision;
     }
@@ -53,12 +53,12 @@ public class Protest {
         this.team = team;
     }
 
-    public Task getTask() {
-        return task;
+    public Exercise getExercise() {
+        return exercise;
     }
 
-    public void setTask(Task task) {
-        this.task = task;
+    public void setExercise(Exercise exercise) {
+        this.exercise = exercise;
     }
 
     public String getJustification() {
