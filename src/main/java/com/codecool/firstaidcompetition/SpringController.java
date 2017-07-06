@@ -14,7 +14,5 @@ public class SpringController {
     }
 
     @RequestMapping("/index")
-    public String indexPage(){
-        return "index";
-    }
+    public String indexPage(){ return "index"; }
 }

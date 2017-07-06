@@ -2,9 +2,7 @@ package com.codecool.firstaidcompetition.model;
 
 import javax.persistence.*;
 //import javax.validation.constraints.Max;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @NamedQueries({
         @NamedQuery(name = "findAllCompetitions", query = "select comp from competitions comp"),
@@ -21,6 +19,7 @@ public class Competition {
 
     @Column(length = 100)
     private String name;
+
     private String location;
 
     @Column(name = "date_of_event")
@@ -32,7 +31,7 @@ public class Competition {
     private User owner;
 
     @OneToMany(mappedBy = "competition")
-    private Set<Station> stations = new HashSet<>();
+    private List<Station> stations = new ArrayList<>();
 
 
     @OneToMany(mappedBy = "competition")
@@ -73,6 +72,10 @@ public class Competition {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void addStation(Station station){
+        this.stations.add(station);
     }
 
     public void setLocation(String location) {

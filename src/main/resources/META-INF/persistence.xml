@@ -6,14 +6,14 @@
 
     <persistence-unit name="first-aid-competition" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>com.codecool.firstaidcompetition.model.Task</class>
+        <class>com.codecool.firstaidcompetition.model.Exercise</class>
         <class>com.codecool.firstaidcompetition.model.Team</class>
         <class>com.codecool.firstaidcompetition.model.TeamCategory</class>
         <class>com.codecool.firstaidcompetition.model.TeamResult</class>
         <class>com.codecool.firstaidcompetition.model.Station</class>
         <class>com.codecool.firstaidcompetition.model.Competition</class>
         <class>com.codecool.firstaidcompetition.model.Protest</class>
-        <class>com.codecool.firstaidcompetition.model.SubTask</class>
+        <class>com.codecool.firstaidcompetition.model.Task</class>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL94Dialect"/>
             <property name="hibernate.hbm2dll.auto" value="create-drop"/>
@@ -24,8 +24,8 @@
 
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/red-cross-project"/>
-            <property name="javax.persistence.jdbc.user" value="tahin"/>
-            <property name="javax.persistence.jdbc.password" value="asdfg"/>
+            <property name="javax.persistence.jdbc.user" value="keli"/>
+            <property name="javax.persistence.jdbc.password" value="keligeri"/>
             <!--<property name="javax.persistence.sql-load-script-source" value="insert.sql"/>-->
         </properties>
     </persistence-unit>
