@@ -6,9 +6,8 @@ import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name = "findAllTask", query = "select task from tasks task"),
-        @NamedQuery(name = "findTaskById", query = "select task from tasks task where task.id = :taskId"),
+        @NamedQuery(name = "findTaskById", query = "select task from tasks task where task.id = :taskId")
 })
-
 @Entity(name = "tasks")
 public class Task {
     @Id
