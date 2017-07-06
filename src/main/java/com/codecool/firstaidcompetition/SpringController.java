@@ -13,8 +13,8 @@ public class SpringController {
         return "registration_form";
     }
 
-//    @RequestMapping("/index")
-//    public String indexPage(){
-//        return "index";
-//    }
+    @RequestMapping("/index")
+    public String indexPage(){
+        return "index";
+    }
 }
