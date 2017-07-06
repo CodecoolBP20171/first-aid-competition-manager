@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--It's a html page, not thymeleaf!!-->
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
 
     <!-- Latest compiled and minified Jquery -->
@@ -19,7 +19,7 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
 
-    <script src="registrationValidation.js"></script>
+    <script th:src="@{/js/js/registrationValidation.js}" />
 
     <meta charset="UTF-8" name="author" content="Codecool"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>

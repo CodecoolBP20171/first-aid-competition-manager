@@ -8,8 +8,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class SpringController {
 
-    @RequestMapping("/index")
-    public String indexPage(){
+    @RequestMapping("/registration")
+    public String registrationPage(){
         return "registration_form";
     }
+
+//    @RequestMapping("/index")
+//    public String indexPage(){
+//        return "index";
+//    }
 }
