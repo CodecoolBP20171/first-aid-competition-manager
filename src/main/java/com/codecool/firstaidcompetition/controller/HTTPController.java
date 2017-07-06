@@ -32,15 +32,19 @@ public class HTTPController {
 
     @RequestMapping("/index")
     public String indexPage(){
+        updateTable();
+
+        // get example data
+        Iterable<Competition> competitionList = dbHandler.findAll();
+        competitionList.forEach(comp -> System.out.println(comp.getName()));
+        return "index";
+    }
+
+    public void updateTable(){
         try {
             dbHandler.populateDB();
-            System.out.println("vége");
         } catch (ParseException e){
             e.printStackTrace();
         }
-
-//        Iterable<Competition> competitionList = dbHandler.findAll();
-//        competitionList.forEach(comp -> System.out.println(comp.getName()));
-        return "index";
     }
 }
