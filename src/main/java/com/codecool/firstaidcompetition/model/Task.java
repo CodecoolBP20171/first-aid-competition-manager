@@ -19,48 +19,29 @@ public class Task {
     private String name;
 
     @Column
-    private int score;
+    private long score;
 
-    @OneToOne(mappedBy = "task")
-    private Protest protest;
+    @Column
+    private boolean defaultTaks;
 
-    @OneToMany(mappedBy = "task")
-    private Set<Station> stations = new HashSet<>();
+    @OneToOne
+    private Task prerequisiteTask;
 
-    @ManyToMany
-    @JoinTable(name="sub_task_of_tasks")
-    private Set<SubTask> subTasks = new HashSet<>();
+    @ManyToMany(mappedBy = "tasks")
+    private Set<Exercise> exercises = new HashSet<>();
 
     public Task() {}
 
-    public Task(String name, int score) {
+    public Task(String name) {
+        this.name = name;
+        this.score = 1;
+    }
+
+    public Task(String name, long score){
         this.name = name;
         this.score = score;
     }
 
-    public Set<Station> getStations() {
-        return stations;
-    }
-
-    public void setStations(Set<Station> stations) {
-        this.stations = stations;
-    }
-
-    public Set<SubTask> getSubTasks() {
-        return subTasks;
-    }
-
-    public void setSubTasks(Set<SubTask> subTasks) {
-        this.subTasks = subTasks;
-    }
-
-    public Protest getProtest() {
-        return protest;
-    }
-
-    public void setProtest(Protest protest) {
-        this.protest = protest;
-    }
 
     public int getId() {
         return id;
@@ -78,11 +59,27 @@ public class Task {
         this.name = name;
     }
 
-    public int getScore() {
+    public long getScore() {
         return score;
     }
 
-    public void setScore(int score) {
+    public void setScore(long score) {
         this.score = score;
+    }
+
+    public Task getPrerequisiteTask() {
+        return prerequisiteTask;
+    }
+
+    public void setPrerequisiteTask(Task prerequisiteTask) {
+        this.prerequisiteTask = prerequisiteTask;
+    }
+
+    public Set<Exercise> getExercises() {
+        return exercises;
+    }
+
+    public void setExercises(Set<Exercise> exercises) {
+        this.exercises = exercises;
     }
 }

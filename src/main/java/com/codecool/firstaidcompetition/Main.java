@@ -1,14 +1,6 @@
 package com.codecool.firstaidcompetition;
 
 import com.codecool.firstaidcompetition.model.*;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.annotations.*;
-import org.hibernate.annotations.NamedQueries;
-import org.hibernate.annotations.NamedQuery;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.query.*;
-import org.hibernate.query.Query;
 
 import javax.persistence.*;
 import java.text.ParseException;
@@ -34,12 +26,12 @@ public class Main {
         Station station = new Station("allomas", 12, "egyik allomas", competition);
 
 
-        Task task = new Task("task name", 10);
-        SubTask subTask = new SubTask("subtaskname", (short) 12);
+        Exercise exercise = new Exercise("exercise name", "loooooooooooooooooong description");
+        Task task = new Task("subtaskname", 12L);
         Team team = new Team("Csapatnév", 2, 0456, TeamCategory.CHILD, competition);
         TeamResult teamResult = new TeamResult(12, team);
 
-        Protest protest = new Protest(team, task, "óvási leírás", "döntés megszületett");
+        Protest protest = new Protest(team, exercise, "óvási leírás", "döntés megszületett");
 
 
         EntityTransaction transaction = em.getTransaction();
@@ -47,8 +39,8 @@ public class Main {
 
         em.persist(station);
         em.persist(user);
+        em.persist(exercise);
         em.persist(task);
-        em.persist(subTask);
         em.persist(competition);
 
         em.persist(team);
