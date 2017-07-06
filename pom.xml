@@ -34,7 +34,6 @@
             <!--<version>${version.eclipselink}</version>-->
         <!--</dependency>-->
 
-
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -42,11 +41,26 @@
             <version>5.2.10.Final</version>
         </dependency>
 
-        <!--<dependency>-->
-         <!--<groupId>org.hibernate</groupId>-->
-         <!--<artifactId>hibernate-validator</artifactId>-->
-         <!--<version>${version.hibernate.validator}</version>-->
-         <!--</dependency>-->
+        <!-- Relational database (JPA) support -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!-- PostgreSQL driver -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.1.1</version>
+        </dependency>
+
+        <!-- Spring boot test framework -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.el</artifactId>

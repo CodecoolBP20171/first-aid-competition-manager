@@ -1,5 +1,6 @@
 package com.codecool.firstaidcompetition;
 
+import com.codecool.firstaidcompetition.model.Competition;
 import com.codecool.firstaidcompetition.model.*;
 
 import javax.persistence.*;
@@ -23,8 +24,8 @@ public class Main {
         Date date = simpleDateFormat.parse("2012-07-08");
 
         Competition competition = new Competition("verseny", "Budapest", date, user);
-        Station station = new Station("allomas", 12, "egyik allomas", competition);
 
+        Station station = new Station("allomas", 12, "egyik allomas", competition);
 
         Exercise exercise = new Exercise("exercise name", "loooooooooooooooooong description");
         Task task = new Task("subtaskname", 12L);
