@@ -28,6 +28,8 @@ public class Main {
 
         Exercise exercise = new Exercise("exercise name", "loooooooooooooooooong description");
         Task task = new Task("subtaskname", 12L);
+        exercise.addTask(task);
+
         Team team = new Team("Csapatnév", 2, 0456, TeamCategory.CHILD, competition);
         TeamResult teamResult = new TeamResult(12, team);
 
