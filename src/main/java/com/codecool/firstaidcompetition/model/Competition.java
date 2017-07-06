@@ -30,7 +30,6 @@ public class Competition {
     @OneToMany(mappedBy = "competition")
     private List<Station> stations = new ArrayList<>();
 
-
     @OneToMany(mappedBy = "competition")
     private Set<Team> team = new HashSet<>();
 

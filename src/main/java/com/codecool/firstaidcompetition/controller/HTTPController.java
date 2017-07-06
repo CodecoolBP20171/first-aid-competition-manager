@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.text.ParseException;
@@ -38,6 +39,15 @@ public class HTTPController {
         Iterable<Competition> competitionList = dbHandler.findAll();
         competitionList.forEach(comp -> System.out.println(comp.getName()));
         return "index";
+    }
+
+    @RequestMapping(value = {"/competitions"}, method = RequestMethod.GET)
+    public String getCompetitions(Model model){
+        Iterable<Competition> competitionList = dbHandler.findAll();
+        competitionList.forEach(comp -> System.out.println(comp.getName()));
+
+        model.addAttribute("listOfCompetitions", competitionList);
+        return "competition_table";
     }
 
     public void updateTable(){

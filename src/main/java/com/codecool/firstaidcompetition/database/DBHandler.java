@@ -50,10 +50,12 @@ public class DBHandler {
         String pattern = "yyyy-MM-dd";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         Date date = simpleDateFormat.parse("2012-07-08");
+        Date date2 = simpleDateFormat.parse("2013-09-08");
+        Date date3 = simpleDateFormat.parse("2014-10-08");
 
         Competition competition = new Competition("Első verseny", "Budapest", date, user);
-        Competition competition2 = new Competition("Második verseny", "Budapest", date, user);
-        Competition competition3 = new Competition("Harmadik verseny", "Budapest", date, user2);
+        Competition competition2 = new Competition("Második verseny", "Babosdöbréte", date2, user);
+        Competition competition3 = new Competition("Harmadik verseny", "Cserneházadamonya", date3, user2);
         competitionRepository.save(competition);
         competitionRepository.save(competition2);
         competitionRepository.save(competition3);
