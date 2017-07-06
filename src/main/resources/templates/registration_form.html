@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--It's a html page, not thymeleaf!!-->
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 
     <!-- Latest compiled and minified Jquery -->
@@ -21,8 +21,7 @@
 
     <script src="registrationValidation.js"></script>
 
-    <meta charset="UTF-8">
-    <meta name="author" content="Codecool"/>
+    <meta charset="UTF-8" name="author" content="Codecool"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Vöröskereszt</title>
 
@@ -40,7 +39,7 @@
                     <label for="name" class="col-lg-2 control-label">Teljes név</label>
                     <div class="col-lg-10">
                         <div class="input-group">
-                            <input minlength="5" maxlength="50" class="form-control" type="text" name="name" id="name" placeholder="Vezetéknév">
+                            <input minlength="5" maxlength="50" class="form-control" type="text" name="name" id="name" placeholder="Vezetéknév"/>
                         </div>
                     </div>
                 </div>
@@ -48,7 +47,7 @@
                     <label for="user_name" class="col-lg-2 control-label">Felhasználónév</label>
                     <div class="col-lg-10">
                         <div class="input-group">
-                            <input minlength="3" maxlength="15" class="form-control" type="text" name="user_name" id="user_name" placeholder="Keresztnév" required>
+                            <input minlength="3" maxlength="15" class="form-control" type="text" name="user_name" id="user_name" placeholder="Keresztnév" required="required"/>
                         </div>
                     </div>
                 </div>
@@ -56,7 +55,7 @@
                     <label for="email" class="col-lg-2 control-label">Email cím</label>
                     <div class="col-lg-10">
                         <div class="input-group">
-                            <input maxlength="100" class="form-control" type="text" name="email" id="email" placeholder="Email cím" required>
+                            <input maxlength="100" class="form-control" type="text" name="email" id="email" placeholder="Email cím" required="required"/>
                         </div>
                     </div>
                 </div>
@@ -65,7 +64,7 @@
                     <label for="password" class="col-lg-2 control-label">Jelszó</label>
                     <div class="col-lg-10">
                         <div class="input-group">
-                            <input minlength="5" maxlength="15" class="form-control" type="password" name="password" id="password" placeholder="Jelszó" required>
+                            <input minlength="5" maxlength="15" class="form-control" type="password" name="password" id="password" placeholder="Jelszó" required="required"/>
                         </div>
                     </div>
                 </div>
@@ -73,15 +72,15 @@
                     <label for="password2" class="col-lg-2 control-label">Jelszó ismét</label>
                     <div class="col-lg-10">
                         <div class="input-group">
-                            <input minlength="5" maxlength="15" class="form-control" type="password" name="password2" id="password2" placeholder="Jelszó ismét" required>
+                            <input minlength="5" maxlength="15" class="form-control" type="password" name="password2" id="password2" placeholder="Jelszó ismét" required="required"/>
                         </div>
                     </div>
                 </div>
 
                 <!--Buttons-->
                 <div class="form-group">
-                    <input onclick="alert('leadás')" type="submit" class="btn btn-success" id="submit_button" value="Leadás">
-                    <input onclick="alert('törlés')" type="reset" class="btn btn-danger" value="Törlés">
+                    <input onclick="alert('leadás')" type="submit" class="btn btn-success" id="submit_button" value="Leadás"/>
+                    <input onclick="alert('törlés')" type="reset" class="btn btn-danger" value="Törlés"/>
                 </div>
             </form>
         </div>
@@ -91,7 +90,5 @@
     <div>
         <button class="btn-btn-default" id="checkPassword">Check password</button>
     </div>
-
-
 </body>
 </html>
