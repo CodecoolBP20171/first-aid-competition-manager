@@ -3,13 +3,13 @@ package com.codecool.firstaidcompetition.model;
 import javax.persistence.*;
 import java.util.List;
 
-@NamedQueries({
-        @NamedQuery(name = "findAllUsers", query = "select user from users user"),
-        @NamedQuery(name = "findUserById", query = "select user from users user where user.id = :userId"),
-        @NamedQuery(name = "findUserByFullName", query = "select user from users user where user.fullName = :userFullName"),
-        @NamedQuery(name = "findUserByUserName", query = "select user from users user where user.userName = :userUserName"),
-        @NamedQuery(name = "findUserByEmail", query = "select user from users user where user.email = :userEmail")
-})
+//@NamedQueries({
+//        @NamedQuery(name = "findAllUsers", query = "select user from users user"),
+//        @NamedQuery(name = "findUserById", query = "select user from users user where user.id = :userId"),
+//        @NamedQuery(name = "findUserByFullName", query = "select user from users user where user.fullName = :userFullName"),
+//        @NamedQuery(name = "findUserByUserName", query = "select user from users user where user.userName = :userUserName"),
+//        @NamedQuery(name = "findUserByEmail", query = "select user from users user where user.email = :userEmail")
+//})
 @Entity(name = "users")
 public class User {
     @Id

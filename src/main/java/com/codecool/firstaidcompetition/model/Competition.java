@@ -1,16 +1,13 @@
 package com.codecool.firstaidcompetition.model;
 
+import com.codecool.firstaidcompetition.model.Station;
+import com.codecool.firstaidcompetition.model.Team;
+import com.codecool.firstaidcompetition.model.User;
+
 import javax.persistence.*;
 //import javax.validation.constraints.Max;
 import java.util.*;
 
-@NamedQueries({
-        @NamedQuery(name = "findAllCompetitions", query = "select comp from competitions comp"),
-        @NamedQuery(name = "findCompetitionById", query = "select comp from competitions comp where comp.id = :competitionId"),
-        @NamedQuery(name = "findCompetitionByLocation", query = "select comp from competitions comp where comp.location = :competitionLocation"),
-        @NamedQuery(name = "findCompetitionByName", query = "select comp from competitions comp where comp.name = :competitionName")
-//        @NamedQuery(name = "findCompetitionByDate", query = "select comp from competitions comp where comp.name = :competitionName")
-})
 @Entity(name = "competitions")
 public class Competition {
     @Id

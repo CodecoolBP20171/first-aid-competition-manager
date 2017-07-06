@@ -1,5 +1,6 @@
 package com.codecool.firstaidcompetition;
 
+import com.codecool.firstaidcompetition.model.Competition;
 import com.codecool.firstaidcompetition.model.*;
 
 import javax.persistence.*;
