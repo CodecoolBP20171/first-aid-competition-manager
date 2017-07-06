@@ -24,6 +24,7 @@ public class HTTPController {
     @Autowired
     public HTTPController(DBHandler dbHandler){
         this.dbHandler = dbHandler;
+        updateTable();
     }
 
     @RequestMapping("/registration")
@@ -33,8 +34,6 @@ public class HTTPController {
 
     @RequestMapping("/index")
     public String indexPage(){
-        updateTable();
-
         // get example data
         Iterable<Competition> competitionList = dbHandler.findAll();
         competitionList.forEach(comp -> System.out.println(comp.getName()));
