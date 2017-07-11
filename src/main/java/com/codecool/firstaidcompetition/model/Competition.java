@@ -6,6 +6,8 @@ import com.codecool.firstaidcompetition.model.User;
 
 import javax.persistence.*;
 //import javax.validation.constraints.Max;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Entity(name = "competitions")
@@ -35,15 +37,29 @@ public class Competition {
 
     public Competition() {}
 
-    public Competition(String name){
-        this.name = name;
-    }
-
-    public Competition(String name, String location, Date dateOfEvent, User owner) {
+    public Competition(String name, String location, String dateOfEvent, User owner) {
         this.name = name;
         this.location = location;
-        this.dateOfEvent = dateOfEvent;
+
+        // Is it OK?
+        this.dateOfEvent = convertStringToDate(dateOfEvent);
         this.owner = owner;
+    }
+
+    public Date convertStringToDate(String dateOfEvent){
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        try {
+            Date date = simpleDateFormat.parse(dateOfEvent);
+            return date;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void setDateOfEvent(String dateOfEvent) {
+        this.dateOfEvent = convertStringToDate(dateOfEvent);
     }
 
     public int getId() {
@@ -80,10 +96,6 @@ public class Competition {
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    public void setDateOfEvent(Date dateOfEvent) {
-        this.dateOfEvent = dateOfEvent;
     }
 
     public void setOwner(User owner) {

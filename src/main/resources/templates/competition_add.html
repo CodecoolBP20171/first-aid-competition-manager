@@ -78,7 +78,7 @@
                 <label for="location" class="col-lg-2 control-label">Helyszín</label>
                 <div class="col-lg-10">
                     <div class="input-group">
-                        <input maxlength="100" class="form-control" type="text" name="location" id="location" placeholder="Verseny helyszíne" required="required"/>
+                        <input th:field="*{location}" maxlength="100" class="form-control" type="text" name="location" id="location" placeholder="Verseny helyszíne" required="required"/>
                     </div>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                 <label for="date" class="col-lg-2 control-label">Verseny dátuma</label>
                 <div class="col-lg-10">
                     <div class="input-group">
-                        <input class="form-control" type="date" name="email" id="date" placeholder="Verseny helyszíne" required="required"/>
+                        <input th:field="*{dateOfEvent}" class="form-control" type="date" name="email" id="date" placeholder="Verseny helyszíne" required="required"/>
                     </div>
                 </div>
             </div>

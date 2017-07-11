@@ -36,8 +36,12 @@ public class DBHandler {
         this.teamResultRepository = teamResultRepository;
     }
 
-    public Iterable<Competition> findAll(){
+    public Iterable<Competition> getAllCompetition(){
         return competitionRepository.findAll();
+    }
+
+    public CompetitionRepository getCompetitionRepository() {
+        return competitionRepository;
     }
 
     public void populateDB() throws ParseException {
@@ -53,9 +57,9 @@ public class DBHandler {
         Date date2 = simpleDateFormat.parse("2013-09-08");
         Date date3 = simpleDateFormat.parse("2014-10-08");
 
-        Competition competition = new Competition("Első verseny", "Budapest", date, user);
-        Competition competition2 = new Competition("Második verseny", "Babosdöbréte", date2, user);
-        Competition competition3 = new Competition("Harmadik verseny", "Cserneházadamonya", date3, user2);
+        Competition competition = new Competition("Első verseny", "Budapest", "2012-07-08", user);
+        Competition competition2 = new Competition("Második verseny", "Babosdöbréte", "2013-07-08", user);
+        Competition competition3 = new Competition("Harmadik verseny", "Cserneházadamonya", "2014-07-08", user2);
         competitionRepository.save(competition);
         competitionRepository.save(competition2);
         competitionRepository.save(competition3);

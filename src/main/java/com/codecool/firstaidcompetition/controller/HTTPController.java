@@ -1,18 +1,13 @@
 package com.codecool.firstaidcompetition.controller;
 
-import com.codecool.firstaidcompetition.database.CompetitionRepository;
 import com.codecool.firstaidcompetition.database.DBHandler;
 import com.codecool.firstaidcompetition.model.*;
-import org.hibernate.validator.internal.engine.messageinterpolation.InterpolationTerm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
 
 @Controller
 public class HTTPController {
@@ -33,14 +28,14 @@ public class HTTPController {
     @RequestMapping("/index")
     public String indexPage(){
         // get example data
-        Iterable<Competition> competitionList = dbHandler.findAll();
+        Iterable<Competition> competitionList = dbHandler.getAllCompetition();
         competitionList.forEach(comp -> System.out.println(comp.getName()));
         return "index";
     }
 
     @RequestMapping(value = {"/competition"}, method = RequestMethod.GET)
     public String getCompetitions(Model model){
-        Iterable<Competition> competitionList = dbHandler.findAll();
+        Iterable<Competition> competitionList = dbHandler.getAllCompetition();
 //        competitionList.forEach(comp -> System.out.println(comp.getName()));
 
         model.addAttribute("listOfCompetitions", competitionList);
@@ -56,7 +51,8 @@ public class HTTPController {
 
     @PostMapping(value = "competition/add")
     public String submitCompetition(@ModelAttribute Competition competition){
-        System.out.println(competition.getName());
+        dbHandler.getCompetitionRepository().save(competition);
+//        System.out.println(competition.getName());
         return "result";
     }
 
