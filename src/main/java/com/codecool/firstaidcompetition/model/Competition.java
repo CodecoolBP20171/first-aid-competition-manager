@@ -3,6 +3,8 @@ package com.codecool.firstaidcompetition.model;
 import com.codecool.firstaidcompetition.model.Station;
 import com.codecool.firstaidcompetition.model.Team;
 import com.codecool.firstaidcompetition.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 //import javax.validation.constraints.Max;
@@ -12,6 +14,8 @@ import java.util.*;
 
 @Entity(name = "competitions")
 public class Competition {
+    private static final Logger logger = LoggerFactory.getLogger(Competition.class.getName());
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -54,6 +58,7 @@ public class Competition {
             return date;
         } catch (ParseException e) {
             e.printStackTrace();
+            logger.warn("Can't convert string dateOfEvent [{}] to date format", dateOfEvent);
             return null;
         }
     }
