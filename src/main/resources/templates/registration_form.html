@@ -95,7 +95,7 @@
                     <label for="password" class="col-lg-2 control-label">Jelszó</label>
                     <div class="col-lg-10">
                         <div class="input-group">
-                            <input minlength="5" maxlength="15" class="form-control" type="password" name="password" id="password" placeholder="Jelszó" required="required"/>
+                            <input th:field="*{password}" minlength="5" maxlength="15" class="form-control" type="password" name="password" id="password" placeholder="Jelszó" required="required"/>
                         </div>
                     </div>
                 </div>
@@ -103,21 +103,15 @@
                     <label for="password2" class="col-lg-2 control-label">Jelszó ismét</label>
                     <div class="col-lg-10">
                         <div class="input-group">
-                            <input th:field="*{password}" minlength="5" maxlength="15" class="form-control" type="password" name="password2" id="password2" placeholder="Jelszó ismét" required="required"/>
+                            <input minlength="5" maxlength="15" class="form-control" type="password" name="password2" id="password2" placeholder="Jelszó ismét" required="required"/>
                         </div>
                     </div>
                 </div>
-
-                <!--Validate password-->
-                <!--<div>-->
-                    <!--<button class="btn btn-primary" id="checkPassword">Jelszó ellenőrzése</button>-->
-                <!--</div>-->
 
                 <!--Buttons-->
                 <div class="form-group">
                     <input type="submit" class="btn btn-success" id="submit_button" value="Leadás"/>
                     <input type="reset" class="btn btn-danger" value="Törlés"/>
-                    <button class="btn btn-primary" id="checkPassword">Jelszó ellenőrzése</button>
                 </div>
             </form>
 
