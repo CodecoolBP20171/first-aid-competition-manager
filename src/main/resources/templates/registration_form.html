@@ -65,12 +65,12 @@
             </div>
 
             <!--Form group-->
-            <form class="form-horizontal" method="/">
+            <form th:action="@{/registration}" th:object="${user}" class="form-horizontal" method="POST">
                 <div class="form-group">
                     <label for="name" class="col-lg-2 control-label">Teljes név</label>
                     <div class="col-lg-10">
                         <div class="input-group">
-                            <input minlength="5" maxlength="50" class="form-control" type="text" name="name" id="name" placeholder="Vezetéknév"/>
+                            <input th:field="*{fullName}" minlength="5" maxlength="50" class="form-control" type="text" name="name" id="name" placeholder="Vezetéknév"/>
                         </div>
                     </div>
                 </div>
@@ -78,7 +78,7 @@
                     <label for="user_name" class="col-lg-2 control-label">Felhasználónév</label>
                     <div class="col-lg-10">
                         <div class="input-group">
-                            <input minlength="3" maxlength="15" class="form-control" type="text" name="user_name" id="user_name" placeholder="Keresztnév" required="required"/>
+                            <input th:field="*{userName}" minlength="3" maxlength="15" class="form-control" type="text" name="user_name" id="user_name" placeholder="Keresztnév" required="required"/>
                         </div>
                     </div>
                 </div>
@@ -86,7 +86,7 @@
                     <label for="email" class="col-lg-2 control-label">Email cím</label>
                     <div class="col-lg-10">
                         <div class="input-group">
-                            <input maxlength="100" class="form-control" type="text" name="email" id="email" placeholder="Email cím" required="required"/>
+                            <input th:field="*{email}" maxlength="100" class="form-control" type="text" name="email" id="email" placeholder="Email cím" required="required"/>
                         </div>
                     </div>
                 </div>
@@ -103,7 +103,7 @@
                     <label for="password2" class="col-lg-2 control-label">Jelszó ismét</label>
                     <div class="col-lg-10">
                         <div class="input-group">
-                            <input minlength="5" maxlength="15" class="form-control" type="password" name="password2" id="password2" placeholder="Jelszó ismét" required="required"/>
+                            <input th:field="*{password}" minlength="5" maxlength="15" class="form-control" type="password" name="password2" id="password2" placeholder="Jelszó ismét" required="required"/>
                         </div>
                     </div>
                 </div>
@@ -115,8 +115,8 @@
 
                 <!--Buttons-->
                 <div class="form-group">
-                    <input onclick="alert('akkor ez most le van adva')" type="submit" class="btn btn-success" id="submit_button" value="Leadás"/>
-                    <input onclick="alert('törlés')" type="reset" class="btn btn-danger" value="Törlés"/>
+                    <input type="submit" class="btn btn-success" id="submit_button" value="Leadás"/>
+                    <input type="reset" class="btn btn-danger" value="Törlés"/>
                     <button class="btn btn-primary" id="checkPassword">Jelszó ellenőrzése</button>
                 </div>
             </form>

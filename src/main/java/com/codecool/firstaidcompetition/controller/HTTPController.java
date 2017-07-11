@@ -23,11 +23,6 @@ public class HTTPController {
         updateTable();
     }
 
-    @RequestMapping("/registration")
-    public String registrationPage(){
-        return "registration_form";
-    }
-
     @RequestMapping("/index")
     public String indexPage(){
         return "index";
@@ -42,11 +37,28 @@ public class HTTPController {
         return "competition_table";
     }
 
+    @GetMapping("/registration")
+    public String addUser(Model model){
+        model.addAttribute("user", new User());
+        return "registration_form";
+    }
+
+    @PostMapping("/registration")
+    public ModelAndView submitUser(@ModelAttribute User user){
+        dbHandler.getUserRepository().save(user);
+
+        logger.info("Save USer to the db, " +
+                        "[fullName: {}; userName: {}; email: {}, password: {}]",
+                user.getFullName(), user.getUserName(), user.getEmail(),
+                user.getPassword());
+        return new ModelAndView("redirect:/index");
+    }
+
 
     @GetMapping(value = "competition/add")
     public String addCompetition(Model model){
         model.addAttribute("competition", new Competition());
-        return "competition_add";
+        return "competition_form";
     }
 
     @PostMapping(value = "competition/add")

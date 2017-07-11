@@ -25,7 +25,7 @@
     <!--Custom style-->
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" href="../../css/style.css"/>
 
-    <script th:src="@{/js/registrationValidation.js}" />
+    <script th:src="@{/js/registrationValidation.js}"/>
 
     <meta charset="UTF-8" name="author" content="Codecool"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -40,7 +40,7 @@
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
-                <a class="navbar-brand" href="/index"><img id="mvk_logo" th:src="@{/img/mvklogo.svg}" /></a>
+                <a class="navbar-brand" href="/index"><img id="mvk_logo" th:src="@{/img/mvklogo.svg}"/></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -70,7 +70,8 @@
                 <label for="name" class="col-lg-2 control-label">Név</label>
                 <div class="col-lg-10">
                     <div class="input-group">
-                        <input th:field="*{name}" maxlength="100" class="form-control" type="text" name="name" id="name" placeholder="Verseny neve" required="required"/>
+                        <input th:field="*{name}" maxlength="100" class="form-control" type="text" name="name" id="name"
+                               placeholder="Verseny neve" required="required"/>
                     </div>
                 </div>
             </div>
@@ -78,7 +79,8 @@
                 <label for="location" class="col-lg-2 control-label">Helyszín</label>
                 <div class="col-lg-10">
                     <div class="input-group">
-                        <input th:field="*{location}" maxlength="100" class="form-control" type="text" name="location" id="location" placeholder="Verseny helyszíne" required="required"/>
+                        <input th:field="*{location}" maxlength="100" class="form-control" type="text" name="location"
+                               id="location" placeholder="Verseny helyszíne" required="required"/>
                     </div>
                 </div>
             </div>
@@ -86,7 +88,8 @@
                 <label for="date" class="col-lg-2 control-label">Verseny dátuma</label>
                 <div class="col-lg-10">
                     <div class="input-group">
-                        <input th:field="*{dateOfEvent}" class="form-control" type="date" name="email" id="date" placeholder="Verseny helyszíne" required="required"/>
+                        <input th:field="*{dateOfEvent}" class="form-control" type="date" name="email" id="date"
+                               placeholder="Verseny helyszíne" required="required"/>
                     </div>
                 </div>
             </div>
