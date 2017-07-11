@@ -49,6 +49,11 @@ public class HTTPController {
         return "competition_table";
     }
 
+    @RequestMapping(value = "competition-add", method = RequestMethod.POST)
+    public String addCompetition(){
+        return "competition_add";
+    }
+
     public void updateTable(){
         try {
             dbHandler.populateDB();
