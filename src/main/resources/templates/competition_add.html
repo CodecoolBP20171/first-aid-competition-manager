@@ -70,7 +70,7 @@
                 <label for="name" class="col-lg-2 control-label">Név</label>
                 <div class="col-lg-10">
                     <div class="input-group">
-                        <input th:field="*{name}" maxlength="100" class="form-control" type="text" name="name" id="name" placeholder="Vereny neve" required="required"/>
+                        <input th:field="*{name}" maxlength="100" class="form-control" type="text" name="name" id="name" placeholder="Verseny neve" required="required"/>
                     </div>
                 </div>
             </div>
@@ -94,7 +94,7 @@
             <!--Buttons-->
             <div class="form-group">
                 <input type="submit" class="btn btn-success" id="submit_button" value="Létrehozás"/>
-                <input type="reset" class="btn btn-danger" value="Mégse"/>
+                <input type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" value="Mégse"/>
             </div>
         </form>
 
@@ -103,6 +103,26 @@
                 <button class="btn btn-primary">Vissza a főoldalra</button>
             </a>
         </div>
+
+        <!-- Modal Window-->
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="modal-header">Biztos benne, hogy megszakítja a mentést?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="/index">
+                            <button type="button" class="btn btn-danger">Igen</button>
+                        </a>
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Nem</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 
