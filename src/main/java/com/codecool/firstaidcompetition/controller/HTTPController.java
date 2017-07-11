@@ -51,6 +51,7 @@ public class HTTPController {
 
     @PostMapping(value = "competition/add")
     public ModelAndView submitCompetition(@ModelAttribute Competition competition){
+        // Query a user from the db (owner has to be redirect from the session)
         User dummyUser = dbHandler.getUserRepository().findOne(1L);
         competition.setOwner(dummyUser);
 
