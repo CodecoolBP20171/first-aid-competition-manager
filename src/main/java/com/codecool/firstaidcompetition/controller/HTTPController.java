@@ -2,16 +2,19 @@ package com.codecool.firstaidcompetition.controller;
 
 import com.codecool.firstaidcompetition.database.DBHandler;
 import com.codecool.firstaidcompetition.model.*;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import org.slf4j.Logger;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HTTPController {
-
+    private static final Logger logger = LoggerFactory.getLogger(HTTPController.class.getName());
     private DBHandler dbHandler;
 
     @Autowired
@@ -27,18 +30,15 @@ public class HTTPController {
 
     @RequestMapping("/index")
     public String indexPage(){
-        // get example data
-        Iterable<Competition> competitionList = dbHandler.getAllCompetition();
-        competitionList.forEach(comp -> System.out.println(comp.getName()));
         return "index";
     }
 
     @RequestMapping(value = {"/competition"}, method = RequestMethod.GET)
     public String getCompetitions(Model model){
         Iterable<Competition> competitionList = dbHandler.getAllCompetition();
-//        competitionList.forEach(comp -> System.out.println(comp.getName()));
-
         model.addAttribute("listOfCompetitions", competitionList);
+
+        logger.info("Mappinng the competition route");
         return "competition_table";
     }
 
@@ -50,18 +50,26 @@ public class HTTPController {
     }
 
     @PostMapping(value = "competition/add")
-    public String submitCompetition(@ModelAttribute Competition competition){
+    public ModelAndView submitCompetition(@ModelAttribute Competition competition){
+        User dummyUser = dbHandler.getUserRepository().findOne(1L);
+        competition.setOwner(dummyUser);
+
         dbHandler.getCompetitionRepository().save(competition);
-//        System.out.println(competition.getName());
-        return "result";
+        logger.info("Save competition to the db, " +
+                "[name: {}; location: {}; date: {}, owner: {}]",
+                competition.getName(), competition.getLocation(), competition.getDateOfEvent(),
+                competition.getOwner());
+        return new ModelAndView("redirect:/competition");
     }
 
 
     public void updateTable(){
         try {
             dbHandler.populateDB();
+            logger.info("Table updated with dummy data");
         } catch (ParseException e){
             e.printStackTrace();
+            logger.info("Can't update the table with dummy data");
         }
     }
 }
