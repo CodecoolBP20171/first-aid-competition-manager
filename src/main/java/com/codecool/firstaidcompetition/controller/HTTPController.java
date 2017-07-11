@@ -7,9 +7,7 @@ import org.hibernate.validator.internal.engine.messageinterpolation.Interpolatio
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -40,19 +38,28 @@ public class HTTPController {
         return "index";
     }
 
-    @RequestMapping(value = {"/competitions"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/competition"}, method = RequestMethod.GET)
     public String getCompetitions(Model model){
         Iterable<Competition> competitionList = dbHandler.findAll();
-        competitionList.forEach(comp -> System.out.println(comp.getName()));
+//        competitionList.forEach(comp -> System.out.println(comp.getName()));
 
         model.addAttribute("listOfCompetitions", competitionList);
         return "competition_table";
     }
 
-    @RequestMapping(value = "competition-add", method = RequestMethod.POST)
-    public String addCompetition(){
+
+    @GetMapping(value = "competition/add")
+    public String addCompetition(Model model){
+        model.addAttribute("competition", new Competition());
         return "competition_add";
     }
+
+    @PostMapping(value = "competition/add")
+    public String submitCompetition(@ModelAttribute Competition competition){
+        System.out.println(competition.getName());
+        return "result";
+    }
+
 
     public void updateTable(){
         try {

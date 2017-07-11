@@ -35,6 +35,10 @@ public class Competition {
 
     public Competition() {}
 
+    public Competition(String name){
+        this.name = name;
+    }
+
     public Competition(String name, String location, Date dateOfEvent, User owner) {
         this.name = name;
         this.location = location;
@@ -80,5 +84,25 @@ public class Competition {
 
     public void setDateOfEvent(Date dateOfEvent) {
         this.dateOfEvent = dateOfEvent;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public List<Station> getStations() {
+        return stations;
+    }
+
+    public void setStations(List<Station> stations) {
+        this.stations = stations;
+    }
+
+    public Set<Team> getTeam() {
+        return team;
+    }
+
+    public void setTeam(Set<Team> team) {
+        this.team = team;
     }
 }
