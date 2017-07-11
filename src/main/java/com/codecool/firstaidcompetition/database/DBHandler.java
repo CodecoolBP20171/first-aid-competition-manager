@@ -44,6 +44,8 @@ public class DBHandler {
         return competitionRepository;
     }
 
+    public UserRepository getUserRepository() { return userRepository; }
+
     public void populateDB() throws ParseException {
         User user = new User("Kiss Gyula", "kiss_gyula", "kiss@gmail.com", "pass");
         User user2 = new User("Kiss Géza", "kiss_geza", "kiss_geza@gmail.com", "pass");
