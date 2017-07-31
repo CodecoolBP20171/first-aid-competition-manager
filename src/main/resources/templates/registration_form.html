@@ -47,7 +47,9 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         <li><a href="/index">Főoldal</a></li>
-                        <li><a href="/competitions">Verseny adatok</a></li>
+                        <li><a href="/registration">Regisztráció</a></li>
+                        <li><a href="/competition/add">Verseny létrehozása</a></li>
+                        <li><a href="/competition">Versenyek</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="#">Other option</a></li>
@@ -57,18 +59,18 @@
         </nav>
 
         <!--CONTENT-->
-        <div class="col-lg 12">
+        <div id="reg_page" class="col-lg 12">
             <div>
                 <h1 class="header-title">Regisztrációs űrlap</h1>
             </div>
 
             <!--Form group-->
-            <form class="form-horizontal" method="/">
+            <form th:action="@{/registration}" th:object="${user}" class="form-horizontal" method="POST">
                 <div class="form-group">
                     <label for="name" class="col-lg-2 control-label">Teljes név</label>
                     <div class="col-lg-10">
                         <div class="input-group">
-                            <input minlength="5" maxlength="50" class="form-control" type="text" name="name" id="name" placeholder="Vezetéknév"/>
+                            <input th:field="*{fullName}" minlength="5" maxlength="50" class="form-control" type="text" name="name" id="name" placeholder="Vezetéknév"/>
                         </div>
                     </div>
                 </div>
@@ -76,7 +78,7 @@
                     <label for="user_name" class="col-lg-2 control-label">Felhasználónév</label>
                     <div class="col-lg-10">
                         <div class="input-group">
-                            <input minlength="3" maxlength="15" class="form-control" type="text" name="user_name" id="user_name" placeholder="Keresztnév" required="required"/>
+                            <input th:field="*{userName}" minlength="3" maxlength="15" class="form-control" type="text" name="user_name" id="user_name" placeholder="Keresztnév" required="required"/>
                         </div>
                     </div>
                 </div>
@@ -84,7 +86,7 @@
                     <label for="email" class="col-lg-2 control-label">Email cím</label>
                     <div class="col-lg-10">
                         <div class="input-group">
-                            <input maxlength="100" class="form-control" type="text" name="email" id="email" placeholder="Email cím" required="required"/>
+                            <input th:field="*{email}" maxlength="100" class="form-control" type="text" name="email" id="email" placeholder="Email cím" required="required"/>
                         </div>
                     </div>
                 </div>
@@ -93,7 +95,7 @@
                     <label for="password" class="col-lg-2 control-label">Jelszó</label>
                     <div class="col-lg-10">
                         <div class="input-group">
-                            <input minlength="5" maxlength="15" class="form-control" type="password" name="password" id="password" placeholder="Jelszó" required="required"/>
+                            <input th:field="*{password}" minlength="5" maxlength="15" class="form-control" type="password" name="password" id="password" placeholder="Jelszó" required="required"/>
                         </div>
                     </div>
                 </div>
@@ -106,16 +108,10 @@
                     </div>
                 </div>
 
-                <!--Validate password-->
-                <!--<div>-->
-                    <!--<button class="btn btn-primary" id="checkPassword">Jelszó ellenőrzése</button>-->
-                <!--</div>-->
-
                 <!--Buttons-->
                 <div class="form-group">
-                    <input onclick="alert('akkor ez most le van adva')" type="submit" class="btn btn-success" id="submit_button" value="Leadás"/>
-                    <input onclick="alert('törlés')" type="reset" class="btn btn-danger" value="Törlés"/>
-                    <button class="btn btn-primary" id="checkPassword">Jelszó ellenőrzése</button>
+                    <input type="submit" class="btn btn-success" id="submit_button" value="Leadás"/>
+                    <input type="reset" class="btn btn-danger" value="Törlés"/>
                 </div>
             </form>
 

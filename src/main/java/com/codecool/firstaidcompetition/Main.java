@@ -23,7 +23,7 @@ public class Main {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         Date date = simpleDateFormat.parse("2012-07-08");
 
-        Competition competition = new Competition("verseny", "Budapest", date, user);
+        Competition competition = new Competition("verseny", "Budapest", "2012-07-08", user);
 
         Station station = new Station("allomas", 12, "egyik allomas", competition);
 

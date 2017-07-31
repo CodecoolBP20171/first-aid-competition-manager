@@ -3,13 +3,19 @@ package com.codecool.firstaidcompetition.model;
 import com.codecool.firstaidcompetition.model.Station;
 import com.codecool.firstaidcompetition.model.Team;
 import com.codecool.firstaidcompetition.model.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 //import javax.validation.constraints.Max;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Entity(name = "competitions")
 public class Competition {
+    private static final Logger logger = LoggerFactory.getLogger(Competition.class.getName());
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -35,11 +41,30 @@ public class Competition {
 
     public Competition() {}
 
-    public Competition(String name, String location, Date dateOfEvent, User owner) {
+    public Competition(String name, String location, String dateOfEvent, User owner) {
         this.name = name;
         this.location = location;
-        this.dateOfEvent = dateOfEvent;
+
+        // Is it OK?
+        this.dateOfEvent = convertStringToDate(dateOfEvent);
         this.owner = owner;
+    }
+
+    public Date convertStringToDate(String dateOfEvent){
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        try {
+            Date date = simpleDateFormat.parse(dateOfEvent);
+            return date;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            logger.warn("Can't convert string dateOfEvent [{}] to date format", dateOfEvent);
+            return null;
+        }
+    }
+
+    public void setDateOfEvent(String dateOfEvent) {
+        this.dateOfEvent = convertStringToDate(dateOfEvent);
     }
 
     public int getId() {
@@ -78,7 +103,23 @@ public class Competition {
         this.location = location;
     }
 
-    public void setDateOfEvent(Date dateOfEvent) {
-        this.dateOfEvent = dateOfEvent;
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public List<Station> getStations() {
+        return stations;
+    }
+
+    public void setStations(List<Station> stations) {
+        this.stations = stations;
+    }
+
+    public Set<Team> getTeam() {
+        return team;
+    }
+
+    public void setTeam(Set<Team> team) {
+        this.team = team;
     }
 }
