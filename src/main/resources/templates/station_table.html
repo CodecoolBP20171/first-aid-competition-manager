@@ -63,18 +63,20 @@
             <thead>
             <tr>
                 <td>Név</td>
-                <td>Helyszín</td>
-                <td>Dátum</td>
+                <td>Állomás száma</td>
+                <td>Leírás</td>
+                <td>Verseny</td>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="comp: ${listOfCompetitions}">
-                <td th:text="${comp.name}"></td>
-                <td th:text="${comp.location}"></td>
-                <td th:text="${comp.dateOfEvent}"></td>
+            <tr th:each="stat: ${listOfStations}">
+                <td th:text="${stat.name}"></td>
+                <td th:text="${stat.number}"></td>
+                <td th:text="${stat.description}"></td>
+                <td th:text="${stat.competition.name}"></td>
                 <td>
                     <a href="#">
-                        <span th:attr="data-comp_id=${comp.id}" id="edit_icon" class="glyphicon glyphicon-pencil"
+                        <span th:attr="data-comp_id=${stat.id}" id="edit_icon" class="glyphicon glyphicon-pencil"
                               aria-hidden="true" data-toggle="modal"
                               data-target="#editCompetitionModal"></span>
                     </a>
@@ -94,7 +96,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h2 class="modal-title" id="modal-header">Verseny szerkesztése</h2>
+                    <h2 class="modal-title" id="modal-header">Állomás szerkesztése</h2>
 
                 </div>
                 <div class="modal-footer">

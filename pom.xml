@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.codecool.first-aid-competitionID</groupId>
     <artifactId>first-aid-competitionID</artifactId>
@@ -26,12 +27,11 @@
     </properties>
 
 
-
     <dependencies>
         <!--<dependency>-->
-            <!--<groupId>org.eclipse.persistence</groupId>-->
-            <!--<artifactId>org.eclipse.persistence.jpa</artifactId>-->
-            <!--<version>${version.eclipselink}</version>-->
+        <!--<groupId>org.eclipse.persistence</groupId>-->
+        <!--<artifactId>org.eclipse.persistence.jpa</artifactId>-->
+        <!--<version>${version.eclipselink}</version>-->
         <!--</dependency>-->
 
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
@@ -66,11 +66,11 @@
             <artifactId>javax.el</artifactId>
             <version>3.0.1-b08</version>
         </dependency>
-         <dependency>
-         <groupId>mysql</groupId>
-         <artifactId>mysql-connector-java</artifactId>
-         <version>${version.mysql}</version>
-         </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${version.mysql}</version>
+        </dependency>
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>

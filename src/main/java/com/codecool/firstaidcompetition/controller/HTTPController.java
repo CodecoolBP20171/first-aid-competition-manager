@@ -54,7 +54,6 @@ public class HTTPController {
         return new ModelAndView("redirect:/index");
     }
 
-
     @GetMapping(value = "competition/add")
     public String addCompetition(Model model){
         model.addAttribute("competition", new Competition());
@@ -75,6 +74,14 @@ public class HTTPController {
         return new ModelAndView("redirect:/competition");
     }
 
+    @RequestMapping(value = {"/station"}, method = RequestMethod.GET)
+    public String getStations(Model model){
+        Iterable<Station> stationList = dbHandler.getAllStation();
+        model.addAttribute("listOfStations", stationList);
+
+        logger.info("Mappinng the station route");
+        return "station_table";
+    }
 
     public void updateTable(){
         try {

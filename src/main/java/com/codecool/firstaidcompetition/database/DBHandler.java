@@ -40,6 +40,8 @@ public class DBHandler {
         return competitionRepository.findAll();
     }
 
+    public Iterable<Station> getAllStation(){ return stationRepository.findAll(); }
+
     public CompetitionRepository getCompetitionRepository() {
         return competitionRepository;
     }
