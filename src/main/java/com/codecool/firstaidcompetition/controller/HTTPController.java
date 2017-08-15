@@ -83,6 +83,26 @@ public class HTTPController {
         return "station_table";
     }
 
+    @GetMapping(value = "station/add")
+    public String addStation(Model model){
+        model.addAttribute("station", new Station());
+        return "station_form";
+    }
+
+    @PostMapping(value = "station/add")
+    public ModelAndView submitStation(@ModelAttribute Station station){
+        // Query a user from the db (owner has to be redirect from the session)
+//        User dummyUser = dbHandler.getUserRepository().findOne(1L);
+//        competition.setOwner(dummyUser);
+
+        dbHandler.getStationRepositoryRepository().save(station);
+        logger.info("Save station to the db, " +
+                        "[name: {}; location: {}; date: {}, owner: {}]",
+                station.getName(), station.getNumber(), station.getDescription(),
+                station.getCompetition());
+        return new ModelAndView("redirect:/station");
+    }
+
     public void updateTable(){
         try {
             dbHandler.populateDB();

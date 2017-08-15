@@ -46,6 +46,10 @@ public class DBHandler {
         return competitionRepository;
     }
 
+    public StationRepository getStationRepositoryRepository() {
+        return stationRepository;
+    }
+
     public UserRepository getUserRepository() { return userRepository; }
 
     public void populateDB() throws ParseException {
