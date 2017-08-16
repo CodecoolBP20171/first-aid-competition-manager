@@ -23,18 +23,9 @@ public class HTTPController {
         updateTable();
     }
 
-    @RequestMapping("/index")
+    @RequestMapping(value = {"/", "/index"})
     public String indexPage(){
         return "index";
-    }
-
-    @RequestMapping(value = {"/competition"}, method = RequestMethod.GET)
-    public String getCompetitions(Model model){
-        Iterable<Competition> competitionList = dbHandler.getAllCompetition();
-        model.addAttribute("listOfCompetitions", competitionList);
-
-        logger.info("Mappinng the competition route");
-        return "competition_table";
     }
 
     @GetMapping("/registration")
