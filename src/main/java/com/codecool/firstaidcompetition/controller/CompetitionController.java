@@ -1,7 +1,7 @@
 package com.codecool.firstaidcompetition.controller;
 
-import com.codecool.firstaidcompetition.database.CompetitionRepository;
-import com.codecool.firstaidcompetition.database.UserRepository;
+import com.codecool.firstaidcompetition.repository.CompetitionRepository;
+import com.codecool.firstaidcompetition.repository.UserRepository;
 import com.codecool.firstaidcompetition.model.Competition;
 import com.codecool.firstaidcompetition.model.User;
 import org.slf4j.Logger;
