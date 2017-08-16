@@ -1,7 +1,9 @@
 package com.codecool.firstaidcompetition.controller;
 
-import com.codecool.firstaidcompetition.database.DBHandler;
+import com.codecool.firstaidcompetition.repository.DBHandler;
 import com.codecool.firstaidcompetition.model.*;
+import com.codecool.firstaidcompetition.repository.StationRepository;
+import com.codecool.firstaidcompetition.repository.UserRepository;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,27 +16,25 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HTTPController {
+
     private static final Logger logger = LoggerFactory.getLogger(HTTPController.class.getName());
-    private DBHandler dbHandler;
 
     @Autowired
-    public HTTPController(DBHandler dbHandler){
-        this.dbHandler = dbHandler;
-        updateTable();
-    }
+    private DBHandler dbHandler;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private StationRepository stationRepository;
 
-    @RequestMapping("/index")
+    private boolean isDBUpdated = false;
+
+    @RequestMapping(value = {"/", "/index"})
     public String indexPage(){
+        if (!isDBUpdated) {
+            updateTable();
+            isDBUpdated = true;
+        }
         return "index";
-    }
-
-    @RequestMapping(value = {"/competition"}, method = RequestMethod.GET)
-    public String getCompetitions(Model model){
-        Iterable<Competition> competitionList = dbHandler.getAllCompetition();
-        model.addAttribute("listOfCompetitions", competitionList);
-
-        logger.info("Mappinng the competition route");
-        return "competition_table";
     }
 
     @GetMapping("/registration")
@@ -45,7 +45,7 @@ public class HTTPController {
 
     @PostMapping("/registration")
     public ModelAndView submitUser(@ModelAttribute User user){
-        dbHandler.getUserRepository().save(user);
+        userRepository.save(user);
 
         logger.info("Save USer to the db, " +
                         "[fullName: {}; userName: {}; email: {}, password: {}]",
@@ -55,26 +55,34 @@ public class HTTPController {
     }
 
 
-    @GetMapping(value = "competition/add")
-    public String addCompetition(Model model){
-        model.addAttribute("competition", new Competition());
-        return "competition_form";
+    @RequestMapping(value = {"/station"}, method = RequestMethod.GET)
+    public String getStations(Model model){
+        Iterable<Station> stationList = stationRepository.findAll();
+        model.addAttribute("listOfStations", stationList);
+
+        logger.info("Mappinng the station route");
+        return "station_table";
     }
 
-    @PostMapping(value = "competition/add")
-    public ModelAndView submitCompetition(@ModelAttribute Competition competition){
+    @GetMapping(value = "station/add")
+    public String addStation(Model model){
+        model.addAttribute("station", new Station());
+        return "station_form";
+    }
+
+    @PostMapping(value = "station/add")
+    public ModelAndView submitStation(@ModelAttribute Station station){
         // Query a user from the db (owner has to be redirect from the session)
-        User dummyUser = dbHandler.getUserRepository().findOne(1L);
-        competition.setOwner(dummyUser);
+//        User dummyUser = dbHandler.getUserRepository().findOne(1L);
+//        competition.setOwner(dummyUser);
 
-        dbHandler.getCompetitionRepository().save(competition);
-        logger.info("Save competition to the db, " +
-                "[name: {}; location: {}; date: {}, owner: {}]",
-                competition.getName(), competition.getLocation(), competition.getDateOfEvent(),
-                competition.getOwner());
-        return new ModelAndView("redirect:/competition");
+        stationRepository.save(station);
+        logger.info("Save station to the db, " +
+                        "[name: {}; location: {}; date: {}, owner: {}]",
+                station.getName(), station.getNumber(), station.getDescription(),
+                station.getCompetition());
+        return new ModelAndView("redirect:/station");
     }
-
 
     public void updateTable(){
         try {

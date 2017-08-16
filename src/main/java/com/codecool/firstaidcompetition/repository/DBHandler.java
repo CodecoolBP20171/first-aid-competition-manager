@@ -1,4 +1,4 @@
-package com.codecool.firstaidcompetition.database;
+package com.codecool.firstaidcompetition.repository;
 
 import com.codecool.firstaidcompetition.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,40 +11,22 @@ import java.util.Date;
 @Repository
 public class DBHandler {
 
-    private CompetitionRepository competitionRepository;
-    private UserRepository userRepository;
-    private ExerciseRepository exerciseRepository;
-    private ProtestRepository protestRepository;
-    private StationRepository stationRepository;
-    private TaskRepository taskRepository;
-    private TeamRepository teamRepository;
-    private TeamResultRepository teamResultRepository;
-
     @Autowired
-    public DBHandler(CompetitionRepository competitionRepository,
-                     UserRepository userRepository, ExerciseRepository exerciseRepository,
-                     ProtestRepository protestRepository, StationRepository stationRepository,
-                     TaskRepository taskRepository, TeamRepository teamRepository,
-                     TeamResultRepository teamResultRepository){
-        this.competitionRepository = competitionRepository;
-        this.userRepository = userRepository;
-        this.exerciseRepository = exerciseRepository;
-        this.protestRepository = protestRepository;
-        this.stationRepository = stationRepository;
-        this.taskRepository = taskRepository;
-        this.teamRepository = teamRepository;
-        this.teamResultRepository = teamResultRepository;
-    }
-
-    public Iterable<Competition> getAllCompetition(){
-        return competitionRepository.findAll();
-    }
-
-    public CompetitionRepository getCompetitionRepository() {
-        return competitionRepository;
-    }
-
-    public UserRepository getUserRepository() { return userRepository; }
+    private CompetitionRepository competitionRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private ExerciseRepository exerciseRepository;
+    @Autowired
+    private ProtestRepository protestRepository;
+    @Autowired
+    private StationRepository stationRepository;
+    @Autowired
+    private TaskRepository taskRepository;
+    @Autowired
+    private TeamRepository teamRepository;
+    @Autowired
+    private TeamResultRepository teamResultRepository;
 
     public void populateDB() throws ParseException {
         User user = new User("Kiss Gyula", "kiss_gyula", "kiss@gmail.com", "pass");
@@ -89,6 +71,4 @@ public class DBHandler {
         Protest protest = new Protest(team, exercise, "óvási leírás", "döntés megszületett");
         protestRepository.save(protest);
     }
-
-
 }

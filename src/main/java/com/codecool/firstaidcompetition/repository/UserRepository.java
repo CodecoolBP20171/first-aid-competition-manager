@@ -1,4 +1,4 @@
-package com.codecool.firstaidcompetition.database;
+package com.codecool.firstaidcompetition.repository;
 
 import com.codecool.firstaidcompetition.model.User;
 import org.springframework.data.repository.CrudRepository;
