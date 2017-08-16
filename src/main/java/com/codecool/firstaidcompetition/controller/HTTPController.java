@@ -1,7 +1,9 @@
 package com.codecool.firstaidcompetition.controller;
 
-import com.codecool.firstaidcompetition.database.DBHandler;
+import com.codecool.firstaidcompetition.repository.DBHandler;
 import com.codecool.firstaidcompetition.model.*;
+import com.codecool.firstaidcompetition.repository.StationRepository;
+import com.codecool.firstaidcompetition.repository.UserRepository;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,17 +16,24 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HTTPController {
+
     private static final Logger logger = LoggerFactory.getLogger(HTTPController.class.getName());
-    private DBHandler dbHandler;
 
     @Autowired
-    public HTTPController(DBHandler dbHandler){
-        this.dbHandler = dbHandler;
-        updateTable();
-    }
+    private DBHandler dbHandler;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private StationRepository stationRepository;
+
+    private boolean isDBUpdated = false;
 
     @RequestMapping(value = {"/", "/index"})
     public String indexPage(){
+        if (!isDBUpdated) {
+            updateTable();
+            isDBUpdated = true;
+        }
         return "index";
     }
 
@@ -36,7 +45,7 @@ public class HTTPController {
 
     @PostMapping("/registration")
     public ModelAndView submitUser(@ModelAttribute User user){
-        dbHandler.getUserRepository().save(user);
+        userRepository.save(user);
 
         logger.info("Save USer to the db, " +
                         "[fullName: {}; userName: {}; email: {}, password: {}]",
@@ -48,7 +57,7 @@ public class HTTPController {
 
     @RequestMapping(value = {"/station"}, method = RequestMethod.GET)
     public String getStations(Model model){
-        Iterable<Station> stationList = dbHandler.getAllStation();
+        Iterable<Station> stationList = stationRepository.findAll();
         model.addAttribute("listOfStations", stationList);
 
         logger.info("Mappinng the station route");
@@ -67,7 +76,7 @@ public class HTTPController {
 //        User dummyUser = dbHandler.getUserRepository().findOne(1L);
 //        competition.setOwner(dummyUser);
 
-        dbHandler.getStationRepositoryRepository().save(station);
+        stationRepository.save(station);
         logger.info("Save station to the db, " +
                         "[name: {}; location: {}; date: {}, owner: {}]",
                 station.getName(), station.getNumber(), station.getDescription(),
