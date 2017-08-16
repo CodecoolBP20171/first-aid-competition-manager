@@ -33,30 +33,7 @@
 <body>
 <div class="container">
 
-    <!--NAVBAR-->
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <a class="navbar-brand" href="/index"><img id="mvk_logo" th:src="@{/img/mvklogo.svg}"/></a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li><a href="/index">Főoldal</a></li>
-                    <li><a href="/registration">Regisztráció</a></li>
-                    <li><a href="/competition/add">Verseny létrehozása</a></li>
-                    <li><a href="/competition">Versenyek</a></li>
-                    <li><a href="/station/add">Állomás létrehozása</a></li>
-                    <li><a href="/station">Állomások</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Other option</a></li>
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
+    <div th:replace="fragments/custom_navbar :: custom_navbar"></div>
 
     <!--CONTENT-->
     <div class="col-lg 12">
