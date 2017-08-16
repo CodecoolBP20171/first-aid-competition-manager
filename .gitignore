@@ -111,6 +111,4 @@ jboss/server/minimal/work/**/*
 
 *.DEPLOYED
 
-# End of https://www.gitignore.io/api/java,jboss,intellij
-
 first-aid-competition.iml
