@@ -54,25 +54,6 @@ public class HTTPController {
         return new ModelAndView("redirect:/index");
     }
 
-    @GetMapping(value = "competition/add")
-    public String addCompetition(Model model){
-        model.addAttribute("competition", new Competition());
-        return "competition_form";
-    }
-
-    @PostMapping(value = "competition/add")
-    public ModelAndView submitCompetition(@ModelAttribute Competition competition){
-        // Query a user from the db (owner has to be redirect from the session)
-        User dummyUser = dbHandler.getUserRepository().findOne(1L);
-        competition.setOwner(dummyUser);
-
-        dbHandler.getCompetitionRepository().save(competition);
-        logger.info("Save competition to the db, " +
-                "[name: {}; location: {}; date: {}, owner: {}]",
-                competition.getName(), competition.getLocation(), competition.getDateOfEvent(),
-                competition.getOwner());
-        return new ModelAndView("redirect:/competition");
-    }
 
     @RequestMapping(value = {"/station"}, method = RequestMethod.GET)
     public String getStations(Model model){
