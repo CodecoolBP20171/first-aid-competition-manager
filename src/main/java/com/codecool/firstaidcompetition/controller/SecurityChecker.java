@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class SecurityChecker {
 
     @Secured("ROLE_ADMIN")
-    @RequestMapping("/admin")
+    @RequestMapping("/admin/a")
     public String fakeSecur(){
         return "admin";
     }
