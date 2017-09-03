@@ -24,7 +24,7 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                 withUser("joe").password("pass").roles("USER");
     }
 
-    @Override   // configure our securitoy policy
+    @Override   // configure our security policy
     protected void configure(HttpSecurity http) throws Exception {
         http.
             authorizeRequests()
@@ -32,6 +32,8 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
             .and()
                 .formLogin()
+                .loginPage("/login")
+                .permitAll()
             .and().
                  logout();
     }
