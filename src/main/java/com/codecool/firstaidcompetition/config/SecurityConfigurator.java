@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 /**
  * Created by keli on 2017.09.01..
@@ -15,13 +16,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class SecurityConfigurator extends WebSecurityConfigurerAdapter {
 
     @Autowired
+    private UserDetailsService userService;
+
+    @Autowired
     public void configureAuth(AuthenticationManagerBuilder auth) throws Exception{
-        auth.
-            inMemoryAuthentication().
-                withUser("keli").password("asd").
-                roles("ADMIN").
-            and().
-                withUser("joe").password("pass").roles("USER");
+        auth.userDetailsService(userService);
     }
 
     @Override   // configure our security policy
@@ -33,6 +32,7 @@ public class SecurityConfigurator extends WebSecurityConfigurerAdapter {
             .and()
                 .formLogin()
                 .loginPage("/login")
+                .usernameParameter("username") // can be cause error
                 .permitAll()
             .and()
                 .logout()
