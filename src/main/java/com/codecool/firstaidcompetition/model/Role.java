@@ -13,7 +13,7 @@ public class Role {
 
     private String role;
 
-    @OneToMany(mappedBy = "role")
+    @ManyToMany(mappedBy = "roles")
     private Set<User> users = new HashSet<>();
 
     public Role(){}
