@@ -30,10 +30,6 @@ public class HTTPController {
 
     @RequestMapping(value = {"/", "/index"})
     public String indexPage(){
-        if (!isDBUpdated) {
-            updateTable();
-            isDBUpdated = true;
-        }
         return "index";
     }
 
