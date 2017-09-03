@@ -1,4 +1,4 @@
-package com.codecool.firstaidcompetition;
+package com.codecool.firstaidcompetition.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -12,7 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
  */
 @Configuration
 @EnableGlobalMethodSecurity(securedEnabled = true)
-public class SecurityConfig  extends WebSecurityConfigurerAdapter {
+public class SecurityConfigurator extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureAuth(AuthenticationManagerBuilder auth) throws Exception{
@@ -34,8 +34,10 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .permitAll()
-            .and().
-                 logout();
+            .and()
+                .logout()
+                .logoutSuccessUrl("/index")
+                .permitAll();
     }
 
 
