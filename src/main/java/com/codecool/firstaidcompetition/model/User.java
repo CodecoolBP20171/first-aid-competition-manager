@@ -37,12 +37,12 @@ public class User {
 
     public User(){}
 
-    public User(String fullName, String userName, String email, String password) {
+    public User(String fullName, String userName, String email, String password, Role role) {
         this.fullName = fullName;
         this.userName = userName;
         this.email = email;
         this.password = password;
-
+        this.role = role;
     }
 
     public long getId() {
@@ -93,4 +93,15 @@ public class User {
         this.competitions.add(competition);
     }
 
+    public void setCompetitions(List<Competition> competitions) {
+        this.competitions = competitions;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }
