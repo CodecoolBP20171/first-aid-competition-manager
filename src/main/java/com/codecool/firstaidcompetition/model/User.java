@@ -1,6 +1,7 @@
 package com.codecool.firstaidcompetition.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 //@NamedQueries({
@@ -29,7 +30,10 @@ public class User {
     private String password;
 
     @OneToMany (mappedBy = "owner")
-    private List<Competition> competitions;
+    private List<Competition> competitions = new ArrayList<>();
+
+    @ManyToOne
+    private Role role;
 
     public User(){}
 
