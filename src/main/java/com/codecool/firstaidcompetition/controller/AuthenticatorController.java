@@ -14,9 +14,6 @@ public class AuthenticatorController {
 
     private static final Logger logger = LoggerFactory.getLogger(HTTPController.class.getName());
 
-    @Autowired
-    private DBHandler dbHandler;
-
     @RequestMapping("/login")
     public String loginPage(){
         return "authenticate/login";
