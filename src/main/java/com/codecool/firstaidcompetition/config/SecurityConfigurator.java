@@ -25,19 +25,34 @@ public class SecurityConfigurator extends WebSecurityConfigurerAdapter {
 
     @Override   // configure our security policy
     protected void configure(HttpSecurity http) throws Exception {
+        // permit all, except route started with '/admin'
         http.
-            authorizeRequests()
+                authorizeRequests()
+                .antMatchers("/**").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
             .and()
                 .formLogin()
                 .loginPage("/login")
-                .usernameParameter("username") // can be cause error
+                .usernameParameter("username")
                 .permitAll()
             .and()
                 .logout()
                 .logoutSuccessUrl("/index")
                 .permitAll();
+//        http.
+//            authorizeRequests()
+//                .antMatchers("/admin/**").hasRole("ADMIN")
+//                .anyRequest().authenticated()
+//            .and()
+//                .formLogin()
+//                .loginPage("/login")
+//                .usernameParameter("username")
+//                .permitAll()
+//            .and()
+//                .logout()
+//                .logoutSuccessUrl("/index")
+//                .permitAll();
     }
 
 
