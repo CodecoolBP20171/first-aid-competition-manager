@@ -17,7 +17,7 @@
                         Érvénytelen felhasználónév vagy jelszó.
                     </div>
                     <div sec:authorize="isAuthenticated()" class="alert alert-success">
-                        Már be van jelentkezve.
+                        Jelenleg be van jelentkezve.
                     </div>
 
                     <!-- hidden is already logged in -->
@@ -47,8 +47,7 @@
             <!--LOGOUT-->
             <div sec:authorize="isAuthenticated()">
                 <form th:action="@{/logout}" method="POST" id="formLogout" sec:authorize="isAuthenticated()">
-                    <a href="javascript:{}" class="btn btn-danger"
-                       onclick="document.getElementById('formLogout').submit(); return false;">
+                    <a href="javascript:{}" class="btn btn-danger" onclick="document.getElementById('formLogout').submit(); return false;">
                         Kijelentkezés
                     </a>
                 </form>

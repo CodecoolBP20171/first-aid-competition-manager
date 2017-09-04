@@ -9,11 +9,16 @@
         <div th:replace="fragments/custom_navbar :: custom_navbar"></div>
         <!--CONTENT-->
         <div>
-            <form th:action="@{/logout}" method="POST" id="formLogout" sec:authorize="isAuthenticated()">
-                <a href="javascript:{}"
-                   onclick="document.getElementById('formLogout').submit(); return false;">
-                    Kijelentkezés
-                </a>
+            <form th:action="@{/logout}" method="POST" id="formLogout" sec:authorize="isAuthenticated()" class="form-horizontal">
+                <fieldset>
+                    <legend>Kijelentkezés</legend>
+                    <div sec:authorize="isAuthenticated()" class="alert alert-success">
+                        Jelenleg be van jelentkezve.
+                    </div>
+                    <a href="javascript:{}" class="btn btn-danger" onclick="document.getElementById('formLogout').submit(); return false;">
+                        Kijelentkezés
+                    </a>
+                </fieldset>
             </form>
         </div>
     </div>
