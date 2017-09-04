@@ -17,11 +17,14 @@ public class AuthenticatorController {
     @Autowired
     private DBHandler dbHandler;
 
-    private boolean isDBUpdated = false;
-
     @RequestMapping("/login")
     public String loginPage(){
         return "authenticate/login";
+    }
+
+    @RequestMapping("/logout")
+    public String logoutPage(){
+        return "authenticate/logout";
     }
 
 }
