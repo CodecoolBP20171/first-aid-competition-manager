@@ -38,22 +38,7 @@ public class SecurityConfigurator extends WebSecurityConfigurerAdapter {
                 .permitAll()
             .and()
                 .logout()
-                .logoutSuccessUrl("/index")
+                .logoutSuccessUrl("/login?logout")
                 .permitAll();
-//        http.
-//            authorizeRequests()
-//                .antMatchers("/admin/**").hasRole("ADMIN")
-//                .anyRequest().authenticated()
-//            .and()
-//                .formLogin()
-//                .loginPage("/login")
-//                .usernameParameter("username")
-//                .permitAll()
-//            .and()
-//                .logout()
-//                .logoutSuccessUrl("/index")
-//                .permitAll();
     }
-
-
 }
