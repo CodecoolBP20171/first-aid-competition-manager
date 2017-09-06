@@ -22,6 +22,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         this.userRepository = userRepository;
     }
 
+    public void saveUser(User user){
+        // https://hellokoding.com/registration-and-login-example-with-spring-security-spring-boot-spring-data-jpa-hsql-jsp/
+        String currentPass = user.getPassword();
+        user.setPassword(bCryptPasswordEncoder.encode(currentPass));
+        userRepository.save(user);
+    }
+
     @Override
     public User findByUsername(String username) {
         return userRepository.findByUserName(username);
@@ -36,6 +43,4 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
         return new UserDetailsImpl(user);
     }
-
-
 }
