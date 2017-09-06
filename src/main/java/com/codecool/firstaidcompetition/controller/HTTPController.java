@@ -30,7 +30,7 @@ public class HTTPController {
 
     @RequestMapping(value = {"/", "/index"})
     public String indexPage(){
-        if (!isDBUpdated) {
+        if (!isDBUpdated){
             updateTable();
             isDBUpdated = true;
         }
@@ -73,9 +73,6 @@ public class HTTPController {
     @PostMapping(value = "station/add")
     public ModelAndView submitStation(@ModelAttribute Station station){
         // Query a user from the db (owner has to be redirect from the session)
-//        User dummyUser = dbHandler.getUserRepository().findOne(1L);
-//        competition.setOwner(dummyUser);
-
         stationRepository.save(station);
         logger.info("Save station to the db, " +
                         "[name: {}; location: {}; date: {}, owner: {}]",

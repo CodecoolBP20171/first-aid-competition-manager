@@ -1,7 +1,10 @@
 package com.codecool.firstaidcompetition.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 //@NamedQueries({
 //        @NamedQuery(name = "findAllUsers", query = "select user from users user"),
@@ -29,16 +32,25 @@ public class User {
     private String password;
 
     @OneToMany (mappedBy = "owner")
-    private List<Competition> competitions;
+    private List<Competition> competitions = new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+    )
+    private Set<Role> roles = new HashSet<>();
 
     public User(){}
 
-    public User(String fullName, String userName, String email, String password) {
+    public User(String fullName, String userName, String email, String password, List<Competition> competitions, Set<Role> roles) {
         this.fullName = fullName;
         this.userName = userName;
         this.email = email;
         this.password = password;
-
+        this.competitions = competitions;
+        this.roles = roles;
     }
 
     public long getId() {
@@ -89,4 +101,15 @@ public class User {
         this.competitions.add(competition);
     }
 
+    public void setCompetitions(List<Competition> competitions) {
+        this.competitions = competitions;
+    }
+
+    public Set<Role> getRole() {
+        return roles;
+    }
+
+    public void setRole(Set<Role> roles) {
+        this.roles = roles;
+    }
 }

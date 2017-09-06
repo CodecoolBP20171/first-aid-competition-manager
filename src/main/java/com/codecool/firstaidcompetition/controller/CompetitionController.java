@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
+@RequestMapping("/competition")
 public class CompetitionController {
 
     private static final Logger logger = LoggerFactory.getLogger(HTTPController.class.getName());
@@ -22,20 +23,20 @@ public class CompetitionController {
     @Autowired
     private UserRepository userRepository;
 
-    @RequestMapping(value = "/competition", method = RequestMethod.GET)
+    @RequestMapping(value = {"/", ""}, method = RequestMethod.GET)
     public String getCompetitions(Model model){
         Iterable<Competition> competitionList = competitionRepository.findAll();
         model.addAttribute("listOfCompetitions", competitionList);
-        return "competition_table";
+        return "competitions/competition_table";
     }
 
-    @GetMapping(value = "competition/add")
+    @GetMapping(value = "/add")
     public String addCompetition(Model model){
         model.addAttribute("competition", new Competition());
-        return "competition_form";
+        return "competitions/competition_form";
     }
 
-    @PostMapping(value = "competition/add")
+    @PostMapping(value = "/add")
     public ModelAndView submitCompetition(@ModelAttribute Competition competition){
         // Query a user from the db (owner has to be redirect from the session)
         User dummyUser = userRepository.findOne(1L);
@@ -46,6 +47,6 @@ public class CompetitionController {
                         "[name: {}; location: {}; date: {}, owner: {}]",
                 competition.getName(), competition.getLocation(), competition.getDateOfEvent(),
                 competition.getOwner());
-        return new ModelAndView("redirect:/competition");
+        return new ModelAndView("redirect:/competition/");
     }
 }

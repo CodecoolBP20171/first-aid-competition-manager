@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashSet;
 
 @Repository
 public class DBHandler {
@@ -27,10 +28,23 @@ public class DBHandler {
     private TeamRepository teamRepository;
     @Autowired
     private TeamResultRepository teamResultRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
     public void populateDB() throws ParseException {
-        User user = new User("Kiss Gyula", "kiss_gyula", "kiss@gmail.com", "pass");
-        User user2 = new User("Kiss Géza", "kiss_geza", "kiss_geza@gmail.com", "pass");
+        Role admin = new Role("ROLE_ADMIN", null);
+        Role userRole = new Role("ROLE_USER", null);
+        HashSet<Role> adminSet = new HashSet<>();
+        HashSet<Role> userSet = new HashSet<>();
+        adminSet.add(admin);
+        userSet.add(userRole);
+        roleRepository.save(admin);
+        roleRepository.save(userRole);
+
+        User user = new User("Kiss Gyula", "kiss_gyula", "kiss@gmail.com",
+                "pass", null, adminSet);
+        User user2 = new User("Kiss Géza", "kiss_geza", "kiss_geza@gmail.com", "pass", null,
+                userSet);
         userRepository.save(user);
         userRepository.save(user2);
 
