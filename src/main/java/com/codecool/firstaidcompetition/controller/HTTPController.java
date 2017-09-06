@@ -4,6 +4,7 @@ import com.codecool.firstaidcompetition.repository.DBHandler;
 import com.codecool.firstaidcompetition.model.*;
 import com.codecool.firstaidcompetition.repository.StationRepository;
 import com.codecool.firstaidcompetition.repository.UserRepository;
+import com.codecool.firstaidcompetition.service.UserServiceImpl;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,8 @@ public class HTTPController {
     private UserRepository userRepository;
     @Autowired
     private StationRepository stationRepository;
+    @Autowired
+    private UserServiceImpl userService;
 
     private boolean isDBUpdated = false;
 
@@ -45,8 +48,7 @@ public class HTTPController {
 
     @PostMapping("/registration")
     public ModelAndView submitUser(@ModelAttribute User user){
-        userRepository.save(user);
-
+        userService.saveUser(user); // save with hashing pass
         logger.info("Save USer to the db, " +
                         "[fullName: {}; userName: {}; email: {}, password: {}]",
                 user.getFullName(), user.getUserName(), user.getEmail(),
