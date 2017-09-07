@@ -20,41 +20,40 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfigurator extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private UserDetailsService userService;
-
     @Bean   // Added encoder as bean
     public BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
     @Autowired
-    public CustomAuthenticationProvider customAuthenticationProvider;
+    private CustomAuthenticationProvider customAuthenticationProvider;
 
     @Autowired
     public void configureAuth(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(customAuthenticationProvider);
-//                userDetailsService(userService).passwordEncoder(bCryptPasswordEncoder());
-        //        auth.userDetailsService(userService);
     }
 
     @Override   // configure our security policy
     protected void configure(HttpSecurity http) throws Exception {
-        // permit all, except route started with '/admin'
         http.
                 authorizeRequests()
+                .antMatchers("/admin/**",
+                        "/competition/add", "/registration", "/station/add").hasRole("ADMIN")
+                .antMatchers("/user").hasRole("USER")
                 .antMatchers("/**").permitAll()
-                .antMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
             .and()
                 .formLogin()
                 .loginPage("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
+                .successForwardUrl("/index")
                 .permitAll()
             .and()
                 .logout()
                 .logoutSuccessUrl("/login?logout")
-                .permitAll();
+                .permitAll()
+            .and()
+                .exceptionHandling()
+                .accessDeniedPage("/index");
     }
 }
