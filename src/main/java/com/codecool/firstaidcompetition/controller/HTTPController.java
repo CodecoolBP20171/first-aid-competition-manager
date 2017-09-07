@@ -1,16 +1,18 @@
 package com.codecool.firstaidcompetition.controller;
 
 import com.codecool.firstaidcompetition.database.DBHandler;
-import com.codecool.firstaidcompetition.model.*;
+import com.codecool.firstaidcompetition.model.Competition;
+import com.codecool.firstaidcompetition.model.Station;
+import com.codecool.firstaidcompetition.model.User;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.text.ParseException;
-import org.slf4j.Logger;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HTTPController {
@@ -18,18 +20,18 @@ public class HTTPController {
     private DBHandler dbHandler;
 
     @Autowired
-    public HTTPController(DBHandler dbHandler){
+    public HTTPController(DBHandler dbHandler) {
         this.dbHandler = dbHandler;
         updateTable();
     }
 
     @RequestMapping("/index")
-    public String indexPage(){
+    public String indexPage() {
         return "index";
     }
 
     @RequestMapping(value = {"/competition"}, method = RequestMethod.GET)
-    public String getCompetitions(Model model){
+    public String getCompetitions(Model model) {
         Iterable<Competition> competitionList = dbHandler.getAllCompetition();
         model.addAttribute("listOfCompetitions", competitionList);
 
@@ -38,13 +40,13 @@ public class HTTPController {
     }
 
     @GetMapping("/registration")
-    public String addUser(Model model){
+    public String addUser(Model model) {
         model.addAttribute("user", new User());
         return "registration_form";
     }
 
     @PostMapping("/registration")
-    public ModelAndView submitUser(@ModelAttribute User user){
+    public ModelAndView submitUser(@ModelAttribute User user) {
         dbHandler.getUserRepository().save(user);
 
         logger.info("Save USer to the db, " +
@@ -55,27 +57,27 @@ public class HTTPController {
     }
 
     @GetMapping(value = "competition/add")
-    public String addCompetition(Model model){
+    public String addCompetition(Model model) {
         model.addAttribute("competition", new Competition());
         return "competition_form";
     }
 
     @PostMapping(value = "competition/add")
-    public ModelAndView submitCompetition(@ModelAttribute Competition competition){
+    public ModelAndView submitCompetition(@ModelAttribute Competition competition) {
         // Query a user from the db (owner has to be redirect from the session)
         User dummyUser = dbHandler.getUserRepository().findOne(1L);
         competition.setOwner(dummyUser);
 
         dbHandler.getCompetitionRepository().save(competition);
         logger.info("Save competition to the db, " +
-                "[name: {}; location: {}; date: {}, owner: {}]",
+                        "[name: {}; location: {}; date: {}, owner: {}]",
                 competition.getName(), competition.getLocation(), competition.getDateOfEvent(),
                 competition.getOwner());
         return new ModelAndView("redirect:/competition");
     }
 
     @RequestMapping(value = {"/station"}, method = RequestMethod.GET)
-    public String getStations(Model model){
+    public String getStations(Model model) {
         Iterable<Station> stationList = dbHandler.getAllStation();
         model.addAttribute("listOfStations", stationList);
 
@@ -84,13 +86,15 @@ public class HTTPController {
     }
 
     @GetMapping(value = "station/add")
-    public String addStation(Model model){
+    public String addStation(Model model) {
+        Iterable<Competition> competitionList = dbHandler.getAllCompetition();
+        model.addAttribute("listOfCompetitions", competitionList);
         model.addAttribute("station", new Station());
         return "station_form";
     }
 
     @PostMapping(value = "station/add")
-    public ModelAndView submitStation(@ModelAttribute Station station){
+    public ModelAndView submitStation(@ModelAttribute Station station) {
         // Query a user from the db (owner has to be redirect from the session)
 //        User dummyUser = dbHandler.getUserRepository().findOne(1L);
 //        competition.setOwner(dummyUser);
@@ -103,11 +107,11 @@ public class HTTPController {
         return new ModelAndView("redirect:/station");
     }
 
-    public void updateTable(){
+    public void updateTable() {
         try {
             dbHandler.populateDB();
             logger.info("Table updated with dummy data");
-        } catch (ParseException e){
+        } catch (ParseException e) {
             e.printStackTrace();
             logger.info("Can't update the table with dummy data");
         }
