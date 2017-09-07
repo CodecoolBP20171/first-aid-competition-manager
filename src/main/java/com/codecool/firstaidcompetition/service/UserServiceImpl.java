@@ -36,15 +36,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.findByUserName(username);
     }
 
-    public User findByPassword(String password){
-        String hashedPass = bCryptPasswordEncoder.encode(password);
-        return userRepository.findByPassword(hashedPass);
-    }
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = findByUsername(username);
-//        User user = findByPassword(null);
         if (user == null){
             throw new UsernameNotFoundException(username);
         }

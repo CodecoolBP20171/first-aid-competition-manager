@@ -7,5 +7,4 @@ import com.codecool.firstaidcompetition.model.User;
  */
 public interface UserService {
     User findByUsername(String username);
-    User findByPassword(String password);
 }
