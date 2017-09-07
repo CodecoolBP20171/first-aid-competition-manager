@@ -4,6 +4,7 @@ import com.codecool.firstaidcompetition.model.Role;
 import com.codecool.firstaidcompetition.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -28,8 +29,10 @@ public class UserDetailsImpl implements UserDetails {
         for (Role role : roles){
             authorities.add( new SimpleGrantedAuthority(role.getRole()));
         }
+
         return authorities;
     }
+
 
     @Override
     public String getPassword() {

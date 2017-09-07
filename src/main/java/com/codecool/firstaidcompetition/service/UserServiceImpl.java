@@ -3,10 +3,13 @@ package com.codecool.firstaidcompetition.service;
 import com.codecool.firstaidcompetition.model.User;
 import com.codecool.firstaidcompetition.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.core.userdetails.UserCache;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.provisioning.UserDetailsManager;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,7 +26,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     public void saveUser(User user){
-        // https://hellokoding.com/registration-and-login-example-with-spring-security-spring-boot-spring-data-jpa-hsql-jsp/
         String currentPass = user.getPassword();
         user.setPassword(bCryptPasswordEncoder.encode(currentPass));
         userRepository.save(user);
@@ -34,10 +36,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return userRepository.findByUserName(username);
     }
 
+    public User findByPassword(String password){
+        String hashedPass = bCryptPasswordEncoder.encode(password);
+        return userRepository.findByPassword(hashedPass);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = findByUsername(username);
-        System.out.println(bCryptPasswordEncoder.encode(user.getPassword()));
+//        User user = findByPassword(null);
         if (user == null){
             throw new UsernameNotFoundException(username);
         }

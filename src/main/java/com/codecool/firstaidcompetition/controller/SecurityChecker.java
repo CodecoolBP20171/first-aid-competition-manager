@@ -12,13 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @Controller
 public class SecurityChecker {
 
-    @Secured("ROLE_ADMIN")
     @RequestMapping("/admin/a")
     public String fakeSecur(){
         return "admin";
     }
 
-    @Secured("ROLE_USER")
     @RequestMapping("/user")
     public String fakeSecur2(){
         return "user";
