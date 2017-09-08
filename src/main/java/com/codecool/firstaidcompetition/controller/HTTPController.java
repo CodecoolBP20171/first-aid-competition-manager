@@ -6,6 +6,7 @@ import com.codecool.firstaidcompetition.model.User;
 import com.codecool.firstaidcompetition.repository.CompetitionRepository;
 import com.codecool.firstaidcompetition.repository.DBHandler;
 import com.codecool.firstaidcompetition.repository.StationRepository;
+import com.codecool.firstaidcompetition.repository.UserRepository;
 import com.codecool.firstaidcompetition.service.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,8 @@ public class HTTPController {
     @Autowired
     private UserServiceImpl userService;
     @Autowired
+    private UserRepository userRepository;
+    @Autowired
     private CompetitionRepository competitionRepository;
 
     private boolean isDBUpdated = false;
@@ -46,6 +49,16 @@ public class HTTPController {
     public String addUser(Model model) {
         model.addAttribute("user", new User());
         return "registration_form";
+    }
+
+    @RequestMapping("/registration/{userName}")
+    @ResponseBody   // can return with anything
+    public String checkUsernameIsExists(@PathVariable String userName){
+        User user = userRepository.findByUserName(userName);
+        if (user == null){
+            return "false";
+        }
+        return "true";
     }
 
     @PostMapping("/registration")
