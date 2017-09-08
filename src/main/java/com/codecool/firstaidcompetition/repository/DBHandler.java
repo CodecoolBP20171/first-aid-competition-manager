@@ -36,13 +36,13 @@ public class DBHandler {
 
     public void populateDB() throws ParseException {
         Role admin = new Role("ROLE_ADMIN", null);
-        Role userRole = new Role("ROLE_USER", null);
+        Role refereeRole = new Role("ROLE_REFEREE", null);
         HashSet<Role> adminSet = new HashSet<>();
         HashSet<Role> userSet = new HashSet<>();
         adminSet.add(admin);
-        userSet.add(userRole);
+        userSet.add(refereeRole);
         roleRepository.save(admin);
-        roleRepository.save(userRole);
+        roleRepository.save(refereeRole);
 
         User user = new User("Admin Béla", "admin", "kiss@gmail.com",
                 bCryptPasswordEncoder.encode("admin"), null, adminSet);

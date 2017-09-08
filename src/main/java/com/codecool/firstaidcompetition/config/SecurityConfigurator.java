@@ -38,7 +38,7 @@ public class SecurityConfigurator extends WebSecurityConfigurerAdapter {
                 authorizeRequests()
                 .antMatchers("/admin/**",
                         "/competition/add", "/registration", "/station/add").hasRole("ADMIN")
-                .antMatchers("/user").hasRole("USER")
+                .antMatchers("/user").hasRole("REFEREE")
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
             .and()
