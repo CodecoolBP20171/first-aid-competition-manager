@@ -2,13 +2,35 @@
  * Created by keli on 2017.07.03..
  */
 $(document).ready(function(){
-    $("#regForm").submit(function(evt) {    // check userName and pass before submit
+    $("#regForm").submit(function(event) {    // check userName and pass before submit
+        // https://api.jquery.com/submit/
         var isValidUser = validateUserNameIsExists();
         var isValidPass = validatePassword();
         if (!isValidPass || !isValidUser){
-            evt.preventDefault();
+            event.preventDefault();
+            if (!isValidUser) {
+                console.log("user");
+                changeUserNameColor();
+            } else if (!isValidPass) {
+                console.log("pass");
+                changePasswordColor();
+            }
+        } else {
+            $('#regForm').submit();
+            alert("else ág");
+            // return;
         }
+
     });
+
+    var changeUserNameColor = function (){
+        $("#user_name").parent(".input-group").attr("class", "input-group has-error");
+    };
+
+    var changePasswordColor = function(){
+        $("#password").parent(".input-group").attr("class", "input-group has-error");
+        $("#password2").parent(".input-group").attr("class", "input-group has-error");
+    };
 
     var validateUserNameIsExists = function() {
         var userName = $('#user_name').val();
@@ -19,6 +41,9 @@ $(document).ready(function(){
                 if (data === "true"){
                     alert("A felhasználónév már használatban van");
                     $("#user_name").val("");
+                    return false;
+                } else {
+                    alert("A user átment" + data);
                     return true;
                 }
             },
