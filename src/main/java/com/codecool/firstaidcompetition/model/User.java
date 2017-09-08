@@ -28,7 +28,7 @@ public class User {
     @Column(name = "email", length = 100)
     private String email;
 
-    @Column(name = "password", length = 15)
+    @Column(name = "password")
     private String password;
 
     @OneToMany (mappedBy = "owner")

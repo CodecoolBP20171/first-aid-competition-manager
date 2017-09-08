@@ -1,9 +1,12 @@
 /**
  * Created by keli on 2017.07.03..
  */
-
 $(document).ready(function(){
     $("#submit_button").click(function() {
+        validatePassword();
+    });
+
+    var validatePassword = function(){
         var $passwordOne = $('#password').val();
         var $passwordTwo = $('#password2').val();
         var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/;
@@ -19,6 +22,6 @@ $(document).ready(function(){
             $("#password").val("");
             $("#password2").val("");
         }
-    });
+    }
 });
 

@@ -13,7 +13,7 @@
                 <fieldset>
                     <legend>Kijelentkezés</legend>
                     <div sec:authorize="isAuthenticated()" class="alert alert-success">
-                        Jelenleg be van jelentkezve.
+                        <div>Jelenleg be van jelentkezve. Biztosan ki akar jelentkezni?</div>
                     </div>
                     <a href="javascript:{}" class="btn btn-danger" onclick="document.getElementById('formLogout').submit(); return false;">
                         Kijelentkezés

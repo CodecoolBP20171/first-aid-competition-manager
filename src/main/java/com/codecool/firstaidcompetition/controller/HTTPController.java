@@ -6,7 +6,7 @@ import com.codecool.firstaidcompetition.model.User;
 import com.codecool.firstaidcompetition.repository.CompetitionRepository;
 import com.codecool.firstaidcompetition.repository.DBHandler;
 import com.codecool.firstaidcompetition.repository.StationRepository;
-import com.codecool.firstaidcompetition.repository.UserRepository;
+import com.codecool.firstaidcompetition.service.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +25,9 @@ public class HTTPController {
     @Autowired
     private DBHandler dbHandler;
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
     private StationRepository stationRepository;
+    @Autowired
+    private UserServiceImpl userService;
     @Autowired
     private CompetitionRepository competitionRepository;
 
@@ -49,9 +49,9 @@ public class HTTPController {
     }
 
     @PostMapping("/registration")
-    public ModelAndView submitUser(@ModelAttribute User user) {
-        userRepository.save(user);
-
+    public ModelAndView submitUser(@ModelAttribute User user,
+                                   @RequestParam("userRole") String role){
+        userService.saveUser(user, role); // save with hashing pass
         logger.info("Save USer to the db, " +
                         "[fullName: {}; userName: {}; email: {}, password: {}]",
                 user.getFullName(), user.getUserName(), user.getEmail(),
@@ -78,7 +78,6 @@ public class HTTPController {
 
     @PostMapping(value = "station/add")
     public ModelAndView submitStation(@ModelAttribute Station station) {
-        // Query a user from the db (owner has to be redirect from the session)
         stationRepository.save(station);
         logger.info("Save station to the db, " +
                         "[name: {}; location: {}; date: {}, owner: {}]",
