@@ -5,8 +5,12 @@
     max-height: 300%;
 }
 
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:focus {
+.navbar-default .navbar-nav > li > a:visited {
+    color: #ffffff;
+    background-image: none;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
     color: #e10000;
     background: #ffffff;
     background-image: none;
