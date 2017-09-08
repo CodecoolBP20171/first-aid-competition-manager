@@ -17,19 +17,20 @@
     background-image: none;
 }
 
-.dropdown-menu {
-    color: #ffffff;
-    background-color: #e10000;
-}
-
 .dropdown-menu > li > a {
     color: #ffffff;
-    background-color: #e10000;
+    background-color: #cd0000;
 }
 
 .dropdown-menu > li > a:hover,
 .dropdown-menu > li > a:focus {
-    color: #e10000;
+    color: #cd0000;
     background-color: #ffffff;
     background-image: none;
+}
+
+.dropdown:hover .dropdown-menu {
+    color: #ffffff;
+    background-color: #cd0000;
+    display: block;
 }
