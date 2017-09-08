@@ -55,7 +55,17 @@
                         </div>
                     </div>
                 </div>
-
+                <div clas="form-group">
+                    <label for="userRole" class="col-lg-2 control-label">Jogosultság</label>
+                    <div class="col-lg-10">
+                        <div class="input-group">
+                            <select class="form-control" name="userRole" id="userRole" required="required">
+                                <option th:value="ROLE_USER">Állomás vezető</option>
+                                <option th:value="ROLE_ADMIN">Admin</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
                 <!--Buttons-->
                 <div class="form-group">
                     <input type="submit" class="btn btn-success" id="submit_button" value="Leadás"/>
