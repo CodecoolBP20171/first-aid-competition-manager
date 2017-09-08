@@ -1,14 +1,9 @@
 /*init*/
 
 #mvk_logo {
-    height: 30px;
+    position: relative;
+    max-height: 300%;
 }
-
-/*#fb_logo {*/
-    /*padding: 5px 5px;*/
-    /*height: 35px;*/
-    /*width: 35px;*/
-/*}*/
 
 .navbar-default .navbar-nav > li > a:hover,
 .navbar-default .navbar-nav > li > a:focus {
