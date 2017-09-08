@@ -1,31 +1,38 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header"> </head>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments/header :: header"></head>
 <body th:fragment="custom_navbar">
 
-    <!--NAVBAR-->
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <a class="navbar-brand" href="/index"><img id="mvk_logo" th:src="@{/img/mvklogo.svg}" /></a>
-            </div>
+<!--NAVBAR-->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/index"><img id="mvk_logo" th:src="@{/img/mvklogo.svg}"/></a>
+        </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li><a href="/index">Főoldal</a></li>
-                    <li><a href="/registration">Regisztráció</a></li>
-                    <li><a href="/competition/add">Verseny létrehozása</a></li>
-                    <li><a href="/competition">Versenyek</a></li>
-                    <li><a href="/station/add">Állomás létrehozása</a></li>
-                    <li><a href="/station">Állomások</a></li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#">Other option</a></li>
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="/index">Főoldal</a></li>
+                <li><a href="/registration">Regisztráció</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Versenyek<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/competition">Aktuális Versenyek</a></li>
+                        <li><a href="/competition/add">Verseny létrehozása</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Állomások<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/station">Aktuális Állomások</a></li>
+                        <li><a href="/station/add">Állomás létrehozása</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
 </body>
 </html>

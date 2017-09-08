@@ -9,3 +9,27 @@
     /*height: 35px;*/
     /*width: 35px;*/
 /*}*/
+
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: #e10000;
+    background: #ffffff;
+    background-image: none;
+}
+
+.dropdown-menu {
+    color: #ffffff;
+    background-color: #e10000;
+}
+
+.dropdown-menu > li > a {
+    color: #ffffff;
+    background-color: #e10000;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+    color: #e10000;
+    background-color: #ffffff;
+    background-image: none;
+}

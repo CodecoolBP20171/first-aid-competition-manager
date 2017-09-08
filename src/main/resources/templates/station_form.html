@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header"> </head>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/header :: header"></head>
 <body>
 <div class="container">
 
@@ -27,7 +27,8 @@
                 <label for="station_number" class="col-lg-2 control-label">Állomás száma</label>
                 <div class="col-lg-10">
                     <div class="input-group">
-                        <input th:field="*{number}" maxlength="100" class="form-control" type="text" name="station_number"
+                        <input th:field="*{number}" maxlength="100" class="form-control" type="text"
+                               name="station_number"
                                id="station_number" placeholder="Állomás száma" required="required"/>
                     </div>
                 </div>
@@ -36,7 +37,8 @@
                 <label for="station_description" class="col-lg-2 control-label">Leírás</label>
                 <div class="col-lg-10">
                     <div class="input-group">
-                        <input th:field="*{description}" maxlength="100" class="form-control" type="text" name="station_description"
+                        <input th:field="*{description}" maxlength="100" class="form-control" type="text"
+                               name="station_description"
                                id="station_description" placeholder="Állomás leírása" required="required"/>
                     </div>
                 </div>
@@ -45,7 +47,8 @@
                 <label for="competition" class="col-lg-2 control-label">Verseny</label>
                 <div class="col-lg-10">
                     <div class="input-group">
-                        <input th:field="*{competition.id}" maxlength="100" class="form-control" type="text" name="competition"
+                        <input th:field="*{competition.id}" maxlength="100" class="form-control" type="text"
+                               name="competition"
                                id="competition" placeholder="Verseny" required="required"/>
                     </div>
                 </div>
