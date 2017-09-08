@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/header :: header"></head>
 <body th:fragment="custom_navbar">
 
@@ -17,14 +18,16 @@
                 <li><a href="/index">Főoldal</a></li>
                 <li><a href="/registration">Regisztráció</a></li>
                 <li class="dropdown">
-                    <a class="dropdown-toggle disabled" data-toggle="dropdown" href="#">Versenyek<span class="caret"></span></a>
+                    <a class="dropdown-toggle disabled" data-toggle="dropdown" href="#">Versenyek<span
+                            class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="/competition">Aktuális Versenyek</a></li>
                         <li><a href="/competition/add">Verseny Létrehozása</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a class="dropdown-toggle disabled" data-toggle="dropdown" href="#">Állomások<span class="caret"></span></a>
+                    <a class="dropdown-toggle disabled" data-toggle="dropdown" href="#">Állomások<span
+                            class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="/station">Aktuális Állomások</a></li>
                         <li><a href="/station/add">Állomás Létrehozása</a></li>

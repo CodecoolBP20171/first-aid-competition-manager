@@ -2,6 +2,7 @@ package com.codecool.firstaidcompetition.repository;
 
 import com.codecool.firstaidcompetition.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.text.ParseException;
@@ -30,21 +31,23 @@ public class DBHandler {
     private TeamResultRepository teamResultRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public void populateDB() throws ParseException {
         Role admin = new Role("ROLE_ADMIN", null);
-        Role userRole = new Role("ROLE_USER", null);
+        Role refereeRole = new Role("ROLE_REFEREE", null);
         HashSet<Role> adminSet = new HashSet<>();
         HashSet<Role> userSet = new HashSet<>();
         adminSet.add(admin);
-        userSet.add(userRole);
+        userSet.add(refereeRole);
         roleRepository.save(admin);
-        roleRepository.save(userRole);
+        roleRepository.save(refereeRole);
 
-        User user = new User("Kiss Gyula", "kiss_gyula", "kiss@gmail.com",
-                "pass", null, adminSet);
-        User user2 = new User("Kiss Géza", "kiss_geza", "kiss_geza@gmail.com", "pass", null,
-                userSet);
+        User user = new User("Admin Béla", "admin", "kiss@gmail.com",
+                bCryptPasswordEncoder.encode("admin"), null, adminSet);
+        User user2 = new User("User Géza", "user", "kiss_geza@gmail.com",
+                bCryptPasswordEncoder.encode("user"), null, userSet);
         userRepository.save(user);
         userRepository.save(user2);
 

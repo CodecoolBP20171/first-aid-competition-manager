@@ -1,13 +1,9 @@
 package com.codecool.firstaidcompetition.model;
 
-import com.codecool.firstaidcompetition.model.Station;
-import com.codecool.firstaidcompetition.model.Team;
-import com.codecool.firstaidcompetition.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
-//import javax.validation.constraints.Max;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -18,7 +14,7 @@ public class Competition {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Column(length = 100)
     private String name;
@@ -30,7 +26,7 @@ public class Competition {
     private Date dateOfEvent;
 
     @ManyToOne
-    @JoinColumn(name="owner_id")
+    @JoinColumn(name = "owner_id")
     private User owner;
 
     @OneToMany(mappedBy = "competition")
@@ -39,7 +35,8 @@ public class Competition {
     @OneToMany(mappedBy = "competition")
     private Set<Team> team = new HashSet<>();
 
-    public Competition() {}
+    public Competition() {
+    }
 
     public Competition(String name, String location, String dateOfEvent, User owner) {
         this.name = name;
@@ -50,7 +47,7 @@ public class Competition {
         this.owner = owner;
     }
 
-    public Date convertStringToDate(String dateOfEvent){
+    public Date convertStringToDate(String dateOfEvent) {
         String pattern = "yyyy-MM-dd";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         try {
@@ -63,48 +60,48 @@ public class Competition {
         }
     }
 
-    public void setDateOfEvent(String dateOfEvent) {
-        this.dateOfEvent = convertStringToDate(dateOfEvent);
-    }
-
-    public int getId() {
+    public long getId() {
         return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public Date getDateOfEvent() {
-        return dateOfEvent;
-    }
-
-    public User getOwner() {
-        return owner;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public void addStation(Station station){
-        this.stations.add(station);
+    public String getLocation() {
+        return location;
     }
 
     public void setLocation(String location) {
         this.location = location;
     }
 
+    public Date getDateOfEvent() {
+        return dateOfEvent;
+    }
+
+    public void setDateOfEvent(String dateOfEvent) {
+        this.dateOfEvent = convertStringToDate(dateOfEvent);
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public void addStation(Station station) {
+        this.stations.add(station);
     }
 
     public List<Station> getStations() {

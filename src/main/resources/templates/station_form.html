@@ -47,9 +47,13 @@
                 <label for="competition" class="col-lg-2 control-label">Verseny</label>
                 <div class="col-lg-10">
                     <div class="input-group">
-                        <input th:field="*{competition.id}" maxlength="100" class="form-control" type="text"
-                               name="competition"
-                               id="competition" placeholder="Verseny" required="required"/>
+                        <select class="form-control" id="competition" name="competition">
+                            <option th:each="comp : ${listOfCompetitions}"
+                                    th:value="${comp.id}"
+                                    th:name="${comp.name}"
+                                    th:text="${comp.name}">
+                            </option>
+                        </select>
                     </div>
                 </div>
             </div>
