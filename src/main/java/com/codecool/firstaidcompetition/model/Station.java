@@ -30,8 +30,8 @@ public class Station {
     @JoinColumn(name = "competition_id")
     private Competition competition;
 
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="exercise_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "exercise_id")
     private Exercise exercise;
 
     public Station() {
