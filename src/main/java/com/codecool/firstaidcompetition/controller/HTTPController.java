@@ -49,8 +49,9 @@ public class HTTPController {
     }
 
     @PostMapping("/registration")
-    public ModelAndView submitUser(@ModelAttribute User user){
-        userService.saveUser(user); // save with hashing pass
+    public ModelAndView submitUser(@ModelAttribute User user,
+                                   @RequestParam("userRole") String role){
+        userService.saveUser(user, role); // save with hashing pass
         logger.info("Save USer to the db, " +
                         "[fullName: {}; userName: {}; email: {}, password: {}]",
                 user.getFullName(), user.getUserName(), user.getEmail(),
