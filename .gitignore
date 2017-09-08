@@ -111,4 +111,6 @@ jboss/server/minimal/work/**/*
 
 *.DEPLOYED
 
+# .iml az prop files
 first-aid-competition.iml
+src/main/resources/application.properties
