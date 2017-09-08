@@ -68,6 +68,16 @@ public class HTTPController {
         return "station_table";
     }
 
+    @RequestMapping(value = {"/station_delete/{stationID}"}, method = RequestMethod.GET)
+    public String deleteStation(Model model, @PathVariable("stationID") int itemid){
+        Station station = stationRepository.findOne(itemid);
+        stationRepository.delete(station);
+        Iterable<Station> stationList = stationRepository.findAll();
+        model.addAttribute("listOfStations", stationList);
+        logger.info("Deleted user with id : " + itemid);
+        return "station_table";
+    }
+
     @GetMapping(value = "station/add")
     public String addStation(Model model) {
         Iterable<Competition> competitionList = competitionRepository.findAll();
