@@ -63,9 +63,23 @@ public class HTTPController {
     public String getStations(Model model) {
         Iterable<Station> stationList = stationRepository.findAll();
         model.addAttribute("listOfStations", stationList);
-
+        model.addAttribute("station", new Station());
+        Iterable<Competition> competitionList = competitionRepository.findAll();
+        model.addAttribute("listOfCompetitions", competitionList);
         logger.info("Mappinng the station route");
         return "station_table";
+    }
+
+    @RequestMapping(value={"/station/edit"},method = RequestMethod.POST)
+    public ModelAndView editStation(@ModelAttribute Station station){
+        //stationRepository.save(station);
+        Station stationEdit = stationRepository.findOne(station.getId());
+        stationEdit.setName(station.getName());
+        stationEdit.setDescription(station.getDescription());
+        stationEdit.setCompetition(station.getCompetition());
+        stationEdit.setNumber(station.getNumber());
+        stationRepository.save(stationEdit);
+        return new ModelAndView("redirect:/station");
     }
 
     @RequestMapping(value = {"/station_delete/{stationID}"}, method = RequestMethod.GET)
