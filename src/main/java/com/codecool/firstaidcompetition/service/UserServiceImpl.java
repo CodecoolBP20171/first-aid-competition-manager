@@ -51,6 +51,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return rolesSet;
     }
 
+    public boolean checkUsernameAlreadyExists(String username){
+        User user = userRepository.findByUserName(username);
+        if (user == null){
+            return false;
+        }
+        return true;
+    }
+
     @Override
     public User findByUsername(String username) {
         return userRepository.findByUserName(username);
