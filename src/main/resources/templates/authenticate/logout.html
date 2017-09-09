@@ -1,26 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.w3.org/1999/xhtml">
-<head th:replace="fragments/header :: header"> </head>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/header :: header"></head>
 
 <body>
-    <div class="container">
-        <!--NAVBAR-->
-        <div th:replace="fragments/custom_navbar :: custom_navbar"></div>
-        <!--CONTENT-->
-        <div>
-            <form th:action="@{/logout}" method="POST" id="formLogout" sec:authorize="isAuthenticated()" class="form-horizontal">
-                <fieldset>
-                    <legend>Kijelentkezés</legend>
-                    <div sec:authorize="isAuthenticated()" class="alert alert-success">
-                        <div>Jelenleg be van jelentkezve. Biztosan ki akar jelentkezni?</div>
-                    </div>
-                    <a href="javascript:{}" class="btn btn-danger" onclick="document.getElementById('formLogout').submit(); return false;">
-                        Kijelentkezés
-                    </a>
-                </fieldset>
-            </form>
-        </div>
+<div class="container">
+    <!--NAVBAR-->
+    <div th:replace="fragments/custom_navbar :: custom_navbar"></div>
+    <!--CONTENT-->
+    <div>
+        <form th:action="@{/logout}" method="POST" id="formLogout" sec:authorize="isAuthenticated()"
+              class="form-horizontal">
+            <fieldset>
+                <legend>Kijelentkezés</legend>
+                <div sec:authorize="isAuthenticated()" class="alert alert-success">
+                    <div>Jelenleg be van jelentkezve. Biztosan ki akar jelentkezni?</div>
+                </div>
+                <a href="javascript:{}" class="btn btn-danger"
+                   onclick="document.getElementById('formLogout').submit(); return false;">
+                    Kijelentkezés
+                </a>
+            </fieldset>
+        </form>
     </div>
+</div>
+</div>
 </body>
 </html>
