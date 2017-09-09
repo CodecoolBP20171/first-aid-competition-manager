@@ -1,11 +1,11 @@
 /**
  * Created by keli on 2017.07.03..
  */
-$(document).ready(function(){
+$(document).ready(function () {
 
-    $("#regForm").submit(function(event) {    // check userName and pass before submit
-        validateUserNameIsExists(function(data){
-            if (data === true){
+    $("#regForm").submit(function (event) {    // check userName and pass before submit
+        validateUserNameIsExists(function (data) {
+            if (data === true) {
                 event.preventDefault();
                 alert("A felhasználónév már használatban van");
                 $("#user_name").val("");
@@ -16,7 +16,7 @@ $(document).ready(function(){
         });
 
         var isValidPass = validateUserPassword();
-        if (!isValidPass){
+        if (!isValidPass) {
             event.preventDefault();
             changePasswordColor();
         } else {
@@ -24,25 +24,25 @@ $(document).ready(function(){
         }
     });
 
-    var validateUserNameIsExists = function(callback) {
+    var validateUserNameIsExists = function (callback) {
         var userName = $('#user_name').val();
         return $.ajax({
             method: "GET",
             url: "/registration/" + userName,
             async: false,
             success: callback,
-            error: function(){
+            error: function () {
                 alert("Something went wrong!");
             }
         });
     };
 
-    var validateUserPassword = function(){
+    var validateUserPassword = function () {
         var $passwordOne = $('#password').val();
         var $passwordTwo = $('#password2').val();
         var reg = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])/;
 
-        if ($passwordOne === $passwordTwo){
+        if ($passwordOne === $passwordTwo) {
             if (!(reg.test($passwordOne))) {
                 alert("A jelszónak tartalmaznia kell legalább 1 kis- és nagybetűt, valamint egy számot is!");
                 $("#password").val("");
@@ -58,24 +58,23 @@ $(document).ready(function(){
         return true;
     };
 
-    var changeUserNameColor = function (){
+    var changeUserNameColor = function () {
         $("#user_name").parent(".input-group").attr("class", "input-group has-error");
     };
 
-    var changeUserNameColorToDefault = function (){
+    var changeUserNameColorToDefault = function () {
         $("#user_name").parent(".input-group").attr("class", "input-group");
     };
 
-    var changePasswordColor = function(){
+    var changePasswordColor = function () {
         $("#password").parent(".input-group").attr("class", "input-group has-error");
         $("#password2").parent(".input-group").attr("class", "input-group has-error");
     };
 
-    var changePasswordColorToDefault = function(){
+    var changePasswordColorToDefault = function () {
         $("#password").parent(".input-group").attr("class", "input-group");
         $("#password2").parent(".input-group").attr("class", "input-group");
     };
-
 
 });
 

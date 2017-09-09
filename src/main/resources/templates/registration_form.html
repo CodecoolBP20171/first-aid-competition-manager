@@ -1,84 +1,89 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header"> </head>
+<head th:replace="fragments/header :: header"></head>
 <body>
-    <div class="container">
+<div class="container">
 
-        <div th:replace="fragments/custom_navbar :: custom_navbar"></div>
+    <div th:replace="fragments/custom_navbar :: custom_navbar"></div>
 
-        <!--CONTENT-->
-        <div id="reg_page" class="col-lg 12">
-            <div>
-                <h1 class="header-title">Regisztrációs űrlap</h1>
+    <!--CONTENT-->
+    <div id="reg_page" class="col-lg 12">
+        <div>
+            <h1 class="header-title">Regisztrációs űrlap</h1>
+        </div>
+
+        <!--Form group-->
+        <form th:action="@{/registration}" th:object="${user}" id="regForm" class="form-horizontal" method="POST">
+            <div class="form-group">
+                <label for="name" class="col-lg-2 control-label">Teljes név</label>
+                <div class="col-lg-10">
+                    <div class="input-group">
+                        <input th:field="*{fullName}" minlength="5" maxlength="50" class="form-control" type="text"
+                               name="name" id="name" placeholder="Vezetéknév"/>
+                    </div>
+                </div>
             </div>
-
-            <!--Form group-->
-            <form th:action="@{/registration}" th:object="${user}" id="regForm" class="form-horizontal" method="POST">
-                <div class="form-group">
-                    <label for="name" class="col-lg-2 control-label">Teljes név</label>
-                    <div class="col-lg-10">
-                        <div class="input-group">
-                            <input th:field="*{fullName}" minlength="5" maxlength="50" class="form-control" type="text" name="name" id="name" placeholder="Vezetéknév"/>
-                        </div>
+            <div class="form-group">
+                <label for="user_name" class="col-lg-2 control-label">Felhasználónév</label>
+                <div class="col-lg-10">
+                    <div class="input-group">
+                        <input th:field="*{userName}" minlength="3" maxlength="15" class="form-control" type="text"
+                               name="user_name" id="user_name" placeholder="Keresztnév" required="required"/>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="user_name" class="col-lg-2 control-label">Felhasználónév</label>
-                    <div class="col-lg-10">
-                        <div class="input-group">
-                            <input th:field="*{userName}" minlength="3" maxlength="15" class="form-control" type="text" name="user_name" id="user_name" placeholder="Keresztnév" required="required"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="email" class="col-lg-2 control-label">Email cím</label>
-                    <div class="col-lg-10">
-                        <div class="input-group">
-                            <input th:field="*{email}" maxlength="100" class="form-control" type="text" name="email" id="email" placeholder="Email cím" required="required"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="password" class="col-lg-2 control-label">Jelszó</label>
-                    <div class="col-lg-10">
-                        <div class="input-group">
-                            <input th:field="*{password}" minlength="5" maxlength="15" class="form-control" type="password" name="password" id="password" placeholder="Jelszó" required="required"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="password2" class="col-lg-2 control-label">Jelszó ismét</label>
-                    <div class="col-lg-10">
-                        <div class="input-group">
-                            <input minlength="5" maxlength="15" class="form-control" type="password" name="password2" id="password2" placeholder="Jelszó ismét" required="required"/>
-                        </div>
-                    </div>
-                </div>
-                <div clas="form-group">
-                    <label for="userRole" class="col-lg-2 control-label">Jogosultság</label>
-                    <div class="col-lg-10">
-                        <div class="input-group">
-                            <select class="form-control" name="userRole" id="userRole" required="required">
-                                <option th:value="ROLE_REFEREE">Állomás vezető</option>
-                                <option th:value="ROLE_ADMIN">Admin</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <!--Buttons-->
-                <div class="form-group">
-                    <input type="submit" class="btn btn-success" id="submit_button" value="Leadás"/>
-                    <input type="reset" class="btn btn-danger" value="Törlés"/>
-                </div>
-            </form>
-
-            <div class="col-lg-12">
-                <a href="/index">
-                    <button class="btn btn-primary">Vissza a főoldalra</button>
-                </a>
             </div>
+            <div class="form-group">
+                <label for="email" class="col-lg-2 control-label">Email cím</label>
+                <div class="col-lg-10">
+                    <div class="input-group">
+                        <input th:field="*{email}" maxlength="100" class="form-control" type="text" name="email"
+                               id="email" placeholder="Email cím" required="required"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password" class="col-lg-2 control-label">Jelszó</label>
+                <div class="col-lg-10">
+                    <div class="input-group">
+                        <input th:field="*{password}" minlength="5" maxlength="15" class="form-control" type="password"
+                               name="password" id="password" placeholder="Jelszó" required="required"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password2" class="col-lg-2 control-label">Jelszó ismét</label>
+                <div class="col-lg-10">
+                    <div class="input-group">
+                        <input minlength="5" maxlength="15" class="form-control" type="password" name="password2"
+                               id="password2" placeholder="Jelszó ismét" required="required"/>
+                    </div>
+                </div>
+            </div>
+            <div clas="form-group">
+                <label for="userRole" class="col-lg-2 control-label">Jogosultság</label>
+                <div class="col-lg-10">
+                    <div class="input-group">
+                        <select class="form-control" name="userRole" id="userRole" required="required">
+                            <option th:value="ROLE_REFEREE">Állomás vezető</option>
+                            <option th:value="ROLE_ADMIN">Admin</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!--Buttons-->
+            <div class="form-group">
+                <input type="submit" class="btn btn-success" id="submit_button" value="Leadás"/>
+                <input type="reset" class="btn btn-danger" value="Törlés"/>
+            </div>
+        </form>
+
+        <div class="col-lg-12">
+            <a href="/index">
+                <button class="btn btn-primary">Vissza a főoldalra</button>
+            </a>
         </div>
     </div>
+</div>
 
 </body>
 </html>

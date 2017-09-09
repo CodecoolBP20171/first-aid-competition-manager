@@ -34,8 +34,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         if (user != null) {
             List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
             Set<Role> roles = user.getRole();
-            for (Role role : roles){
-                grantedAuthorities.add( new SimpleGrantedAuthority(role.getRole()));
+            for (Role role : roles) {
+                grantedAuthorities.add(new SimpleGrantedAuthority(role.getRole()));
             }
             Authentication auth = new UsernamePasswordAuthenticationToken(name, password, grantedAuthorities);
             return auth;
@@ -47,7 +47,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     public User authenticateUser(String username, String password) {
         User userByUsername = userRepository.findByUserName(username);
         Set<User> userByPassword = authenticateByPassword(password);
-        if (userByUsername != null && userByPassword != null){
+        if (userByUsername != null && userByPassword != null) {
             for (User user : userByPassword) {
                 if (user.getId() == userByUsername.getId()) {
                     return user;
@@ -60,9 +60,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     private Set<User> authenticateByPassword(String password) {
         Iterator<User> users = userRepository.findAll().iterator();
         Set<User> userWithSamePass = new HashSet<>();   // pass can be the same, have to check it
-        while (users.hasNext()){
+        while (users.hasNext()) {
             User currentUser = users.next();
-            if (bCryptPasswordEncoder.matches(password, currentUser.getPassword())){
+            if (bCryptPasswordEncoder.matches(password, currentUser.getPassword())) {
                 userWithSamePass.add(currentUser);
             }
         }
