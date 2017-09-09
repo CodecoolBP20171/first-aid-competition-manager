@@ -48,9 +48,15 @@ public class HTTPController {
         return "registration_form";
     }
 
+    @RequestMapping("/registration/{userName}")
+    @ResponseBody   // can return with anything
+    public boolean checkUsernameIsExists(@PathVariable String userName) {
+        return userService.checkUsernameAlreadyExists(userName);
+    }
+
     @PostMapping("/registration")
     public ModelAndView submitUser(@ModelAttribute User user,
-                                   @RequestParam("userRole") String role){
+                                   @RequestParam("userRole") String role) {
         userService.saveUser(user, role); // save with hashing pass
         logger.info("Save USer to the db, " +
                         "[fullName: {}; userName: {}; email: {}, password: {}]",
@@ -64,7 +70,7 @@ public class HTTPController {
         Iterable<Station> stationList = stationRepository.findAll();
         model.addAttribute("listOfStations", stationList);
 
-        logger.info("Mappinng the station route");
+        logger.info("Mapping to the station route");
         return "station_table";
     }
 

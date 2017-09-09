@@ -4,7 +4,6 @@ import com.codecool.firstaidcompetition.model.Role;
 import com.codecool.firstaidcompetition.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -18,7 +17,7 @@ public class UserDetailsImpl implements UserDetails {
 
     private User user;
 
-    public UserDetailsImpl(User user){
+    UserDetailsImpl(User user) {
         this.user = user;
     }
 
@@ -26,13 +25,12 @@ public class UserDetailsImpl implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new HashSet<>();
         Set<Role> roles = user.getRole();
-        for (Role role : roles){
-            authorities.add( new SimpleGrantedAuthority(role.getRole()));
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getRole()));
         }
 
         return authorities;
     }
-
 
     @Override
     public String getPassword() {
@@ -61,6 +59,6 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true ;
+        return true;
     }
 }
