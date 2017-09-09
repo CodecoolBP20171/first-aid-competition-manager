@@ -44,25 +44,29 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         }
     }
 
-    public User authenticateUser(String username, String password){
-        User byUsername = userRepository.findByUserName(username);
-        User byPassword = authenticateByPassword(password);
-        if (byUsername != null && byPassword != null && byUsername.getId() == byPassword.getId()){
-            return byUsername;
-        } else {
-            return null;
-        }
-    }
-
-    private User authenticateByPassword(String password) {
-        Iterator<User> users = userRepository.findAll().iterator();
-        while (users.hasNext()){
-            User currentUser = users.next();
-            if (bCryptPasswordEncoder.matches(password, currentUser.getPassword())){
-                return currentUser;
+    public User authenticateUser(String username, String password) {
+        User userByUsername = userRepository.findByUserName(username);
+        Set<User> userByPassword = authenticateByPassword(password);
+        if (userByUsername != null && userByPassword != null){
+            for (User user : userByPassword) {
+                if (user.getId() == userByUsername.getId()) {
+                    return user;
+                }
             }
         }
         return null;
+    }
+
+    private Set<User> authenticateByPassword(String password) {
+        Iterator<User> users = userRepository.findAll().iterator();
+        Set<User> userWithSamePass = new HashSet<>();   // pass can be the same, have to check it
+        while (users.hasNext()){
+            User currentUser = users.next();
+            if (bCryptPasswordEncoder.matches(password, currentUser.getPassword())){
+                userWithSamePass.add(currentUser);
+            }
+        }
+        return userWithSamePass;
     }
 
     @Override
