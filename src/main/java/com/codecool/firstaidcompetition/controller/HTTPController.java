@@ -53,12 +53,8 @@ public class HTTPController {
 
     @RequestMapping("/registration/{userName}")
     @ResponseBody   // can return with anything
-    public String checkUsernameIsExists(@PathVariable String userName){
-        User user = userRepository.findByUserName(userName);
-        if (user == null){
-            return "false";
-        }
-        return "true";
+    public boolean checkUsernameIsExists(@PathVariable String userName){
+        return userService.checkUsernameAlreadyExists(userName);
     }
 
     @PostMapping("/registration")
@@ -77,7 +73,7 @@ public class HTTPController {
         Iterable<Station> stationList = stationRepository.findAll();
         model.addAttribute("listOfStations", stationList);
 
-        logger.info("Mappinng the station route");
+        logger.info("Mapping to the station route");
         return "station_table";
     }
 
