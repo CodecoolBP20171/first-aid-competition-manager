@@ -38,6 +38,7 @@
                     <div class="input-group">
                         <select class="form-control" id="stations" name="stations">
                             <option th:each="station : ${listOfStations}"
+                                    th:field="*{stations}"
                                     th:value="${station.id}"
                                     th:name="${station.name}"
                                     th:text="${station.name}">
