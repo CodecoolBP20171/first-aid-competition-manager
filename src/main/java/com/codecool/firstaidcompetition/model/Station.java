@@ -15,7 +15,7 @@ import javax.persistence.*;
 public class Station {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Column(length = 50)
     private String name;
@@ -52,7 +52,7 @@ public class Station {
         this.competition = competitionID;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

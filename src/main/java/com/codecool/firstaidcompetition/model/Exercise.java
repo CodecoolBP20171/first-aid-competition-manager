@@ -42,14 +42,19 @@ public class Exercise {
         this.description = description;
     }
 
+    public Exercise(String name, String description, List<Station> stations) {
+        this.name = name;
+        this.description = description;
+        this.stations = stations;
+    }
+
     public List<Station> getStations() {
         return stations;
     }
 
-//    public void setStations(Set<Station> stations) {
-//        this.stations = stations;
-//    }
-
+    public void setStations(List<Station> stations) {
+        this.stations = stations;
+    }
 
     public String getDescription() {
         return description;

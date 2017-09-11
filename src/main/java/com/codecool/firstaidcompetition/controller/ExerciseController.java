@@ -1,6 +1,7 @@
 package com.codecool.firstaidcompetition.controller;
 
 import com.codecool.firstaidcompetition.model.Exercise;
+import com.codecool.firstaidcompetition.model.Station;
 import com.codecool.firstaidcompetition.repository.ExerciseRepository;
 import com.codecool.firstaidcompetition.repository.StationRepository;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by keli on 2017.09.11..
@@ -41,15 +43,18 @@ public class ExerciseController {
     @GetMapping("/add")
     private String addExercise(Model model){
         model.addAttribute("exercise", new Exercise());
-        stationRepository.findAll();
         model.addAttribute("listOfStations", stationRepository.findAll());
-
         return "exercises/exercise_add";
     }
 
     @PostMapping("/add")
-    private String saveExercise(@ModelAttribute Exercise exercise, Model model){
+    private ModelAndView saveExercise(@ModelAttribute Exercise exercise){
         exerciseRepository.save(exercise);
-        return "exercises/exercise_table";
+
+        for (Station st : exercise.getStations()){
+            System.out.println(st.getName());
+        }
+        return new ModelAndView("redirect:/index");
+
     }
 }
