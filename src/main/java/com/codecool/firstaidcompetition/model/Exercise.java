@@ -14,7 +14,7 @@ import java.util.Set;
 public class Exercise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Column(length = 100)
     private String name;
@@ -22,13 +22,13 @@ public class Exercise {
     @Column(length = 1000)
     private String description;
 
-    @OneToOne(mappedBy = "exercise")
+    @OneToOne(mappedBy = "exercise", cascade = CascadeType.REMOVE)
     private Protest protest;
 
-    @OneToMany(mappedBy = "exercise")
+    @OneToMany(mappedBy = "exercise", cascade = CascadeType.REMOVE)
     private List<Station> stations = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
             name="tasks_of_exercises",
             joinColumns=@JoinColumn(name="exercise_id", referencedColumnName="id"),
@@ -75,11 +75,11 @@ public class Exercise {
         this.protest = protest;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
