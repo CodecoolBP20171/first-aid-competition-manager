@@ -1,18 +1,17 @@
 $(document).ready(function () {
    $("a#edit_icon").on("click",function () {
+       var modal = $("#editStationModal");
        $('#name', modal).val("");
        $('#station_number', modal).val("");
        $('#station_description', modal).val("");
        $('#competition', modal).val("");
 
-        var modal = $("#editCompetitionModal");
+
        var stationName = $(this).closest('tr').find('td#station_name').html();
        var stationNumber = $(this).closest('tr').find('td#station_number').html();
        var stationDescription = $(this).closest('tr').find('td#station_description').html();
        var stationCompetition = $(this).closest('tr').find('td#station_competition').html();
        var stationID = $(this).closest('tr').find('td#station_id').html();
-
-       console.log(stationName);
 
 
        $('#name', modal).val(stationName);

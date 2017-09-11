@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/header :: header"> </head>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/header :: header"></head>
 <body>
 <div class="container">
 
@@ -27,7 +27,7 @@
                 <label for="station_number" class="col-lg-2 control-label">Állomás száma</label>
                 <div class="col-lg-10">
                     <div class="input-group">
-                        <input th:field="*{number}" maxlength="100" class="form-control" type="text"
+                        <input th:field="*{number}" maxlength="100" class="form-control" type="number"
                                name="station_number"
                                id="station_number" placeholder="Állomás száma" required="required"/>
                     </div>
@@ -54,9 +54,6 @@
                                     th:text="${comp.name}">
                             </option>
                         </select>
-                        <!--<input th:field="*{competition.id}" maxlength="100" class="form-control" type="text"-->
-                        <!--name="competition"-->
-                        <!--id="competition" placeholder="Verseny" required="required"/>-->
                     </div>
                 </div>
             </div>

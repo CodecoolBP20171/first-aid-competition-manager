@@ -14,7 +14,7 @@ public class Competition {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @Column(length = 100)
     private String name;
@@ -26,13 +26,13 @@ public class Competition {
     private Date dateOfEvent;
 
     @ManyToOne
-    @JoinColumn(name = "owner_id")
+    @JoinColumn(name = "owner_id" )
     private User owner;
 
-    @OneToMany(mappedBy = "competition")
+    @OneToMany(mappedBy = "competition", cascade = CascadeType.REMOVE)
     private List<Station> stations = new ArrayList<>();
 
-    @OneToMany(mappedBy = "competition")
+    @OneToMany(mappedBy = "competition", cascade = CascadeType.REMOVE)
     private Set<Team> team = new HashSet<>();
 
     public Competition() {
@@ -41,6 +41,8 @@ public class Competition {
     public Competition(String name, String location, String dateOfEvent, User owner) {
         this.name = name;
         this.location = location;
+
+
 
         // Is it OK?
         this.dateOfEvent = convertStringToDate(dateOfEvent);
@@ -60,7 +62,7 @@ public class Competition {
         }
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
@@ -91,6 +93,10 @@ public class Competition {
     public void setDateOfEvent(String dateOfEvent) {
         this.dateOfEvent = convertStringToDate(dateOfEvent);
     }
+
+    /*public void setDateOfEvent(Date dateOfEvent) {
+        this.dateOfEvent = dateOfEvent;
+    }*/
 
     public User getOwner() {
         return owner;

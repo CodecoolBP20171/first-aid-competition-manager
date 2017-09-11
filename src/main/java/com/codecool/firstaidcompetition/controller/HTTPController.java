@@ -6,7 +6,7 @@ import com.codecool.firstaidcompetition.model.User;
 import com.codecool.firstaidcompetition.repository.CompetitionRepository;
 import com.codecool.firstaidcompetition.repository.DBHandler;
 import com.codecool.firstaidcompetition.repository.StationRepository;
-import com.codecool.firstaidcompetition.repository.UserRepository;
+import com.codecool.firstaidcompetition.service.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +25,9 @@ public class HTTPController {
     @Autowired
     private DBHandler dbHandler;
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
     private StationRepository stationRepository;
+    @Autowired
+    private UserServiceImpl userService;
     @Autowired
     private CompetitionRepository competitionRepository;
 
@@ -48,10 +48,16 @@ public class HTTPController {
         return "registration_form";
     }
 
-    @PostMapping("/registration")
-    public ModelAndView submitUser(@ModelAttribute User user) {
-        userRepository.save(user);
+    @RequestMapping("/registration/{userName}")
+    @ResponseBody   // can return with anything
+    public boolean checkUsernameIsExists(@PathVariable String userName) {
+        return userService.checkUsernameAlreadyExists(userName);
+    }
 
+    @PostMapping("/registration")
+    public ModelAndView submitUser(@ModelAttribute User user,
+                                   @RequestParam("userRole") String role) {
+        userService.saveUser(user, role); // save with hashing pass
         logger.info("Save USer to the db, " +
                         "[fullName: {}; userName: {}; email: {}, password: {}]",
                 user.getFullName(), user.getUserName(), user.getEmail(),
@@ -76,9 +82,12 @@ public class HTTPController {
         Station stationEdit = stationRepository.findOne(station.getId());
         stationEdit.setName(station.getName());
         stationEdit.setDescription(station.getDescription());
+        System.out.println(station.getCompetition().getName());
+
         stationEdit.setCompetition(station.getCompetition());
         stationEdit.setNumber(station.getNumber());
         stationRepository.save(stationEdit);
+        logger.info("Edited user with id : " + station.getId());
         return new ModelAndView("redirect:/station");
     }
 
@@ -88,9 +97,14 @@ public class HTTPController {
         stationRepository.delete(station);
         Iterable<Station> stationList = stationRepository.findAll();
         model.addAttribute("listOfStations", stationList);
+        model.addAttribute("station", new Station());
+        Iterable<Competition> competitionList = competitionRepository.findAll();
+        model.addAttribute("listOfCompetitions", competitionList);
         logger.info("Deleted user with id : " + itemid);
         return "station_table";
     }
+
+
 
     @GetMapping(value = "station/add")
     public String addStation(Model model) {
@@ -102,7 +116,6 @@ public class HTTPController {
 
     @PostMapping(value = "station/add")
     public ModelAndView submitStation(@ModelAttribute Station station) {
-        // Query a user from the db (owner has to be redirect from the session)
         stationRepository.save(station);
         logger.info("Save station to the db, " +
                         "[name: {}; location: {}; date: {}, owner: {}]",

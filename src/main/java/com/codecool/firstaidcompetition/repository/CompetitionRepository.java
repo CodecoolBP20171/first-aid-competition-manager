@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Created by keli on 2017.07.06..
  */
-public interface CompetitionRepository extends CrudRepository<Competition, Long>{
+public interface CompetitionRepository extends CrudRepository<Competition, Integer>{
 
     List<Competition> findCompetitionByName(String name);
 

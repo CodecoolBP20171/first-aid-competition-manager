@@ -17,7 +17,7 @@ public class UserDetailsImpl implements UserDetails {
 
     private User user;
 
-    public UserDetailsImpl(User user){
+    UserDetailsImpl(User user) {
         this.user = user;
     }
 
@@ -25,9 +25,10 @@ public class UserDetailsImpl implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new HashSet<>();
         Set<Role> roles = user.getRole();
-        for (Role role : roles){
-            authorities.add( new SimpleGrantedAuthority(role.getRole()));
+        for (Role role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role.getRole()));
         }
+
         return authorities;
     }
 
@@ -58,6 +59,6 @@ public class UserDetailsImpl implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true ;
+        return true;
     }
 }
