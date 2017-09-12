@@ -8,6 +8,4 @@ import java.util.List;
 /**
  * Created by keli on 2017.07.06..
  */
-public interface StationRepository extends CrudRepository<Station, Long> {
-    List<Station> findAllByExerciseIsNull();
-}
+public interface StationRepository extends CrudRepository<Station, Long> {}
