@@ -35,15 +35,19 @@
             <div class="form-group">
                 <label for="stations" class="col-lg-2 control-label">Állomás</label>
                 <div class="col-lg-10">
-                    <div class="input-group">
-                        <select class="form-control" id="stations" name="stations">
-                            <option th:each="station : ${listOfStations}"
-                                    th:field="*{stations}"
-                                    th:value="${station.id}"
-                                    th:name="${station.name}"
-                                    th:text="${station.name}">
-                            </option>
-                        </select>
+                    <div class="form-group">
+                        <button tabindex="-1" data-toggle="dropdown" class="btn dropdown-toggle">
+                            Állomások választása <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu from-control" id="stations" name="stations">
+                            <li th:each="station : ${listOfStations}">
+                                <input type="checkbox"
+                                       th:field="*{station}"
+                                       th:value="${station.id}"
+                                       th:name="${station.name}"
+                                       th:text="${station.name}"/>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
