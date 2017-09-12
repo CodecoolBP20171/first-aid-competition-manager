@@ -12,6 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by keli on 2017.09.11..
  */
@@ -43,18 +46,17 @@ public class ExerciseController {
     @GetMapping("/add")
     private String addExercise(Model model){
         model.addAttribute("exercise", new Exercise());
-        model.addAttribute("listOfStations", stationRepository.findAll());
+        model.addAttribute("listOfStations", stationRepository.findAllByExerciseIsNull());
         return "exercises/exercise_add";
     }
 
     @PostMapping("/add")
     private ModelAndView saveExercise(@ModelAttribute Exercise exercise){
         exerciseRepository.save(exercise);
-
-        for (Station st : exercise.getStations()){
-            System.out.println(st.getName());
+        for (Station station : exercise.getStations()){
+            station.setExercise(exercise);
+            stationRepository.save(station);
         }
         return new ModelAndView("redirect:/index");
-
     }
 }
