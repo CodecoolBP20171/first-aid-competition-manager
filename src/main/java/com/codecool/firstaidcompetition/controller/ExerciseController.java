@@ -12,12 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- * Created by keli on 2017.09.11..
- */
 @Controller
 @RequestMapping("/exercise/")
 public class ExerciseController {
