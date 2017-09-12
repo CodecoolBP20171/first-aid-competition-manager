@@ -25,8 +25,8 @@ public class Exercise {
     @OneToOne(mappedBy = "exercise", cascade = CascadeType.REMOVE)
     private Protest protest;
 
-    @OneToMany(mappedBy = "exercise", cascade = CascadeType.REMOVE)
-    private List<Station> stations = new ArrayList<>();
+    @ManyToOne
+    private Station station;
 
     @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
@@ -42,18 +42,22 @@ public class Exercise {
         this.description = description;
     }
 
-    public Exercise(String name, String description, List<Station> stations) {
+    public Exercise(String name, String description, Station station) {
         this.name = name;
         this.description = description;
-        this.stations = stations;
+        this.station = station;
     }
 
-    public List<Station> getStations() {
-        return stations;
+    public Station getStation() {
+        return station;
     }
 
-    public void setStations(List<Station> stations) {
-        this.stations = stations;
+    public void setStation(Station station) {
+        this.station = station;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public String getDescription() {

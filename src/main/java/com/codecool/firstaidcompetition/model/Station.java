@@ -1,6 +1,8 @@
 package com.codecool.firstaidcompetition.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NamedQueries({
         @NamedQuery(name = "findAllStations", query = "select stat from stations stat"),
@@ -30,9 +32,9 @@ public class Station {
     @JoinColumn(name = "competition_id")
     private Competition competition;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "exercise_id")
-    private Exercise exercise;
+    @OneToMany(mappedBy = "station")
+    private List<Exercise> exercise = new ArrayList<>();
+    // Egy stationhoz több exercise tatrozik, de egy exerise csak egy stationhoz tartozhat
 
     public Station() {
     }
@@ -42,6 +44,14 @@ public class Station {
         this.number = number;
         this.description = description;
         this.competition = competition;
+    }
+
+    public Station(String name, int number, String description, Competition competition, List<Exercise> exercise) {
+        this.name = name;
+        this.number = number;
+        this.description = description;
+        this.competition = competition;
+        this.exercise = exercise;
     }
 
     public Competition getCompetition() {
@@ -88,11 +98,11 @@ public class Station {
         this.id = id;
     }
 
-    public Exercise getExercise() {
+    public List<Exercise> getExercise() {
         return exercise;
     }
 
-    public void setExercise(Exercise exercise) {
+    public void setExercise(List<Exercise> exercise) {
         this.exercise = exercise;
     }
 }
