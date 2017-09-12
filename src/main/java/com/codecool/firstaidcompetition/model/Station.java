@@ -33,8 +33,7 @@ public class Station {
     private Competition competition;
 
     @OneToMany(mappedBy = "station")
-    private List<Exercise> exercise = new ArrayList<>();
-    // Egy stationhoz több exercise tatrozik, de egy exerise csak egy stationhoz tartozhat
+    private List<Exercise> exercises = new ArrayList<>();
 
     public Station() {
     }
@@ -46,12 +45,12 @@ public class Station {
         this.competition = competition;
     }
 
-    public Station(String name, int number, String description, Competition competition, List<Exercise> exercise) {
+    public Station(String name, int number, String description, Competition competition, List<Exercise> exercises) {
         this.name = name;
         this.number = number;
         this.description = description;
         this.competition = competition;
-        this.exercise = exercise;
+        this.exercises = exercises;
     }
 
     public Competition getCompetition() {
@@ -98,11 +97,11 @@ public class Station {
         this.id = id;
     }
 
-    public List<Exercise> getExercise() {
-        return exercise;
+    public List<Exercise> getExercises() {
+        return exercises;
     }
 
-    public void setExercise(List<Exercise> exercise) {
-        this.exercise = exercise;
+    public void setExercise(List<Exercise> exercises) {
+        this.exercises = exercises;
     }
 }
