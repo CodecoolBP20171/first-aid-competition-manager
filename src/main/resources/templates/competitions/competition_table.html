@@ -11,6 +11,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
+                <td>ID</td>
                 <td>Név</td>
                 <td>Helyszín</td>
                 <td>Dátum</td>
@@ -18,16 +19,17 @@
             </thead>
             <tbody>
             <tr th:each="comp: ${listOfCompetitions}">
-                <td th:text="${comp.name}"></td>
-                <td th:text="${comp.location}"></td>
-                <td th:text="${comp.dateOfEvent}"></td>
+                <td th:text="${comp.id}" id="competition_id"></td>
+                <td th:text="${comp.name}" id="competition_name"></td>
+                <td th:text="${comp.location}" id="competition_location"></td>
+                <td th:text="${comp.dateOfEvent}" id="competition_date"></td>
                 <td>
-                    <a href="#">
-                        <span th:attr="data-comp_id=${comp.id}" id="edit_icon" class="glyphicon glyphicon-pencil"
+                    <a href="#" id="edit_icon">
+                        <span th:attr="data-comp_id=${comp.id}"  class="glyphicon glyphicon-pencil"
                               aria-hidden="true" data-toggle="modal"
                               data-target="#editCompetitionModal"></span>
                     </a>
-                    <a href="#">
+                    <a th:href="@{'/competition/delete/' + ${comp.id}}">
                         <span id="bin_icon" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </a>
                 </td>
@@ -46,15 +48,54 @@
                     <h2 class="modal-title" id="modal-header">Verseny szerkesztése</h2>
 
                 </div>
-                <div class="modal-footer">
-                    <a href="/index">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Mentés</button>
-                    </a>
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Mégse</button>
-                </div>
+                <form class="form-horizontal" th:action="@{/competition/edit}" th:object="${competition}" method="POST">
+                    <div class="form-group">
+                        <label for="name" class="col-lg-2 control-label">Név</label>
+                        <div class="col-lg-10">
+                            <div class="input-group">
+                                <input th:field="*{name}" maxlength="100" class="form-control" type="text" name="name" id="name"
+                                       placeholder="Verseny neve" required="required"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="location" class="col-lg-2 control-label">Helyszín</label>
+                        <div class="col-lg-10">
+                            <div class="input-group">
+                                <input th:field="*{location}" maxlength="100" class="form-control" type="text" name="location"
+                                       id="location" placeholder="Verseny helyszíne" required="required"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="date" class="col-lg-2 control-label">Verseny dátuma</label>
+                        <div class="col-lg-10">
+                            <div class="input-group">
+                                <input th:field="*{dateOfEvent}" class="form-control" type="date" name="date" id="date"
+                                       placeholder="Verseny dátuma" required="required"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="date" class="col-lg-2 control-label">Verseny Azonosítója</label>
+                        <div class="col-lg-10">
+                            <div class="input-group">
+                                <input th:field="*{id}" class="form-control" type="number" name="email" id="ID"
+                                       placeholder="Verseny azonosítója" required="required" readonly="readonly"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Buttons-->
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-success" id="submit_competition" value="Mentés"/>
+                        <input type="button" class="btn btn-danger" data-dismiss="modal" value="Mégse"/>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </div>
+<script th:src="@{/js/CompetitionEdit.js}" />
 </body>
 </html>

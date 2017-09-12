@@ -6,4 +6,4 @@ import org.springframework.data.repository.CrudRepository;
 /**
  * Created by keli on 2017.07.06..
  */
-public interface StationRepository extends CrudRepository<Station, Long> {}
+public interface StationRepository extends CrudRepository<Station, Integer> {}

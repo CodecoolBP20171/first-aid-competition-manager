@@ -11,6 +11,7 @@
         <table class="table table-striped">
             <thead>
             <tr>
+                <td>ID</td>
                 <td>Név</td>
                 <td>Állomás száma</td>
                 <td>Leírás</td>
@@ -19,17 +20,18 @@
             </thead>
             <tbody>
             <tr th:each="stat: ${listOfStations}">
-                <td th:text="${stat.name}"></td>
-                <td th:text="${stat.number}"></td>
-                <td th:text="${stat.description}"></td>
-                <td th:text="${stat.competition.name}"></td>
+                <td th:text="${stat.id}" id="station_id"></td>
+                <td th:text="${stat.name}" id="station_name"></td>
+                <td th:text="${stat.number}" id="station_number"></td>
+                <td th:text="${stat.description}" id="station_description"></td>
+                <td th:text="${stat.competition.name}" id="station_competition"></td>
                 <td>
-                    <a href="#">
-                        <span th:attr="data-comp_id=${stat.id}" id="edit_icon" class="glyphicon glyphicon-pencil"
+                    <a href="#" id="edit_icon">
+                        <span th:attr="data-comp_id=${stat.id}"  class="glyphicon glyphicon-pencil"
                               aria-hidden="true" data-toggle="modal"
-                              data-target="#editCompetitionModal"></span>
+                              data-target="#editStationModal"></span>
                     </a>
-                    <a href="#">
+                    <a th:href="@{'/station_delete/' + ${stat.id}}" >
                         <span id="bin_icon" class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                     </a>
                 </td>
@@ -39,7 +41,7 @@
     </div>
 
     <!-- Modal Window-->
-    <div id="editCompetitionModal" class="modal fade" role="dialog">
+    <div id="editStationModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
@@ -48,15 +50,73 @@
                     <h2 class="modal-title" id="modal-header">Állomás szerkesztése</h2>
 
                 </div>
-                <div class="modal-footer">
-                    <a href="/index">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Mentés</button>
-                    </a>
-                    <button type="button" class="btn btn-success" data-dismiss="modal">Mégse</button>
-                </div>
+                <form class="form-horizontal" th:action="@{/station/edit}" th:object="${station}" method="POST">
+                    <div class="form-group">
+                        <label for="name" class="col-lg-2 control-label">Név</label>
+                        <div class="col-lg-10">
+                            <div class="input-group">
+                                <input th:field="*{name}" maxlength="100" class="form-control" type="text" name="name" id="name"
+                                       placeholder="Állomás neve" required="required" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="station_number" class="col-lg-2 control-label">Állomás száma</label>
+                        <div class="col-lg-10">
+                            <div class="input-group">
+                                <input th:field="*{number}" maxlength="100" class="form-control" type="number"
+                                       name="station_number"
+                                       id="station_number" placeholder="Állomás száma" required="required" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="station_description" class="col-lg-2 control-label">Leírás</label>
+                        <div class="col-lg-10">
+                            <div class="input-group">
+                                <input th:field="*{description}" maxlength="100" class="form-control" type="text"
+                                       name="station_description"
+                                       id="station_description" placeholder="Állomás leírása"
+                                       required="required" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="competition" class="col-lg-2 control-label">Verseny</label>
+                        <div class="col-lg-10">
+                            <div class="input-group">
+                                <select class="form-control" id="competition" name="competition" th:field="*{competition}">
+                                    <option th:each="comp : ${listOfCompetitions}"
+                                            th:value="${comp.id}"
+                                            th:name="${comp.name}"
+                                            th:text="${comp.name}">
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                                <div class="form-group">
+                                    <label for="station_description" class="col-lg-2 control-label">ID</label>
+                                <div class="col-lg-10">
+                                    <div class="input-group">
+                                        <input th:field="*{id}" maxlength="100" class="form-control" type="number"
+                                        name="competition"  id="station_id" readonly="readonly" />
+                                    </div>
+                                </div>
+                                </div>
+                                <!--id="competition_id" placeholder="Verseny" required="required"/>-->
+                    <div class="modal-footer">
+                        <input type="submit" class="btn btn-danger"  value="Mentés"></input>
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Mégse</button>
+                    </div>
+                </form>
+
+
             </div>
         </div>
     </div>
 </div>
+<script th:src="@{/js/StationEdit.js}" />
+
 </body>
 </html>
