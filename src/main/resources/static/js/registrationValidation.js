@@ -3,6 +3,13 @@
  */
 $(document).ready(function () {
 
+    $("#exercise_bin_icon").click(function(){
+        var exerciseId = $(this).attr("data-comp_id");
+        var deletedUrl = "/exercise/delete/" + exerciseId;
+        $("#deleteExercise").attr("href", deletedUrl);
+    });
+
+
     $("#regForm").submit(function (event) {    // check userName and pass before submit
         validateUserNameIsExists(function (data) {
             if (data === true) {
