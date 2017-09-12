@@ -83,4 +83,16 @@ public class Station {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Exercise getExercise() {
+        return exercise;
+    }
+
+    public void setExercise(Exercise exercise) {
+        this.exercise = exercise;
+    }
 }
