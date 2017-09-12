@@ -31,10 +31,10 @@ public class ExerciseController {
     }
 
     @GetMapping("/delete/{exerciseId}")
-    private String deleteExercise(@PathVariable String exerciseId){
+    private ModelAndView deleteExercise(@PathVariable String exerciseId){
         exerciseRepository.delete(Long.valueOf(exerciseId));
         logger.info("Deleted  exercise with id: {}", exerciseId);
-        return "exercises/exercise_table";
+        return new ModelAndView("redirect:/exercise/table");
     }
 
     @GetMapping("/add")
