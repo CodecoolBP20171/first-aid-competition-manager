@@ -53,12 +53,9 @@ public class ExerciseController {
     @PostMapping("/add")
     private ModelAndView saveExercise(@ModelAttribute Exercise exercise){
         exerciseRepository.save(exercise);
-
-        //        for (Station station : exercise.getStation()){
-//            station.setExercise(exercise);
-//            stationRepository.save(station);
-//        }
-        System.out.println(exercise.getStation());
+        Station station = stationRepository.findOne(exercise.getStation().getId());
+        station.addExercise(exercise);
+        stationRepository.save(station);
         return new ModelAndView("redirect:/index");
     }
 }
