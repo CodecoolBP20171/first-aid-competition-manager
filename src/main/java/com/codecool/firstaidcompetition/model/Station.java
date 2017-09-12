@@ -104,4 +104,8 @@ public class Station {
     public void setExercise(List<Exercise> exercises) {
         this.exercises = exercises;
     }
+
+    public void addExercise(Exercise exercise){
+        exercises.add(exercise);
+    }
 }
