@@ -6,6 +6,7 @@ import com.codecool.firstaidcompetition.model.User;
 import com.codecool.firstaidcompetition.repository.CompetitionRepository;
 import com.codecool.firstaidcompetition.repository.DBHandler;
 import com.codecool.firstaidcompetition.repository.StationRepository;
+import com.codecool.firstaidcompetition.repository.UserRepository;
 import com.codecool.firstaidcompetition.service.UserServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +31,8 @@ public class HTTPController {
     private UserServiceImpl userService;
     @Autowired
     private CompetitionRepository competitionRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     private boolean isDBUpdated = false;
 

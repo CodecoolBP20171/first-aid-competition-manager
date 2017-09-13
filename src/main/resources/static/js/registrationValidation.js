@@ -9,6 +9,20 @@ $(document).ready(function () {
         $("#deleteExercise").attr("href", deletedUrl);
     });
 
+    $("#exercise_edit_icon").click(function(){
+        var exerciseId = $(this).attr("data-comp_id");
+        $.ajax({
+            url: "/exercise/edit/" + exerciseId,
+            method: "GET",
+            success: function(data){
+                updateEditExerciseModal(data);
+            },
+            error: function(){
+                alert("bad")
+            }
+        })
+    });
+
 
     $("#regForm").submit(function (event) {    // check userName and pass before submit
         validateUserNameIsExists(function (data) {
@@ -30,6 +44,12 @@ $(document).ready(function () {
             changePasswordColorToDefault();
         }
     });
+
+    var updateEditExerciseModal = function(data){
+        $("#exerciseName").val(data["name"]);
+        $("#exerciseDesc").val(data["description"]);
+        $("#exerciseId").val(data["id"]);
+    };
 
     var validateUserNameIsExists = function (callback) {
         var userName = $('#user_name').val();

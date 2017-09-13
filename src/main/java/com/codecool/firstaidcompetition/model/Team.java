@@ -1,5 +1,7 @@
 package com.codecool.firstaidcompetition.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -31,12 +33,15 @@ public class Team {
     @Enumerated(EnumType.STRING)
     private TeamCategory category;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "team")
     private Protest protest;
 
+    @JsonIgnore
     @ManyToOne
     private Competition competition;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "team")
     private TeamResult teamResult;
 
