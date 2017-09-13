@@ -20,15 +20,15 @@
                 <td th:text="${exercise.description}"></td>
                 <td>
                     <a>
-                        <span id="exercise_edit_icon" class="glyphicon glyphicon-pencil"
+                        <span class="exercise_edit_icon glyphicon glyphicon-pencil"
                               aria-hidden="true" data-toggle="modal"
                               th:attr="data-comp_id=${exercise.id}" data-target="#editModal">
                         </span>
                     </a>
                     <a>
-                        <span id="exercise_bin_icon" th:attr="data-comp_id=${exercise.id}"
-                              class="glyphicon glyphicon-remove" data-toggle="modal"
-                              data-target="#deleteModal">
+                        <span class="exercise_bin_icon glyphicon glyphicon-remove"
+                              aria-hidden="true" data-toggle="modal"
+                              th:attr="data-comp_id=${exercise.id}" data-target="#deleteModal">
                         </span>
                     </a>
                 </td>
@@ -45,14 +45,16 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h2 class="modal-title" id="editModal-header">Feladat szerkesztése</h2>
                 </div>
-                <div class="modal-footer">
-                    <form th:action="@{/exercise/table}" th:object="${editedExercise}" id="exercise_form" class="form-horizontal" method="POST">
-                    <!--<form th:action="@{/exercise/add}" id="exercise_form" class="form-horizontal"-->
+                <div class="modal-body">
+                    <form th:action="@{/exercise/table}" th:object="${editedExercise}" id="exercise_form"
+                          class="form-horizontal" method="POST">
+                        <!--<form th:action="@{/exercise/add}" id="exercise_form" class="form-horizontal"-->
                         <div class="form-group">
                             <label for="exerciseId" class="col-lg-2 control-label">Feladat azonosítója</label>
                             <div class="col-lg-10">
                                 <div class="input-group">
-                                    <input id="exerciseId" readonly="readonly" th:field="*{id}" class="form-control" type="text"/>
+                                    <input id="exerciseId" readonly="readonly" th:field="*{id}" class="form-control"
+                                           type="text"/>
                                 </div>
                             </div>
                         </div>
@@ -60,7 +62,8 @@
                             <label for="exerciseName" class="col-lg-2 control-label">Feladat neve</label>
                             <div class="col-lg-10">
                                 <div class="input-group">
-                                    <input th:field="*{name}" minlength="5" maxlength="50" class="form-control" type="text"
+                                    <input th:field="*{name}" minlength="5" maxlength="50" class="form-control"
+                                           type="text"
                                            id="exerciseName" placeholder="Feladat neve"/>
                                 </div>
                             </div>
@@ -69,15 +72,18 @@
                             <label for="exerciseDesc" class="col-lg-2 control-label">Feladat neve</label>
                             <div class="col-lg-10">
                                 <div class="input-group">
-                                    <textarea th:field="*{description}" maxlength="1000" class="form-control" type="text"
+                                    <textarea th:field="*{description}" maxlength="1000" class="form-control"
+                                              type="text"
                                               id="exerciseDesc" placeholder="Feladat leírása">
                                     </textarea>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <input type="submit" class="btn btn-success" id="exercise_submit" value="Mentés"/>
-                            <input type="reset" class="btn btn-danger" value="Mégsem" data-dismiss="modal"/>
+                        <div class="modal-footer">
+                            <div class="form-group">
+                                <input type="submit" class="btn btn-success" id="exercise_submit" value="Mentés"/>
+                                <input type="reset" class="btn btn-danger" value="Mégsem" data-dismiss="modal"/>
+                            </div>
                         </div>
                     </form>
                 </div>
