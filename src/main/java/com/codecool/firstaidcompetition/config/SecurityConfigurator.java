@@ -19,7 +19,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfigurator extends WebSecurityConfigurerAdapter {
 
-    @Bean   // Added encoder as bean
+    @Bean   // Add encoder as bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
@@ -37,7 +37,8 @@ public class SecurityConfigurator extends WebSecurityConfigurerAdapter {
         http.
             authorizeRequests()
                 .antMatchers("/admin/**",
-                        "/competition/add", "/registration", "/station/add").hasRole("ADMIN")
+                        "/competition/add", "/registration", "/station/add",
+                        "/exercise/add", "/exercise/delete/**").hasRole("ADMIN")
                 .antMatchers("/user").hasRole("REFEREE")
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()

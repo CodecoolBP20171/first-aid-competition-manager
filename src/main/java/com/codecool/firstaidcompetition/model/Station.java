@@ -1,6 +1,8 @@
 package com.codecool.firstaidcompetition.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NamedQueries({
         @NamedQuery(name = "findAllStations", query = "select stat from stations stat"),
@@ -15,7 +17,7 @@ import javax.persistence.*;
 public class Station {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private long id;
 
     @Column(length = 50)
     private String name;
@@ -30,9 +32,8 @@ public class Station {
     @JoinColumn(name = "competition_id")
     private Competition competition;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "exercise_id")
-    private Exercise exercise;
+    @OneToMany(mappedBy = "station")
+    private List<Exercise> exercises = new ArrayList<>();
 
     public Station() {
     }
@@ -44,6 +45,14 @@ public class Station {
         this.competition = competition;
     }
 
+    public Station(String name, int number, String description, Competition competition, List<Exercise> exercises) {
+        this.name = name;
+        this.number = number;
+        this.description = description;
+        this.competition = competition;
+        this.exercises = exercises;
+    }
+
     public Competition getCompetition() {
         return competition;
     }
@@ -52,7 +61,7 @@ public class Station {
         this.competition = competitionID;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -82,5 +91,21 @@ public class Station {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public List<Exercise> getExercises() {
+        return exercises;
+    }
+
+    public void setExercise(List<Exercise> exercises) {
+        this.exercises = exercises;
+    }
+
+    public void addExercise(Exercise exercise){
+        exercises.add(exercise);
     }
 }

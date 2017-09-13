@@ -7,8 +7,10 @@ import org.springframework.stereotype.Repository;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 
 @Repository
 public class DBHandler {
@@ -66,14 +68,18 @@ public class DBHandler {
         competitionRepository.save(competition3);
 
         Station station = new Station("12. állomás", 12, "harmadik leírás", competition);
+
+        Exercise exercise = new Exercise("exercise name", "loooooooooooooooooong description", station);
+        stationRepository.save(station);
+        exerciseRepository.save(exercise);
+
+        List<Exercise> exerciseList = Arrays.asList(exercise);
+        station.setExercise(exerciseList);
+
         Station station2 = new Station("5. állomás", 5, "másik leírás", competition2);
         Station station3 = new Station("7. állomás", 7, "leírás", competition3);
-        stationRepository.save(station);
         stationRepository.save(station2);
         stationRepository.save(station3);
-
-        Exercise exercise = new Exercise("exercise name", "loooooooooooooooooong description");
-        exerciseRepository.save(exercise);
 
         Task task = new Task("subtaskname", 12L);
         exercise.addTask(task);
