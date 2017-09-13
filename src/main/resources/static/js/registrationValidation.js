@@ -48,6 +48,7 @@ $(document).ready(function () {
     var updateEditExerciseModal = function(data){
         $("#exerciseName").val(data["name"]);
         $("#exerciseDesc").val(data["description"]);
+        $("#exerciseId").val(data["id"]);
     };
 
     var validateUserNameIsExists = function (callback) {
