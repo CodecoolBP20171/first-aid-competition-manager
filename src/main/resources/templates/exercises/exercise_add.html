@@ -7,10 +7,11 @@
     <!--CONTENT-->
     <div id="reg_page" class="col-lg 12">
         <div>
-            <h1 class="header-title">Feladat hozzáadása</h1>
+            <h1 class="header-title">Új feladat hozzáadása</h1>
         </div>
         <!--Form group-->
-        <form th:action="@{/exercise/add}" th:object="${exercise}" id="exercise_form" class="form-horizontal" method="POST">
+        <form th:action="@{/exercise/add}" th:object="${exercise}" id="exercise_form" class="form-horizontal"
+              method="POST">
             <div class="form-group">
                 <label for="name" class="col-lg-2 control-label">Feladat neve</label>
                 <div class="col-lg-10">
@@ -25,7 +26,9 @@
                 <div class="col-lg-10">
                     <div class="input-group">
                         <textarea th:field="*{description}" minlength="3" class="form-control" type="text"
-                               name="exercise_desc" id="exercise_desc" placeholder="Feladat részletei" required="required"/>
+                                  name="exercise_desc" id="exercise_desc" placeholder="Feladat részletei"
+                                  required="required">
+                        </textarea>
                     </div>
                 </div>
             </div>
