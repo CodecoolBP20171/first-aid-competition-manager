@@ -27,9 +27,9 @@
                 <label for="station_number" class="col-lg-2 control-label">Állomás száma</label>
                 <div class="col-lg-10">
                     <div class="input-group">
-                        <input th:field="*{number}" maxlength="100" class="form-control" type="text"
-                               name="station_number"
-                               id="station_number" placeholder="Állomás száma" required="required"/>
+                        <input th:field="*{number}" class="form-control" type="number"
+                               name="station_number" min="x" max="yyy"
+                               id="station_number" placeholder="1" required="required"/>
                     </div>
                 </div>
             </div>
@@ -37,9 +37,9 @@
                 <label for="station_description" class="col-lg-2 control-label">Leírás</label>
                 <div class="col-lg-10">
                     <div class="input-group">
-                        <input th:field="*{description}" maxlength="100" class="form-control" type="text"
+                        <textarea th:field="*{description}" maxlength="1000" class="form-control" type="text"
                                name="station_description"
-                               id="station_description" placeholder="Állomás leírása" required="required"/>
+                               id="station_description" placeholder="Állomás leírása" required="required"></textarea>
                     </div>
                 </div>
             </div>
@@ -60,7 +60,7 @@
 
             <!--Buttons-->
             <div class="form-group">
-                <input type="submit" class="btn btn-success" id="submit_station" value="Létrehozás"/>
+                <input type="submit" class="btn btn-success" id="submit_station" value="Mentés"/>
                 <input type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" value="Mégse"/>
             </div>
         </form>
