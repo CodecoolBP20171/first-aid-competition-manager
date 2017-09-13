@@ -1,5 +1,7 @@
 package com.codecool.firstaidcompetition.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @NamedQueries({
@@ -16,9 +18,11 @@ public class Protest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @JsonIgnore
     @OneToOne
     private Team team;
 
+    @JsonIgnore
     @OneToOne
     private Exercise exercise;
 

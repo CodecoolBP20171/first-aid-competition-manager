@@ -1,5 +1,6 @@
 package com.codecool.firstaidcompetition.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,14 +26,17 @@ public class Competition {
     @Temporal(TemporalType.DATE)
     private Date dateOfEvent;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    @OneToMany(mappedBy = "competition")
+    @JsonIgnore
+    @OneToMany(mappedBy = "competition", fetch = FetchType.LAZY)
     private List<Station> stations = new ArrayList<>();
 
-    @OneToMany(mappedBy = "competition")
+    @JsonIgnore
+    @OneToMany(mappedBy = "competition", fetch = FetchType.LAZY)
     private Set<Team> team = new HashSet<>();
 
     public Competition() {

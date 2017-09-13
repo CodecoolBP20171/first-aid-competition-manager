@@ -1,5 +1,7 @@
 package com.codecool.firstaidcompetition.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @NamedQueries({
@@ -19,6 +21,7 @@ public class TeamResult {
     @Column(name = "result_score")
     private int resultScore;
 
+    @JsonIgnore
     @OneToOne
     private Team team;
 
