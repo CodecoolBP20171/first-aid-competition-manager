@@ -3,14 +3,19 @@
  */
 $(document).ready(function () {
 
-    $(".exercise_bin_icon").click(function () {
+    $(".deleteExercise").click(function () {
         var exerciseId = $(this).attr("data-comp_id");
         updateDeleteExerciseModal(exerciseId);
     });
 
-    $(".exercise_edit_icon").click(function () {
+    $(".editExercise").click(function () {
         var exerciseId = $(this).attr("data-comp_id");
         updateEditExerciseModal(exerciseId);
+    });
+
+    $(".deleteStation").click(function () {
+        var stationId = $(this).attr("data-comp_id");
+        updateDeleteStationModal(stationId);
     });
 
     $("#regForm").submit(function (event) {    // check userName and pass before submit
@@ -33,6 +38,11 @@ $(document).ready(function () {
             changePasswordColorToDefault();
         }
     });
+
+    var updateDeleteStationModal = function (stationId) {
+        var deletedUrl = "/station/delete/" + stationId;
+        $("#deleteStation").attr("href", deletedUrl);
+    };
 
     var updateDeleteExerciseModal = function (exerciseId) {
         var deletedUrl = "/exercise/delete/" + exerciseId;
