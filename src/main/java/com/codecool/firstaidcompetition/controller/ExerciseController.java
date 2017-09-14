@@ -55,7 +55,7 @@ public class ExerciseController {
     private String addExercise(Model model){
         model.addAttribute("exercise", new Exercise());
         model.addAttribute("listOfStations", stationRepository.findAll());
-        return "exercises/exercise_add";
+        return "exercises/exercise_form";
     }
 
     @PostMapping("/add")

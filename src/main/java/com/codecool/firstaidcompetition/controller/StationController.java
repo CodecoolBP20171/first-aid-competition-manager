@@ -29,7 +29,7 @@ public class StationController {
         model.addAttribute("listOfStations", stationList);
 
         logger.info("Mapping to the station route");
-        return "station_table";
+        return "station/station_table";
     }
 
     @GetMapping(value = "/add")
@@ -37,7 +37,7 @@ public class StationController {
         Iterable<Competition> competitionList = competitionRepository.findAll();
         model.addAttribute("listOfCompetitions", competitionList);
         model.addAttribute("station", new Station());
-        return "station_form";
+        return "station/station_form";
     }
 
     @PostMapping(value = "/add")
@@ -49,6 +49,5 @@ public class StationController {
                 station.getCompetition());
         return new ModelAndView("redirect:/station");
     }
-
 
 }
