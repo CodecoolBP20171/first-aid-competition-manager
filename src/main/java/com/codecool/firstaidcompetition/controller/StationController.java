@@ -50,4 +50,11 @@ public class StationController {
         return new ModelAndView("redirect:/station");
     }
 
+    @GetMapping("/delete/{stationId}")
+    private ModelAndView deleteStation(@PathVariable String stationId){
+        stationRepository.delete(Long.valueOf(stationId));
+        logger.info("Deleted thw following station id: {}", stationId);
+        return new ModelAndView("redirect:/station");
+    }
+
 }
