@@ -6,6 +6,7 @@
 <div class="container">
     <div th:replace="fragments/custom_navbar :: custom_navbar"></div>
     <!--CONTENT-->
+    <h1 class="page-header">Feladatok</h1>
     <div class="col-lg 12">
         <table class="table table-striped">
             <thead>
@@ -21,13 +22,13 @@
                 <td th:text="${exercise.description}"></td>
                 <td sec:authorize="hasRole('ROLE_ADMIN')">
                     <a>
-                        <span class="exercise_edit_icon glyphicon glyphicon-pencil"
+                        <span class="edit_icon editExercise glyphicon glyphicon-pencil"
                               aria-hidden="true" data-toggle="modal"
                               th:attr="data-comp_id=${exercise.id}" data-target="#editModal">
                         </span>
                     </a>
                     <a>
-                        <span class="exercise_bin_icon glyphicon glyphicon-remove"
+                        <span class="bin_icon deleteExercise glyphicon glyphicon-remove"
                               aria-hidden="true" data-toggle="modal"
                               th:attr="data-comp_id=${exercise.id}" data-target="#deleteModal">
                         </span>
@@ -49,7 +50,6 @@
                 <div class="modal-body">
                     <form th:action="@{/exercise/table}" th:object="${editedExercise}" id="exercise_form"
                           class="form-horizontal" method="POST">
-                        <!--<form th:action="@{/exercise/add}" id="exercise_form" class="form-horizontal"-->
                         <div class="form-group">
                             <label for="exerciseId" class="col-lg-2 control-label">Feladat azonosítója</label>
                             <div class="col-lg-10">
@@ -104,8 +104,8 @@
                     <a id="deleteExercise">
                         <button type="button" class="btn btn-danger">Igen</button>
                     </a>
-                    <a href="/exercise/table">
-                        <button type="button" class="btn btn-success">Nem</button>
+                    <a>
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Nem</button>
                     </a>
                 </div>
             </div>
