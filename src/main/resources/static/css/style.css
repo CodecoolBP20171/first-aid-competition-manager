@@ -1,6 +1,6 @@
 /*init*/
 
-#exercise_bin_icon:hover, #edit_icon:hover, #bin_icon:hover {
+.edit_icon:hover, .bin_icon:hover {
     color: red;
 }
 
