@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/header :: header"></head>
 <body>
 <div class="container">
@@ -15,6 +16,7 @@
                 <td>Állomás száma</td>
                 <td>Leírás</td>
                 <td>Verseny</td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')">Lehetőségek</td>
             </tr>
             </thead>
             <tbody>
@@ -23,7 +25,7 @@
                 <td th:text="${stat.number}"></td>
                 <td th:text="${stat.description}"></td>
                 <td th:text="${stat.competition.name}"></td>
-                <td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')">
                     <a href="#">
                         <span th:attr="data-comp_id=${stat.id}" id="edit_icon" class="glyphicon glyphicon-pencil"
                               aria-hidden="true" data-toggle="modal"

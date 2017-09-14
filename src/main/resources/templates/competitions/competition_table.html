@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/header :: header"></head>
 <body>
 <div class="container">
@@ -14,6 +15,7 @@
                 <td>Név</td>
                 <td>Helyszín</td>
                 <td>Dátum</td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')">Lehetőségek</td>
             </tr>
             </thead>
             <tbody>
@@ -21,7 +23,7 @@
                 <td th:text="${comp.name}"></td>
                 <td th:text="${comp.location}"></td>
                 <td th:text="${comp.dateOfEvent}"></td>
-                <td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')">
                     <a href="#">
                         <span th:attr="data-comp_id=${comp.id}" id="edit_icon" class="glyphicon glyphicon-pencil"
                               aria-hidden="true" data-toggle="modal"

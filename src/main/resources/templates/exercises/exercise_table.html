@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
 <head th:replace="fragments/header :: header"></head>
 <body>
 <div class="container">
@@ -11,14 +12,14 @@
             <tr>
                 <td>Név</td>
                 <td>Leírás</td>
-                <td>Lehetőségek</td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')">Lehetőségek</td>
             </tr>
             </thead>
             <tbody>
             <tr th:each="exercise: ${listOfExercises}">
                 <td th:text="${exercise.name}"></td>
                 <td th:text="${exercise.description}"></td>
-                <td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')">
                     <a>
                         <span class="exercise_edit_icon glyphicon glyphicon-pencil"
                               aria-hidden="true" data-toggle="modal"
