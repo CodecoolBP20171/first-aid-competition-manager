@@ -64,7 +64,7 @@ public class ExerciseController {
         Station station = stationRepository.findOne(exercise.getStation().getId());
         station.addExercise(exercise);
         stationRepository.save(station);
-        return new ModelAndView("redirect:/index");
+        return new ModelAndView("redirect:/exercise/table");
     }
 
     @GetMapping("/edit/{exerciseId}")
