@@ -28,7 +28,7 @@
                 <td th:text="${stat.competition.name}"></td>
                 <td sec:authorize="hasRole('ROLE_ADMIN')">
                     <a href="#">
-                        <span th:attr="data-comp_id=${stat.id}" class="edit-icon glyphicon glyphicon-pencil"
+                        <span th:attr="data-comp_id=${stat.id}" class="edit_icon editStation glyphicon glyphicon-pencil"
                               aria-hidden="true" data-toggle="modal"
                               data-target=""></span>
                     </a>
