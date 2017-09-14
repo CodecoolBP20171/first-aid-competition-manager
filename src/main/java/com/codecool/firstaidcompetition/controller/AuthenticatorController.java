@@ -37,7 +37,7 @@ public class AuthenticatorController {
     @GetMapping("/registration")
     public String addUser(Model model) {
         model.addAttribute("user", new User());
-        return "registration_form";
+        return "authenticate/registration_form";
     }
 
     @RequestMapping("/registration/{userName}")
