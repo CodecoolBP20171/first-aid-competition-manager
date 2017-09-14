@@ -28,11 +28,7 @@ public class HTTPController {
     @Autowired
     private StationRepository stationRepository;
     @Autowired
-    private UserServiceImpl userService;
-    @Autowired
     private CompetitionRepository competitionRepository;
-    @Autowired
-    private UserRepository userRepository;
 
     private boolean isDBUpdated = false;
 
@@ -43,29 +39,6 @@ public class HTTPController {
             isDBUpdated = true;
         }
         return "index";
-    }
-
-    @GetMapping("/registration")
-    public String addUser(Model model) {
-        model.addAttribute("user", new User());
-        return "registration_form";
-    }
-
-    @RequestMapping("/registration/{userName}")
-    @ResponseBody   // can return with anything
-    public boolean checkUsernameIsExists(@PathVariable String userName) {
-        return userService.checkUsernameAlreadyExists(userName);
-    }
-
-    @PostMapping("/registration")
-    public ModelAndView submitUser(@ModelAttribute User user,
-                                   @RequestParam("userRole") String role) {
-        userService.saveUser(user, role); // save with hashing pass
-        logger.info("Save USer to the db, " +
-                        "[fullName: {}; userName: {}; email: {}, password: {}]",
-                user.getFullName(), user.getUserName(), user.getEmail(),
-                user.getPassword());
-        return new ModelAndView("redirect:/index");
     }
 
     @RequestMapping(value = {"/station"}, method = RequestMethod.GET)
