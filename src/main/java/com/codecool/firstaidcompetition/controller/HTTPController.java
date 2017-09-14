@@ -25,11 +25,6 @@ public class HTTPController {
 
     @Autowired
     private DBHandler dbHandler;
-    @Autowired
-    private StationRepository stationRepository;
-    @Autowired
-    private CompetitionRepository competitionRepository;
-
     private boolean isDBUpdated = false;
 
     @RequestMapping(value = {"/", "/index"})
@@ -41,34 +36,7 @@ public class HTTPController {
         return "index";
     }
 
-    @RequestMapping(value = {"/station"}, method = RequestMethod.GET)
-    public String getStations(Model model) {
-        Iterable<Station> stationList = stationRepository.findAll();
-        model.addAttribute("listOfStations", stationList);
-
-        logger.info("Mapping to the station route");
-        return "station_table";
-    }
-
-    @GetMapping(value = "station/add")
-    public String addStation(Model model) {
-        Iterable<Competition> competitionList = competitionRepository.findAll();
-        model.addAttribute("listOfCompetitions", competitionList);
-        model.addAttribute("station", new Station());
-        return "station_form";
-    }
-
-    @PostMapping(value = "station/add")
-    public ModelAndView submitStation(@ModelAttribute Station station) {
-        stationRepository.save(station);
-        logger.info("Save station to the db, " +
-                        "[name: {}; location: {}; date: {}, owner: {}]",
-                station.getName(), station.getNumber(), station.getDescription(),
-                station.getCompetition());
-        return new ModelAndView("redirect:/station");
-    }
-
-    public void updateTable() {
+    private void updateTable() {
         try {
             dbHandler.populateDB();
             logger.info("Table updated with dummy data");
