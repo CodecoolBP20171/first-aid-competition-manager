@@ -1,5 +1,7 @@
 package com.codecool.firstaidcompetition.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,9 +25,11 @@ public class Task {
     @Column
     private boolean defaultTaks;
 
+    @JsonIgnore
     @OneToOne
     private Task prerequisiteTask;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "tasks")
     private Set<Exercise> exercises = new HashSet<>();
 

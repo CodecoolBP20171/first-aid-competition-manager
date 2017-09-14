@@ -3,12 +3,15 @@
  */
 $(document).ready(function () {
 
-    $("#exercise_bin_icon").click(function(){
+    $(".exercise_bin_icon").click(function () {
         var exerciseId = $(this).attr("data-comp_id");
-        var deletedUrl = "/exercise/delete/" + exerciseId;
-        $("#deleteExercise").attr("href", deletedUrl);
+        updateDeleteExerciseModal(exerciseId);
     });
 
+    $(".exercise_edit_icon").click(function () {
+        var exerciseId = $(this).attr("data-comp_id");
+        updateEditExerciseModal(exerciseId);
+    });
 
     $("#regForm").submit(function (event) {    // check userName and pass before submit
         validateUserNameIsExists(function (data) {
@@ -30,6 +33,26 @@ $(document).ready(function () {
             changePasswordColorToDefault();
         }
     });
+
+    var updateDeleteExerciseModal = function (exerciseId) {
+        var deletedUrl = "/exercise/delete/" + exerciseId;
+        $("#deleteExercise").attr("href", deletedUrl);
+    };
+
+    var updateEditExerciseModal = function (exerciseId) {
+        $.ajax({
+            url: "/exercise/edit/" + exerciseId,
+            method: "GET",
+            success: function (data) {
+                $("#exerciseName").val(data["name"]);
+                $("#exerciseDesc").val(data["description"]);
+                $("#exerciseId").val(data["id"]);
+            },
+            error: function () {
+                alert("Something went wrong!")
+            }
+        })
+    };
 
     var validateUserNameIsExists = function (callback) {
         var userName = $('#user_name').val();

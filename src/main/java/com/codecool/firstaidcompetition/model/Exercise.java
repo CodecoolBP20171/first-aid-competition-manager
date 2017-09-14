@@ -1,5 +1,7 @@
 package com.codecool.firstaidcompetition.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -22,12 +24,14 @@ public class Exercise {
     @Column(length = 1000)
     private String description;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "exercise", cascade = CascadeType.REMOVE)
     private Protest protest;
 
     @ManyToOne
     private Station station;
 
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
             name="tasks_of_exercises",

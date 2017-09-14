@@ -12,6 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Controller
 @RequestMapping("/exercise/")
 public class ExerciseController {
@@ -27,7 +31,17 @@ public class ExerciseController {
     private String listAllExercise(Model model){
         Iterable<Exercise> exerciseList = exerciseRepository.findAll();
         model.addAttribute("listOfExercises", exerciseList);
+        model.addAttribute("editedExercise", new Exercise());
         return "exercises/exercise_table";
+    }
+
+    @PostMapping("/table")
+    private ModelAndView editexercise(@ModelAttribute Exercise exercise){
+        Exercise editedExercise = exerciseRepository.findOne(exercise.getId());
+        editedExercise.setName(exercise.getName());
+        editedExercise.setDescription(exercise.getDescription());
+        exerciseRepository.save(editedExercise);
+        return new ModelAndView("redirect:/exercise/table");
     }
 
     @GetMapping("/delete/{exerciseId}")
@@ -50,6 +64,12 @@ public class ExerciseController {
         Station station = stationRepository.findOne(exercise.getStation().getId());
         station.addExercise(exercise);
         stationRepository.save(station);
-        return new ModelAndView("redirect:/index");
+        return new ModelAndView("redirect:/exercise/table");
+    }
+
+    @GetMapping("/edit/{exerciseId}")
+    @ResponseBody
+    private Exercise editExercise(@PathVariable String exerciseId){
+        return exerciseRepository.findOne(Long.valueOf(exerciseId));
     }
 }

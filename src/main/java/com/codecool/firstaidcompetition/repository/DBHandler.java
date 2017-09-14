@@ -46,12 +46,26 @@ public class DBHandler {
         roleRepository.save(admin);
         roleRepository.save(refereeRole);
 
+
+        //
         User user = new User("Admin Béla", "admin", "kiss@gmail.com",
                 bCryptPasswordEncoder.encode("admin"), null, adminSet);
         User user2 = new User("User Géza", "user", "kiss_geza@gmail.com",
                 bCryptPasswordEncoder.encode("user"), null, userSet);
+
+        Competition competition = new Competition("Első verseny", "Budapest", "2012-07-08", user);
+        Competition competition2 = new Competition("Második verseny", "Babosdöbréte", "2013-07-08", user);
+        Competition competition3 = new Competition("Harmadik verseny", "Cserneházadamonya", "2014-07-08", user2);
+        List<Competition> comps = Arrays.asList(competition, competition2);
+        List<Competition> comp3 = Arrays.asList(competition3);
+        user.setCompetitions(comps);
+        user2.setCompetitions(comp3);
         userRepository.save(user);
         userRepository.save(user2);
+
+        competitionRepository.save(competition);
+        competitionRepository.save(competition2);
+        competitionRepository.save(competition3);
 
         // Date formatting example
         String pattern = "yyyy-MM-dd";
@@ -59,13 +73,6 @@ public class DBHandler {
         Date date = simpleDateFormat.parse("2012-07-08");
         Date date2 = simpleDateFormat.parse("2013-09-08");
         Date date3 = simpleDateFormat.parse("2014-10-08");
-
-        Competition competition = new Competition("Első verseny", "Budapest", "2012-07-08", user);
-        Competition competition2 = new Competition("Második verseny", "Babosdöbréte", "2013-07-08", user);
-        Competition competition3 = new Competition("Harmadik verseny", "Cserneházadamonya", "2014-07-08", user2);
-        competitionRepository.save(competition);
-        competitionRepository.save(competition2);
-        competitionRepository.save(competition3);
 
         Station station = new Station("12. állomás", 12, "harmadik leírás", competition);
 

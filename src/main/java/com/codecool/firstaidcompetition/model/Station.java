@@ -1,5 +1,7 @@
 package com.codecool.firstaidcompetition.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +30,12 @@ public class Station {
     @Column(length = 1000)
     private String description;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "competition_id")
     private Competition competition;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "station")
     private List<Exercise> exercises = new ArrayList<>();
 
