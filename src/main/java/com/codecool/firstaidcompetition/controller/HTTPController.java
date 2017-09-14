@@ -36,6 +36,11 @@ public class HTTPController {
         return "index";
     }
 
+    @RequestMapping("/about")
+    public String aboutCompetition(){
+        return "about_competition";
+    }
+
     private void updateTable() {
         try {
             dbHandler.populateDB();
