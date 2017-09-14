@@ -25,15 +25,6 @@ public class HTTPController {
 
     @Autowired
     private DBHandler dbHandler;
-    @Autowired
-    private StationRepository stationRepository;
-    @Autowired
-    private UserServiceImpl userService;
-    @Autowired
-    private CompetitionRepository competitionRepository;
-    @Autowired
-    private UserRepository userRepository;
-
     private boolean isDBUpdated = false;
 
     @RequestMapping(value = {"/", "/index"})
@@ -45,57 +36,12 @@ public class HTTPController {
         return "index";
     }
 
-    @GetMapping("/registration")
-    public String addUser(Model model) {
-        model.addAttribute("user", new User());
-        return "registration_form";
+    @RequestMapping("/about")
+    public String aboutCompetition(){
+        return "about_competition";
     }
 
-    @RequestMapping("/registration/{userName}")
-    @ResponseBody   // can return with anything
-    public boolean checkUsernameIsExists(@PathVariable String userName) {
-        return userService.checkUsernameAlreadyExists(userName);
-    }
-
-    @PostMapping("/registration")
-    public ModelAndView submitUser(@ModelAttribute User user,
-                                   @RequestParam("userRole") String role) {
-        userService.saveUser(user, role); // save with hashing pass
-        logger.info("Save USer to the db, " +
-                        "[fullName: {}; userName: {}; email: {}, password: {}]",
-                user.getFullName(), user.getUserName(), user.getEmail(),
-                user.getPassword());
-        return new ModelAndView("redirect:/index");
-    }
-
-    @RequestMapping(value = {"/station"}, method = RequestMethod.GET)
-    public String getStations(Model model) {
-        Iterable<Station> stationList = stationRepository.findAll();
-        model.addAttribute("listOfStations", stationList);
-
-        logger.info("Mapping to the station route");
-        return "station_table";
-    }
-
-    @GetMapping(value = "station/add")
-    public String addStation(Model model) {
-        Iterable<Competition> competitionList = competitionRepository.findAll();
-        model.addAttribute("listOfCompetitions", competitionList);
-        model.addAttribute("station", new Station());
-        return "station_form";
-    }
-
-    @PostMapping(value = "station/add")
-    public ModelAndView submitStation(@ModelAttribute Station station) {
-        stationRepository.save(station);
-        logger.info("Save station to the db, " +
-                        "[name: {}; location: {}; date: {}, owner: {}]",
-                station.getName(), station.getNumber(), station.getDescription(),
-                station.getCompetition());
-        return new ModelAndView("redirect:/station");
-    }
-
-    public void updateTable() {
+    private void updateTable() {
         try {
             dbHandler.populateDB();
             logger.info("Table updated with dummy data");

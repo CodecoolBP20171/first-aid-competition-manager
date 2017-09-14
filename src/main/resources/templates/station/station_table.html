@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/header :: header"></head>
+<body>
+<div class="container">
+
+    <div th:replace="fragments/custom_navbar :: custom_navbar"></div>
+
+    <!--CONTENT-->
+    <h1 class="page-header">Állomások</h1>
+    <div class="col-lg 12">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <td>Név</td>
+                <td>Állomás száma</td>
+                <td>Leírás</td>
+                <td>Verseny</td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')">Lehetőségek</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="stat: ${listOfStations}">
+                <td th:text="${stat.name}"></td>
+                <td th:text="${stat.number}"></td>
+                <td th:text="${stat.description}"></td>
+                <td th:text="${stat.competition.name}"></td>
+                <td sec:authorize="hasRole('ROLE_ADMIN')">
+                    <a href="#">
+                        <span th:attr="data-comp_id=${stat.id}" class="edit_icon editStation glyphicon glyphicon-pencil"
+                              aria-hidden="true" data-toggle="modal"
+                              data-target=""></span>
+                    </a>
+                    <a>
+                        <span class="bin_icon deleteStation glyphicon glyphicon-remove" aria-hidden="true"
+                              th:attr="data-comp_id=${stat.id}"
+                              data-target="#deleteStationModal" data-toggle="modal">
+                        </span>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Modal Window - EDIT -->
+    <div id="editCompetitionModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title" >Állomás szerkesztése</h2>
+                </div>
+                <div class="modal-footer">
+                    <a href="/index">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Mentés</button>
+                    </a>
+                    <button type="button" class="btn btn-success" data-dismiss="modal">Mégse</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Window - DELETE -->
+    <div id="deleteStationModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h2 class="modal-title" id="modal-header">Biztosan törölni szeretné?</h2>
+                </div>
+                <div class="modal-footer">
+                    <a id="deleteStation">
+                        <button type="button" class="btn btn-danger">Igen</button>
+                    </a>
+                    <a>
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Nem</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

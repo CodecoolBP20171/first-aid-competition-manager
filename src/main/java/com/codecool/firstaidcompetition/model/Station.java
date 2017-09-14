@@ -31,12 +31,12 @@ public class Station {
     private String description;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "competition_id")
     private Competition competition;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "station")
+    @OneToMany(mappedBy = "station", cascade = CascadeType.REMOVE)
     private List<Exercise> exercises = new ArrayList<>();
 
     public Station() {

@@ -7,11 +7,8 @@
     <div th:replace="fragments/custom_navbar :: custom_navbar"></div>
 
     <!--CONTENT-->
+    <h1 class="page-header">Regisztrációs űrlap</h1>
     <div id="reg_page" class="col-lg 12">
-        <div>
-            <h1 class="header-title">Regisztrációs űrlap</h1>
-        </div>
-
         <!--Form group-->
         <form th:action="@{/registration}" th:object="${user}" id="regForm" class="form-horizontal" method="POST">
             <div class="form-group">
@@ -76,12 +73,6 @@
                 <input type="reset" class="btn btn-danger" value="Törlés"/>
             </div>
         </form>
-
-        <div class="col-lg-12">
-            <a href="/index">
-                <button class="btn btn-primary">Vissza a főoldalra</button>
-            </a>
-        </div>
     </div>
 </div>
 </body>
