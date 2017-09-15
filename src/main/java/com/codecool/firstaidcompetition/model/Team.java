@@ -42,7 +42,7 @@ public class Team {
     private Competition competition;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "team")
+    @OneToOne(mappedBy = "team", cascade = CascadeType.REMOVE)
     private TeamResult teamResult;
 
     public Team(){}

@@ -108,8 +108,7 @@ jboss/server/minimal/data/**/*
 jboss/server/minimal/work/**/*
 
 # deployed package files #
+
 *.DEPLOYED
 
-# .iml az prop files
 first-aid-competition.iml
-src/main/resources/application.properties

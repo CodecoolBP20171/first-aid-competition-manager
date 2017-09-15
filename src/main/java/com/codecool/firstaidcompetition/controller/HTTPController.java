@@ -37,7 +37,7 @@ public class HTTPController {
     }
 
     @RequestMapping("/about")
-    public String aboutCompetition(){
+    public String aboutCompetition() {
         return "about_competition";
     }
 

@@ -27,7 +27,7 @@ public class StationController {
     public String getStations(Model model) {
         Iterable<Station> stationList = stationRepository.findAll();
         model.addAttribute("listOfStations", stationList);
-
+        model.addAttribute("station", new Station());
         logger.info("Mapping to the station route");
         return "station/station_table";
     }
@@ -54,6 +54,20 @@ public class StationController {
     private ModelAndView deleteStation(@PathVariable String stationId){
         stationRepository.delete(Long.valueOf(stationId));
         logger.info("Deleted thw following station id: {}", stationId);
+        return new ModelAndView("redirect:/station");
+    }
+
+    @RequestMapping(value={"/station/edit"},method = RequestMethod.POST)
+    public ModelAndView editStation(@ModelAttribute Station station){
+        Station stationEdit = stationRepository.findOne(station.getId());
+        stationEdit.setName(station.getName());
+        stationEdit.setDescription(station.getDescription());
+        System.out.println(station.getCompetition().getName());
+
+        stationEdit.setCompetition(station.getCompetition());
+        stationEdit.setNumber(station.getNumber());
+        stationRepository.save(stationEdit);
+        logger.info("Edited user with id : " + station.getId());
         return new ModelAndView("redirect:/station");
     }
 
