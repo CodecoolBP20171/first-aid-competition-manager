@@ -34,7 +34,7 @@ public class User {
     private String password;
 
     @JsonIgnore
-    @OneToMany (mappedBy = "owner")
+    @OneToMany (mappedBy = "owner", cascade = CascadeType.REFRESH)
     private List<Competition> competitions = new ArrayList<>();
 
     @JsonIgnore
