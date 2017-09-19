@@ -36,7 +36,7 @@ public class ExerciseController {
     }
 
     @PostMapping("/table")
-    private ModelAndView editexercise(@ModelAttribute Exercise exercise){
+    private ModelAndView saveEditedExercise(@ModelAttribute Exercise exercise){
         Exercise editedExercise = exerciseRepository.findOne(exercise.getId());
         editedExercise.setName(exercise.getName());
         editedExercise.setDescription(exercise.getDescription());
