@@ -1,6 +1,7 @@
 package com.codecool.firstaidcompetition.controller;
 
 import com.codecool.firstaidcompetition.model.Competition;
+import com.codecool.firstaidcompetition.model.Exercise;
 import com.codecool.firstaidcompetition.model.Station;
 import com.codecool.firstaidcompetition.repository.CompetitionRepository;
 import com.codecool.firstaidcompetition.repository.StationRepository;
@@ -23,7 +24,7 @@ public class StationController {
     @Autowired
     private CompetitionRepository competitionRepository;
 
-    @RequestMapping(value = {"/" , ""})
+    @GetMapping(value = {"/" , ""})
     public String getStations(Model model) {
         Iterable<Station> stationList = stationRepository.findAll();
         model.addAttribute("listOfStations", stationList);
@@ -57,18 +58,24 @@ public class StationController {
         return new ModelAndView("redirect:/station");
     }
 
-    @RequestMapping(value={"/station/edit"},method = RequestMethod.POST)
-    public ModelAndView editStation(@ModelAttribute Station station){
-        Station stationEdit = stationRepository.findOne(station.getId());
-        stationEdit.setName(station.getName());
-        stationEdit.setDescription(station.getDescription());
-        System.out.println(station.getCompetition().getName());
+    @GetMapping(value = "/edit/{stationId}")
+    @ResponseBody
+    public Station editStation(@PathVariable Long stationId){
+        return stationRepository.findOne(stationId);
+    }
 
-        stationEdit.setCompetition(station.getCompetition());
-        stationEdit.setNumber(station.getNumber());
-        stationRepository.save(stationEdit);
-        logger.info("Edited user with id : " + station.getId());
+    @PostMapping(value = {"/" , ""})
+    private ModelAndView saveEditedStation(@ModelAttribute Station station){
+        Station editedStation = stationRepository.findOne(station.getId());
+        editedStation.setName(station.getName());
+        editedStation.setNumber(station.getNumber());
+        editedStation.setDescription(station.getDescription());
+        System.out.println("SAVEE!!");
+//        editedStation.setCompetition(station.getCompetition());
+
+        stationRepository.save(editedStation);
         return new ModelAndView("redirect:/station");
     }
+
 
 }
