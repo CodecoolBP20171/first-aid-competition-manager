@@ -30,13 +30,13 @@
                 <td th:text="${stat.competition.name}" id="station_competition"></td>
                 <td sec:authorize="hasRole('ROLE_ADMIN')">
                 <a href="#" id="edit_icon">
-                        <span th:attr="data-comp_id=${stat.id}"  class="glyphicon glyphicon-pencil"
-                              aria-hidden="true" data-toggle="modal"
+                        <span th:attr="data-station_id=${stat.id}"
+                              class="edit_icon editStation glyphicon glyphicon-pencil" aria-hidden="true" data-toggle="modal"
                               data-target="#editStationModal"></span>
                     </a>
                     <a>
                         <span class="bin_icon deleteStation glyphicon glyphicon-remove" aria-hidden="true"
-                              th:attr="data-comp_id=${stat.id}"
+                              th:attr="data-station_id=${stat.id}"
                               data-target="#deleteStationModal" data-toggle="modal">
                         </span>
                     </a>
@@ -45,7 +45,7 @@
             </tbody>
         </table>
     </div>
-    <!-- Modal Window-->
+    <!-- Modal Window EDIT-->
     <div id="editStationModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -54,68 +54,65 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h2 class="modal-title" >Állomás szerkesztése</h2>
                 </div>
-                <form class="form-horizontal" th:action="@{/station/edit}" th:object="${station}" method="POST">
+                <form class="form-horizontal" th:action="@{/station/}" th:object="${station}" method="POST">
                     <div class="form-group">
-                        <label for="name" class="col-lg-2 control-label">Név</label>
+                        <label for="edit_station_name" class="col-lg-2 control-label">Név</label>
                         <div class="col-lg-10">
                             <div class="input-group">
-                                <input th:field="*{name}" maxlength="100" class="form-control" type="text" name="name" id="name"
-                                       placeholder="Állomás neve" required="required" />
+                                <input th:field="*{name}" maxlength="100" class="form-control" type="text" name="name"
+                                       id="edit_station_name" placeholder="Állomás neve" required="required" />
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="station_number" class="col-lg-2 control-label">Állomás száma</label>
+                        <label for="edit_station_number" class="col-lg-2 control-label">Állomás száma</label>
                         <div class="col-lg-10">
                             <div class="input-group">
                                 <input th:field="*{number}" maxlength="100" class="form-control" type="number"
                                        name="station_number"
-                                       id="station_number" placeholder="Állomás száma" required="required" />
+                                       id="edit_station_number" placeholder="Állomás száma" required="required" />
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="station_description" class="col-lg-2 control-label">Leírás</label>
+                        <label for="edit_station_description" class="col-lg-2 control-label">Leírás</label>
                         <div class="col-lg-10">
                             <div class="input-group">
                                 <input th:field="*{description}" maxlength="100" class="form-control" type="text"
-                                       name="station_description"
-                                       id="station_description" placeholder="Állomás leírása"
+                                       name="station_description" id="edit_station_description" placeholder="Állomás leírása"
                                        required="required" />
                             </div>
                         </div>
                     </div>
+                    <!--<div class="form-group">-->
+                        <!--<label for="competition" class="col-lg-2 control-label">Verseny</label>-->
+                        <!--<div class="col-lg-10">-->
+                            <!--<div class="input-group">-->
+                                <!--<select class="form-control" id="competition" name="competition" th:field="*{competition}">-->
+                                    <!--<option th:each="comp : ${listOfCompetitions}"-->
+                                            <!--th:value="${comp.id}"-->
+                                            <!--th:name="${comp.name}"-->
+                                            <!--th:text="${comp.name}">-->
+                                    <!--</option>-->
+                                <!--</select>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
                     <div class="form-group">
-                        <label for="competition" class="col-lg-2 control-label">Verseny</label>
+                        <label for="edit_station_id" class="col-lg-2 control-label">ID</label>
                         <div class="col-lg-10">
                             <div class="input-group">
-                                <select class="form-control" id="competition" name="competition" th:field="*{competition}">
-                                    <option th:each="comp : ${listOfCompetitions}"
-                                            th:value="${comp.id}"
-                                            th:name="${comp.name}"
-                                            th:text="${comp.name}">
-                                    </option>
-                                </select>
+                                <input th:field="*{id}" maxlength="100" class="form-control" type="number"
+                                name="competition"  id="edit_station_id" readonly="readonly" />
                             </div>
                         </div>
                     </div>
-                                <div class="form-group">
-                                    <label for="station_description" class="col-lg-2 control-label">ID</label>
-                                <div class="col-lg-10">
-                                    <div class="input-group">
-                                        <input th:field="*{id}" maxlength="100" class="form-control" type="number"
-                                        name="competition"  id="station_id" readonly="readonly" />
-                                    </div>
-                                </div>
-                                </div>
-                                <!--id="competition_id" placeholder="Verseny" required="required"/>-->
+                        <!--id="competition_id" placeholder="Verseny" required="required"/>-->
                     <div class="modal-footer">
-                        <input type="submit" class="btn btn-danger"  value="Mentés"></input>
+                        <input type="submit" id="update_station" class="btn btn-danger"  value="Mentés"/>
                         <button type="button" class="btn btn-success" data-dismiss="modal">Mégse</button>
                     </div>
                 </form>
-
-
             </div>
         </div>
     </div>
@@ -140,6 +137,6 @@
         </div>
     </div>
 </div>
-<script th:src="@{/js/StationEdit.js}" />
+<!--<script th:src="@{/js/StationEdit.js}" />-->
 </body>
 </html>

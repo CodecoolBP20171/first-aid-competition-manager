@@ -3,6 +3,11 @@
  */
 $(document).ready(function () {
 
+    $(".editStation").click(function () {
+        var stationId = $(this).attr("data-station_id");
+        updateEditStationModal(stationId);
+    });
+
     $(".deleteExercise").click(function () {
         var exerciseId = $(this).attr("data-comp_id");
         updateDeleteExerciseModal(exerciseId);
@@ -14,7 +19,7 @@ $(document).ready(function () {
     });
 
     $(".deleteStation").click(function () {
-        var stationId = $(this).attr("data-comp_id");
+        var stationId = $(this).attr("data-station_id");
         updateDeleteStationModal(stationId);
     });
 
@@ -59,6 +64,23 @@ $(document).ready(function () {
                 $("#exerciseId").val(data["id"]);
             },
             error: function () {
+                alert("Something went wrong!")
+            }
+        })
+    };
+
+    var updateEditStationModal = function (stationId) {
+        $.ajax({
+            url: "/station/edit/" + stationId,
+            method: "GET",
+            success: function(data){
+                $("#edit_station_id").val(data["id"]);
+                $("#edit_station_name").val(data["name"]);
+                $("#edit_station_number").val(data["number"]);
+                $("#edit_station_description").val(data["description"]);
+                // competition!
+            },
+            error: function(){
                 alert("Something went wrong!")
             }
         })

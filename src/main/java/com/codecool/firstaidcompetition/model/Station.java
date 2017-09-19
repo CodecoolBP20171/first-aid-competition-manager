@@ -69,7 +69,7 @@ public class Station {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -95,10 +95,6 @@ public class Station {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public List<Exercise> getExercises() {
