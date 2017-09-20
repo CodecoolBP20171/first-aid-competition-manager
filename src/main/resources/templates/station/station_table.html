@@ -18,6 +18,7 @@
                 <td>Állomás száma</td>
                 <td>Leírás</td>
                 <td>Verseny</td>
+                <td>Feladatok</td>
                 <td sec:authorize="hasRole('ROLE_ADMIN')">Lehetőségek</td>
             </tr>
             </thead>
@@ -28,6 +29,9 @@
                 <td th:text="${stat.number}" id="station_number"></td>
                 <td th:text="${stat.description}" id="station_description"></td>
                 <td th:text="${stat.competition.name}" id="station_competition"></td>
+                <td>
+                    <a th:href=" '/exercise/' + ${stat.id}"> Részletek </a>
+                </td>
                 <td sec:authorize="hasRole('ROLE_ADMIN')">
                     <a id="edit_icon">
                         <span th:attr="data-station_id=${stat.id}"

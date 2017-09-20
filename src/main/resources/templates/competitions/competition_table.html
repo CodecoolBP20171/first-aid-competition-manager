@@ -17,6 +17,7 @@
                 <td>Név</td>
                 <td>Helyszín</td>
                 <td>Dátum</td>
+                <td>Állomások</td>
                 <td sec:authorize="hasRole('ROLE_ADMIN')">Lehetőségek</td>
             </tr>
             </thead>
@@ -26,6 +27,9 @@
                 <td th:text="${comp.name}" id="competition_name"></td>
                 <td th:text="${comp.location}" id="competition_location"></td>
                 <td th:text="${comp.dateOfEvent}" id="competition_date"></td>
+                <td>
+                    <a th:href=" '/station/' + ${comp.id}"> Részletek </a>
+                </td>
                 <td sec:authorize="hasRole('ROLE_ADMIN')">
                     <a href="#" id="edit_icon">
                         <span th:attr="data-comp_id=${comp.id}"  class="glyphicon glyphicon-pencil"
@@ -40,7 +44,6 @@
             </tbody>
         </table>
     </div>
-
     <!-- Modal Window-->
     <div id="editCompetitionModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
