@@ -17,12 +17,10 @@ import java.text.ParseException;
 @Controller
 public class AuthenticatorController {
 
-    private static final Logger logger = LoggerFactory.getLogger(HTTPController.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(AuthenticatorController.class);
 
     @Autowired
     private UserServiceImpl userService;
-    @Autowired
-    private UserRepository userRepository;
 
     @RequestMapping("/login")
     public String loginPage(){

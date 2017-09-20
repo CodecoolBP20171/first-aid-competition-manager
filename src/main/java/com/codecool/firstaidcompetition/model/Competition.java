@@ -27,16 +27,16 @@ public class Competition {
     private Date dateOfEvent;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
     @JoinColumn(name = "owner_id")
     private User owner;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "competition", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "competition", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Station> stations = new ArrayList<>();
 
     @JsonIgnore
-    @OneToMany(mappedBy = "competition", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "competition", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<Team> team = new HashSet<>();
 
     public Competition() {
@@ -45,7 +45,6 @@ public class Competition {
     public Competition(String name, String location, String dateOfEvent, User owner) {
         this.name = name;
         this.location = location;
-
         // Is it OK?
         this.dateOfEvent = convertStringToDate(dateOfEvent);
         this.owner = owner;
@@ -68,7 +67,7 @@ public class Competition {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -95,6 +94,10 @@ public class Competition {
     public void setDateOfEvent(String dateOfEvent) {
         this.dateOfEvent = convertStringToDate(dateOfEvent);
     }
+
+    /*public void setDateOfEvent(Date dateOfEvent) {
+        this.dateOfEvent = dateOfEvent;
+    }*/
 
     public User getOwner() {
         return owner;

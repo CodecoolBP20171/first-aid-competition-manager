@@ -1,14 +1,17 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
-<head th:replace="fragments/header :: header"></head>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header"> </head>
 <body>
 <div class="container">
 
     <div th:replace="fragments/custom_navbar :: custom_navbar"></div>
 
     <!--CONTENT-->
-    <h1 class="page-header">Állomás létrehozása</h1>
     <div class="col-lg 12">
+        <div>
+            <h1 class="header-title">Állomás létrehozása</h1>
+        </div>
+
         <!--Form group-->
         <form class="form-horizontal" th:action="@{/station/add}" th:object="${station}" method="POST">
             <div class="form-group">
@@ -24,9 +27,8 @@
                 <label for="station_number" class="col-lg-2 control-label">Állomás száma</label>
                 <div class="col-lg-10">
                     <div class="input-group">
-                        <input th:field="*{number}" class="form-control" type="number"
-                               name="station_number" min="x" max="yyy"
-                               id="station_number" placeholder="1" required="required"/>
+                        <input th:field="*{number}" maxlength="100" class="form-control" type="text" name="station_number"
+                               id="station_number" placeholder="Állomás száma" required="required"/>
                     </div>
                 </div>
             </div>
@@ -34,9 +36,8 @@
                 <label for="station_description" class="col-lg-2 control-label">Leírás</label>
                 <div class="col-lg-10">
                     <div class="input-group">
-                        <textarea th:field="*{description}" maxlength="1000" class="form-control" type="text"
-                               name="station_description"
-                               id="station_description" placeholder="Állomás leírása" required="required"></textarea>
+                        <input th:field="*{description}" maxlength="100" class="form-control" type="text" name="station_description"
+                               id="station_description" placeholder="Állomás leírása" required="required"/>
                     </div>
                 </div>
             </div>
@@ -44,23 +45,24 @@
                 <label for="competition" class="col-lg-2 control-label">Verseny</label>
                 <div class="col-lg-10">
                     <div class="input-group">
-                        <select class="form-control" id="competition" name="competition">
-                            <option th:each="comp : ${listOfCompetitions}"
-                                    th:value="${comp.id}"
-                                    th:name="${comp.name}"
-                                    th:text="${comp.name}">
-                            </option>
-                        </select>
+                        <input th:field="*{competition.id}" maxlength="100" class="form-control" type="text" name="competition"
+                               id="competition" placeholder="Verseny" required="required"/>
                     </div>
                 </div>
             </div>
 
             <!--Buttons-->
             <div class="form-group">
-                <input type="submit" class="btn btn-success" id="submit_station" value="Mentés"/>
+                <input type="submit" class="btn btn-success" id="submit_station" value="Létrehozás"/>
                 <input type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" value="Mégse"/>
             </div>
         </form>
+
+        <div class="col-lg-12">
+            <a href="/index">
+                <button class="btn btn-primary">Vissza a főoldalra</button>
+            </a>
+        </div>
 
         <!-- Modal Window-->
         <div id="myModal" class="modal fade" role="dialog">
@@ -83,6 +85,6 @@
 
     </div>
 </div>
-<script th:src="@{/js/stationEdit.js}" />
+
 </body>
 </html>
