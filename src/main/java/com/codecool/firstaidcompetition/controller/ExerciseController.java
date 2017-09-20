@@ -44,6 +44,14 @@ public class ExerciseController {
         return new ModelAndView("redirect:/exercise/table");
     }
 
+    @GetMapping("/{stationId}")
+    private String listExerciseByStation(@PathVariable Long stationId, Model model){
+        Iterable<Exercise> exercises = exerciseRepository.findByStationId(stationId);
+        model.addAttribute("listOfExercises", exercises);
+        model.addAttribute("editedExercise", new Exercise());
+        return "exercises/exercise_table";
+    }
+
     @GetMapping("/delete/{exerciseId}")
     private ModelAndView deleteExercise(@PathVariable String exerciseId){
         exerciseRepository.delete(Long.valueOf(exerciseId));

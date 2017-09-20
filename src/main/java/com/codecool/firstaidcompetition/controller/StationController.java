@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/station")
 public class StationController {
@@ -32,6 +34,28 @@ public class StationController {
         logger.info("Mapping to the station route");
         return "station/station_table";
     }
+
+    @PostMapping(value = {"/" , ""})
+    private ModelAndView saveEditedStation(@ModelAttribute Station station){
+        Station editedStation = stationRepository.findOne(station.getId());
+        editedStation.setName(station.getName());
+        editedStation.setNumber(station.getNumber());
+        editedStation.setDescription(station.getDescription());
+//        editedStation.setCompetition(station.getCompetition());
+
+        stationRepository.save(editedStation);
+        return new ModelAndView("redirect:/station");
+    }
+
+    @GetMapping("/{competitionId}")
+    private String listByCompetitionId(@PathVariable Long competitionId, Model model){
+        Iterable<Station> stations = stationRepository.findByCompetitionId(competitionId);
+        model.addAttribute("listOfStations", stations);
+        model.addAttribute("station", new Station());
+
+        return "station/station_table";
+    }
+
 
     @GetMapping(value = "/add")
     public String addStation(Model model) {
@@ -63,19 +87,5 @@ public class StationController {
     public Station editStation(@PathVariable Long stationId){
         return stationRepository.findOne(stationId);
     }
-
-    @PostMapping(value = {"/" , ""})
-    private ModelAndView saveEditedStation(@ModelAttribute Station station){
-        Station editedStation = stationRepository.findOne(station.getId());
-        editedStation.setName(station.getName());
-        editedStation.setNumber(station.getNumber());
-        editedStation.setDescription(station.getDescription());
-        System.out.println("SAVEE!!");
-//        editedStation.setCompetition(station.getCompetition());
-
-        stationRepository.save(editedStation);
-        return new ModelAndView("redirect:/station");
-    }
-
 
 }
