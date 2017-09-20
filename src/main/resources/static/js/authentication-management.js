@@ -1,27 +1,4 @@
-/**
- * Created by keli on 2017.07.03..
- */
 $(document).ready(function () {
-
-    $(".editStation").click(function () {
-        var stationId = $(this).attr("data-station_id");
-        updateEditStationModal(stationId);
-    });
-
-    $(".deleteExercise").click(function () {
-        var exerciseId = $(this).attr("data-comp_id");
-        updateDeleteExerciseModal(exerciseId);
-    });
-
-    $(".editExercise").click(function () {
-        var exerciseId = $(this).attr("data-comp_id");
-        updateEditExerciseModal(exerciseId);
-    });
-
-    $(".deleteStation").click(function () {
-        var stationId = $(this).attr("data-station_id");
-        updateDeleteStationModal(stationId);
-    });
 
     $("#regForm").submit(function (event) {    // check userName and pass before submit
         validateUserNameIsExists(function (data) {
@@ -43,48 +20,6 @@ $(document).ready(function () {
             changePasswordColorToDefault();
         }
     });
-
-    var updateDeleteStationModal = function (stationId) {
-        var deletedUrl = "/station/delete/" + stationId;
-        $("#deleteStation").attr("href", deletedUrl);
-    };
-
-    var updateDeleteExerciseModal = function (exerciseId) {
-        var deletedUrl = "/exercise/delete/" + exerciseId;
-        $("#deleteExercise").attr("href", deletedUrl);
-    };
-
-    var updateEditExerciseModal = function (exerciseId) {
-        $.ajax({
-            url: "/exercise/edit/" + exerciseId,
-            method: "GET",
-            success: function (data) {
-                $("#exerciseName").val(data["name"]);
-                $("#exerciseDesc").val(data["description"]);
-                $("#exerciseId").val(data["id"]);
-            },
-            error: function () {
-                alert("Something went wrong!")
-            }
-        })
-    };
-
-    var updateEditStationModal = function (stationId) {
-        $.ajax({
-            url: "/station/edit/" + stationId,
-            method: "GET",
-            success: function(data){
-                $("#edit_station_id").val(data["id"]);
-                $("#edit_station_name").val(data["name"]);
-                $("#edit_station_number").val(data["number"]);
-                $("#edit_station_description").val(data["description"]);
-                // competition!
-            },
-            error: function(){
-                alert("Something went wrong!")
-            }
-        })
-    };
 
     var validateUserNameIsExists = function (callback) {
         var userName = $('#user_name').val();
@@ -139,4 +74,3 @@ $(document).ready(function () {
     };
 
 });
-
