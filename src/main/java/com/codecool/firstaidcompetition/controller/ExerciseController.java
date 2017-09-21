@@ -36,12 +36,20 @@ public class ExerciseController {
     }
 
     @PostMapping("/table")
-    private ModelAndView editexercise(@ModelAttribute Exercise exercise){
+    private ModelAndView saveEditedExercise(@ModelAttribute Exercise exercise){
         Exercise editedExercise = exerciseRepository.findOne(exercise.getId());
         editedExercise.setName(exercise.getName());
         editedExercise.setDescription(exercise.getDescription());
         exerciseRepository.save(editedExercise);
         return new ModelAndView("redirect:/exercise/table");
+    }
+
+    @GetMapping("/{stationId}")
+    private String listExerciseByStation(@PathVariable Long stationId, Model model){
+        Iterable<Exercise> exercises = exerciseRepository.findByStationId(stationId);
+        model.addAttribute("listOfExercises", exercises);
+        model.addAttribute("editedExercise", new Exercise());
+        return "exercises/exercise_table";
     }
 
     @GetMapping("/delete/{exerciseId}")

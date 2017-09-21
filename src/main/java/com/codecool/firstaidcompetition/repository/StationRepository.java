@@ -8,4 +8,6 @@ import java.util.List;
 /**
  * Created by keli on 2017.07.06..
  */
-public interface StationRepository extends CrudRepository<Station, Long> {}
+public interface StationRepository extends CrudRepository<Station, Long> {
+    Iterable<Station> findByCompetitionId(Long competitionId);
+}

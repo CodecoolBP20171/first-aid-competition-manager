@@ -1,6 +1,7 @@
 package com.codecool.firstaidcompetition.controller;
 
 import com.codecool.firstaidcompetition.model.Competition;
+import com.codecool.firstaidcompetition.model.Exercise;
 import com.codecool.firstaidcompetition.model.Station;
 import com.codecool.firstaidcompetition.repository.CompetitionRepository;
 import com.codecool.firstaidcompetition.repository.StationRepository;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/station")
@@ -23,7 +26,7 @@ public class StationController {
     @Autowired
     private CompetitionRepository competitionRepository;
 
-    @RequestMapping(value = {"/" , ""})
+    @GetMapping(value = {"/" , ""})
     public String getStations(Model model) {
         Iterable<Station> stationList = stationRepository.findAll();
         model.addAttribute("listOfStations", stationList);
@@ -31,6 +34,28 @@ public class StationController {
         logger.info("Mapping to the station route");
         return "station/station_table";
     }
+
+    @PostMapping(value = {"/" , ""})
+    private ModelAndView saveEditedStation(@ModelAttribute Station station){
+        Station editedStation = stationRepository.findOne(station.getId());
+        editedStation.setName(station.getName());
+        editedStation.setNumber(station.getNumber());
+        editedStation.setDescription(station.getDescription());
+//        editedStation.setCompetition(station.getCompetition());
+
+        stationRepository.save(editedStation);
+        return new ModelAndView("redirect:/station");
+    }
+
+    @GetMapping("/{competitionId}")
+    private String listByCompetitionId(@PathVariable Long competitionId, Model model){
+        Iterable<Station> stations = stationRepository.findByCompetitionId(competitionId);
+        model.addAttribute("listOfStations", stations);
+        model.addAttribute("station", new Station());
+
+        return "station/station_table";
+    }
+
 
     @GetMapping(value = "/add")
     public String addStation(Model model) {
@@ -57,18 +82,10 @@ public class StationController {
         return new ModelAndView("redirect:/station");
     }
 
-    @RequestMapping(value={"/station/edit"},method = RequestMethod.POST)
-    public ModelAndView editStation(@ModelAttribute Station station){
-        Station stationEdit = stationRepository.findOne(station.getId());
-        stationEdit.setName(station.getName());
-        stationEdit.setDescription(station.getDescription());
-        System.out.println(station.getCompetition().getName());
-
-        stationEdit.setCompetition(station.getCompetition());
-        stationEdit.setNumber(station.getNumber());
-        stationRepository.save(stationEdit);
-        logger.info("Edited user with id : " + station.getId());
-        return new ModelAndView("redirect:/station");
+    @GetMapping(value = "/edit/{stationId}")
+    @ResponseBody
+    public Station editStation(@PathVariable Long stationId){
+        return stationRepository.findOne(stationId);
     }
 
 }
