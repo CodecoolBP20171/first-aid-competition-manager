@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/header :: header"></head>
+<body th:fragment="custom_navbar">
+
+<!--NAVBAR-->
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/index"><img id="mvk_logo" th:src="@{/img/redcross_logo.png}"/></a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="/index">Főoldal</a></li>
+                <li><a href="/about">A versenyről</a></li>
+                <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/registration">Regisztráció</a></li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle disabled" data-toggle="dropdown" href="#">Versenyek<span
+                            class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/competition">Aktuális Versenyek</a></li>
+                        <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/competition/add">Verseny Létrehozása</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle disabled" data-toggle="dropdown" href="#">Állomások<span
+                            class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/station">Aktuális Állomások</a></li>
+                        <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/station/add">Új állomás hozzáadása</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle disabled" data-toggle="dropdown" href="#">Feladatok<span
+                            class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/exercise/table">Aktuális feladatok</a></li>
+                        <li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/exercise/add">Új feladat hozzáadása</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li sec:authorize="isAnonymous()"><a href="/login">Bejelentkezés</a></li>
+                <li sec:authorize="isAuthenticated()"><a href="/logout">Kijelentkezés</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

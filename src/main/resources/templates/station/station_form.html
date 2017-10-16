@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments/header :: header"></head>
+<body>
+<div class="container">
+
+    <div th:replace="fragments/custom_navbar :: custom_navbar"></div>
+
+    <!--CONTENT-->
+    <h1 class="page-header">Állomás létrehozása</h1>
+    <div class="col-lg 12">
+        <!--Form group-->
+        <form class="form-horizontal" th:action="@{/station/add}" th:object="${station}" method="POST">
+            <div class="form-group">
+                <label for="name" class="col-lg-2 control-label">Név</label>
+                <div class="col-lg-10">
+                    <div class="input-group">
+                        <input th:field="*{name}" maxlength="100" class="form-control" type="text" name="name" id="name"
+                               placeholder="Állomás neve" required="required"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="station_number" class="col-lg-2 control-label">Állomás száma</label>
+                <div class="col-lg-10">
+                    <div class="input-group">
+                        <input th:field="*{number}" class="form-control" type="number"
+                               name="station_number" min="x" max="yyy"
+                               id="station_number" placeholder="1" required="required"/>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="station_description" class="col-lg-2 control-label">Leírás</label>
+                <div class="col-lg-10">
+                    <div class="input-group">
+                        <textarea th:field="*{description}" maxlength="1000" class="form-control" type="text"
+                               name="station_description"
+                               id="station_description" placeholder="Állomás leírása" required="required"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="competition" class="col-lg-2 control-label">Verseny</label>
+                <div class="col-lg-10">
+                    <div class="input-group">
+                        <select class="form-control" id="competition" name="competition">
+                            <option th:each="comp : ${listOfCompetitions}"
+                                    th:value="${comp.id}"
+                                    th:name="${comp.name}"
+                                    th:text="${comp.name}">
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!--Buttons-->
+            <div class="form-group">
+                <input type="submit" class="btn btn-success" id="submit_station" value="Mentés"/>
+                <input type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" value="Mégse"/>
+            </div>
+        </form>
+
+        <!-- Modal Window-->
+        <div id="myModal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="modal-header">Biztos benne, hogy megszakítja a mentést?</h4>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="/index">
+                            <button type="button" class="btn btn-danger">Igen</button>
+                        </a>
+                        <button type="button" class="btn btn-success" data-dismiss="modal">Nem</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script th:src="@{/js/station-management.js}"/>
+</body>
+</html>

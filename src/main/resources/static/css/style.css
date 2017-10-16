@@ -1,0 +1,39 @@
+/*init*/
+
+.edit_icon:hover, .bin_icon:hover {
+    color: red;
+}
+
+#mvk_logo {
+    position: relative;
+    max-height: 300%;
+}
+
+.navbar-default .navbar-nav > li > a:visited {
+    color: #ffffff;
+    background-image: none;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+    color: #e10000;
+    background: #ffffff;
+    background-image: none;
+}
+
+.dropdown-menu > li > a {
+    color: #ffffff;
+    background-color: #cd0000;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+    color: #cd0000;
+    background-color: #ffffff;
+    background-image: none;
+}
+
+.dropdown:hover .dropdown-menu {
+    color: #ffffff;
+    background-color: #cd0000;
+    display: block;
+}

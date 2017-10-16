@@ -1,2 +1,2 @@
-# first-aid-competition-manager
-Integrated scoring system to manage first aid competition
+# first-aid-competitionID-manager
+Integrated scoring system to manage first aid competitionID
