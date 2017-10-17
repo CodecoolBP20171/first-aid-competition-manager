@@ -19,7 +19,7 @@
         <version.postgres>42.1.1</version.postgres>
         <version.maven.compiler.plugin>3.1</version.maven.compiler.plugin>
         <version.maven.processor.plugin>2.2.4</version.maven.processor.plugin>
-        <version.junit>4.11</version.junit>
+        <version.junit>4.12</version.junit>
         <version.log4j>2.8.2</version.log4j>
         <version.slf4j>1.7.25</version.slf4j>
         <version.glassflish>3.0.1-b08</version.glassflish>
