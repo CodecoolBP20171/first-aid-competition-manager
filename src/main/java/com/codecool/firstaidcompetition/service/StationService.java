@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class StationServiceTest {
+public class StationService {
 
     private final StationRepository stationRepository;
     private final CompetitionService competitionService;
 
     @Autowired
-    public StationServiceTest(StationRepository stationRepository, CompetitionService competitionService) {
+    public StationService(StationRepository stationRepository, CompetitionService competitionService) {
         this.stationRepository = stationRepository;
         this.competitionService = competitionService;
     }
