@@ -1,5 +1,6 @@
 package com.codecool.firstaidcompetition.service;
 
+import com.codecool.firstaidcompetition.model.Competition;
 import com.codecool.firstaidcompetition.model.Station;
 import com.codecool.firstaidcompetition.repository.StationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +10,12 @@ import org.springframework.stereotype.Service;
 public class StationService {
 
     private final StationRepository stationRepository;
+    private final CompetitionService competitionService;
 
     @Autowired
-    public StationService(StationRepository stationRepository) {
+    public StationService(StationRepository stationRepository, CompetitionService competitionService) {
         this.stationRepository = stationRepository;
+        this.competitionService = competitionService;
     }
 
     public Iterable<Station> findAll() {
@@ -28,16 +31,15 @@ public class StationService {
     }
 
     public void update(long id, Station station) {
-        
+        station.setId(id);
+
+        Competition currentComp = station.getCompetition();
+        competitionService.save(currentComp);
+        stationRepository.save(station);
     }
 
     public void delete(long id) {
         stationRepository.delete(id);
     }
-
-    public void deleteAll() {
-        stationRepository.deleteAll();
-    }
-
 
 }
