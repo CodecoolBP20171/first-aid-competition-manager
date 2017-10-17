@@ -1,7 +1,7 @@
 package com.codecool.firstaidcompetition.controller;
 
 import com.codecool.firstaidcompetition.model.Station;
-import com.codecool.firstaidcompetition.service.StationServiceTest;
+import com.codecool.firstaidcompetition.service.StationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +13,10 @@ public class StationController {
 
     private static final Logger logger = LoggerFactory.getLogger(StationController.class);
 
-    private final StationServiceTest stationService;
+    private final StationService stationService;
 
     @Autowired
-    public StationController(StationServiceTest stationService) {
+    public StationController(StationService stationService) {
         this.stationService = stationService;
     }
 
