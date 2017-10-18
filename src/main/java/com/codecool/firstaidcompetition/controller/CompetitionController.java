@@ -3,10 +3,13 @@ package com.codecool.firstaidcompetition.controller;
 import com.codecool.firstaidcompetition.model.Competition;
 import com.codecool.firstaidcompetition.service.CompetitionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.awt.*;
 
 @Controller
 @RequestMapping("/competition")
@@ -48,8 +51,26 @@ public class CompetitionController {
 
     //***** REST services *****//
     @ResponseBody
-    @RequestMapping(value = "/rest", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/rest", method = RequestMethod.GET)
     public Iterable<Competition> getCompetitionsRest() {
         return competitionService.getAllCompetitionsService();
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/rest/{id}", method = RequestMethod.GET)
+    public Competition getCompetitionByIdRest(@PathVariable("id") long id) {
+        return competitionService.getCompetitionByIdService(id);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/rest/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void addCompetitionRest(@RequestBody Competition competition) {
+        competitionService.addNewCompetitionService(competition);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/rest/{id}", method = RequestMethod.DELETE)
+    public void deleteCompetitionRest(@PathVariable("id") long id) {
+        competitionService.deleteCompetitionService(id);
     }
 }

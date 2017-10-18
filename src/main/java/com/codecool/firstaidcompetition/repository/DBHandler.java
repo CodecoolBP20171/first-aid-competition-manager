@@ -6,9 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
@@ -32,8 +30,6 @@ public class DBHandler {
     @Autowired
     private TeamResultRepository teamResultRepository;
     @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public void populateDB() throws ParseException {
@@ -43,11 +39,7 @@ public class DBHandler {
         HashSet<Role> userSet = new HashSet<>();
         adminSet.add(admin);
         userSet.add(refereeRole);
-        roleRepository.save(admin);
-        roleRepository.save(refereeRole);
 
-
-        //
         User user = new User("Admin Béla", "admin", "kiss@gmail.com",
                 bCryptPasswordEncoder.encode("admin"), null, adminSet);
         User user2 = new User("User Géza", "user", "kiss_geza@gmail.com",
@@ -66,13 +58,6 @@ public class DBHandler {
         competitionRepository.save(competition);
         competitionRepository.save(competition2);
         competitionRepository.save(competition3);
-
-        // Date formatting example
-        String pattern = "yyyy-MM-dd";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        Date date = simpleDateFormat.parse("2012-07-08");
-        Date date2 = simpleDateFormat.parse("2013-09-08");
-        Date date3 = simpleDateFormat.parse("2014-10-08");
 
         Station station = new Station("12. állomás", 12, "harmadik leírás", competition);
 

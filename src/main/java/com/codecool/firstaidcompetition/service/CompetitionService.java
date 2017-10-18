@@ -30,6 +30,10 @@ public class CompetitionService {
         return competitionRepository.findAll();
     }
 
+    public Competition getCompetitionByIdService(long id) {
+        return competitionRepository.findOne(id);
+    }
+
     public void addNewCompetitionService(Competition competition) {
         User authenticatedUser = userService.getAuthenticatedUser();
         competition.setOwner(authenticatedUser);
