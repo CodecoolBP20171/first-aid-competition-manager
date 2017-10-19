@@ -9,8 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.awt.*;
-
 @Controller
 @RequestMapping("/competition")
 public class CompetitionController {
@@ -66,6 +64,14 @@ public class CompetitionController {
     @RequestMapping(value = "/rest/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void addCompetitionRest(@RequestBody Competition competition) {
         competitionService.addNewCompetitionService(competition);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "rest/{id}", method = RequestMethod.PATCH)
+    public Competition editCompetitionRest(@PathVariable("id") long id, @RequestBody Competition competition) {
+        competition.setId(id);
+        competitionService.editCompetitionService(competition);
+        return competitionService.getCompetitionByIdService(id);
     }
 
     @ResponseBody
