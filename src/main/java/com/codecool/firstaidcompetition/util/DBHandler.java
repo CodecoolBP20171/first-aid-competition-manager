@@ -1,53 +1,52 @@
-package com.codecool.firstaidcompetition.repository;
+package com.codecool.firstaidcompetition.util;
 
 import com.codecool.firstaidcompetition.model.*;
+import com.codecool.firstaidcompetition.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
-@Repository
-public class DBHandler {
+@Component
+public class DBHandler implements ApplicationRunner {
+
+    private final CompetitionRepository competitionRepository;
+    private final UserRepository userRepository;
+    private final ExerciseRepository exerciseRepository;
+    private final ProtestRepository protestRepository;
+    private final StationRepository stationRepository;
+    private final TaskRepository taskRepository;
+    private final TeamRepository teamRepository;
+    private final TeamResultRepository teamResultRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    private CompetitionRepository competitionRepository;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private ExerciseRepository exerciseRepository;
-    @Autowired
-    private ProtestRepository protestRepository;
-    @Autowired
-    private StationRepository stationRepository;
-    @Autowired
-    private TaskRepository taskRepository;
-    @Autowired
-    private TeamRepository teamRepository;
-    @Autowired
-    private TeamResultRepository teamResultRepository;
-    @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    public DBHandler(UserRepository userRepository, CompetitionRepository competitionRepository, ExerciseRepository exerciseRepository, ProtestRepository protestRepository, StationRepository stationRepository, TaskRepository taskRepository, TeamRepository teamRepository, TeamResultRepository teamResultRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userRepository = userRepository;
+        this.competitionRepository = competitionRepository;
+        this.exerciseRepository = exerciseRepository;
+        this.protestRepository = protestRepository;
+        this.stationRepository = stationRepository;
+        this.taskRepository = taskRepository;
+        this.teamRepository = teamRepository;
+        this.teamResultRepository = teamResultRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
-    public void populateDB() throws ParseException {
+    @Override
+    public void run(ApplicationArguments applicationArguments) throws Exception {
         Role admin = new Role("ROLE_ADMIN", null);
         Role refereeRole = new Role("ROLE_REFEREE", null);
         HashSet<Role> adminSet = new HashSet<>();
         HashSet<Role> userSet = new HashSet<>();
         adminSet.add(admin);
         userSet.add(refereeRole);
-        roleRepository.save(admin);
-        roleRepository.save(refereeRole);
 
-
-        //
         User user = new User("Admin Béla", "admin", "kiss@gmail.com",
                 bCryptPasswordEncoder.encode("admin"), null, adminSet);
         User user2 = new User("User Géza", "user", "kiss_geza@gmail.com",
@@ -66,13 +65,6 @@ public class DBHandler {
         competitionRepository.save(competition);
         competitionRepository.save(competition2);
         competitionRepository.save(competition3);
-
-        // Date formatting example
-        String pattern = "yyyy-MM-dd";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        Date date = simpleDateFormat.parse("2012-07-08");
-        Date date2 = simpleDateFormat.parse("2013-09-08");
-        Date date3 = simpleDateFormat.parse("2014-10-08");
 
         Station station = new Station("12. állomás", 12, "harmadik leírás", competition);
 
@@ -100,5 +92,7 @@ public class DBHandler {
 
         Protest protest = new Protest(team, exercise, "óvási leírás", "döntés megszületett");
         protestRepository.save(protest);
+
     }
+
 }

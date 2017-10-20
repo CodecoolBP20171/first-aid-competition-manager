@@ -1,91 +1,83 @@
 package com.codecool.firstaidcompetition.controller;
 
-import com.codecool.firstaidcompetition.model.Competition;
-import com.codecool.firstaidcompetition.model.Exercise;
+import com.codecool.firstaidcompetition.exception.StationNotFoundException;
 import com.codecool.firstaidcompetition.model.Station;
-import com.codecool.firstaidcompetition.repository.CompetitionRepository;
-import com.codecool.firstaidcompetition.repository.StationRepository;
+import com.codecool.firstaidcompetition.service.StationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
-@Controller
+@RestController
 @RequestMapping("/station")
 public class StationController {
 
     private static final Logger logger = LoggerFactory.getLogger(StationController.class);
 
+    private final StationService stationService;
+
     @Autowired
-    private StationRepository stationRepository;
-    @Autowired
-    private CompetitionRepository competitionRepository;
-
-    @GetMapping(value = {"/" , ""})
-    public String getStations(Model model) {
-        Iterable<Station> stationList = stationRepository.findAll();
-        model.addAttribute("listOfStations", stationList);
-        model.addAttribute("station", new Station());
-        logger.info("Mapping to the station route");
-        return "station/station_table";
+    public StationController(StationService stationService) {
+        this.stationService = stationService;
     }
 
-    @PostMapping(value = {"/" , ""})
-    private ModelAndView saveEditedStation(@ModelAttribute Station station){
-        Station editedStation = stationRepository.findOne(station.getId());
-        editedStation.setName(station.getName());
-        editedStation.setNumber(station.getNumber());
-        editedStation.setDescription(station.getDescription());
-//        editedStation.setCompetition(station.getCompetition());
-
-        stationRepository.save(editedStation);
-        return new ModelAndView("redirect:/station");
+    @GetMapping(value = {"/", ""})
+    public Iterable<Station> getAll() {
+        logger.info("Get all stations from the db");
+        return stationService.findAll();
     }
 
-    @GetMapping("/{competitionId}")
-    private String listByCompetitionId(@PathVariable Long competitionId, Model model){
-        Iterable<Station> stations = stationRepository.findByCompetitionId(competitionId);
-        model.addAttribute("listOfStations", stations);
-        model.addAttribute("station", new Station());
+    @GetMapping(value = "/{id}")
+    public Station getById(@PathVariable long id) throws StationNotFoundException {
+        isValidStationId(id);
+        Station station = stationService.findById(id);
 
-        return "station/station_table";
+        logger.info("Get Station with id {} from the db", id);
+        return station;
     }
 
+    @PostMapping(value = {"/", ""})
+    public ResponseEntity<String> save(@RequestBody Station station) {
+        stationService.save(station);
 
-    @GetMapping(value = "/add")
-    public String addStation(Model model) {
-        Iterable<Competition> competitionList = competitionRepository.findAll();
-        model.addAttribute("listOfCompetitions", competitionList);
-        model.addAttribute("station", new Station());
-        return "station/station_form";
+        logger.info("Add Station to the db");
+        return new ResponseEntity<>("Created a new station", HttpStatus.OK);
     }
 
-    @PostMapping(value = "/add")
-    public ModelAndView submitStation(@ModelAttribute Station station) {
-        stationRepository.save(station);
-        logger.info("Save station to the db, " +
-                        "[name: {}; location: {}; date: {}, owner: {}]",
-                station.getName(), station.getNumber(), station.getDescription(),
-                station.getCompetition());
-        return new ModelAndView("redirect:/station");
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<String> update(@PathVariable long id, @RequestBody Station station) throws StationNotFoundException {
+        isValidStationId(id);
+        stationService.update(id, station);
+
+        logger.info("Update Station with {} id in the db", id);
+        return new ResponseEntity<>("Updated existing station", HttpStatus.OK);
     }
 
-    @GetMapping("/delete/{stationId}")
-    private ModelAndView deleteStation(@PathVariable String stationId){
-        stationRepository.delete(Long.valueOf(stationId));
-        logger.info("Deleted thw following station id: {}", stationId);
-        return new ModelAndView("redirect:/station");
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<String> delete(@PathVariable long id) throws StationNotFoundException {
+        isValidStationId(id);
+        stationService.delete(id);
+
+        logger.info("Delete Station with {} id from the db", id);
+        return new ResponseEntity<>("Deleted station", HttpStatus.OK);
     }
 
-    @GetMapping(value = "/edit/{stationId}")
-    @ResponseBody
-    public Station editStation(@PathVariable Long stationId){
-        return stationRepository.findOne(stationId);
+    @ExceptionHandler(StationNotFoundException.class)
+    public void handleStationNotFound(StationNotFoundException exception,
+                                      HttpServletResponse response) throws IOException {
+        response.sendError(HttpStatus.NOT_FOUND.value(), exception.getMessage());
+    }
+
+    private void isValidStationId(long id) throws StationNotFoundException {
+        Station station = stationService.findById(id);
+        if (station == null) {
+            throw new StationNotFoundException("Station with id: " + id + " not found!");
+        }
     }
 
 }

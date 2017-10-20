@@ -1,5 +1,6 @@
 package com.codecool.firstaidcompetition.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +32,7 @@ public class Competition {
     @JoinColumn(name = "owner_id")
     private User owner;
 
-    @JsonIgnore
+    @JsonBackReference
     @OneToMany(mappedBy = "competition", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private List<Station> stations = new ArrayList<>();
 
