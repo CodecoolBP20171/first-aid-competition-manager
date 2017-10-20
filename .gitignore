@@ -112,3 +112,4 @@ jboss/server/minimal/work/**/*
 *.DEPLOYED
 
 first-aid-competition.iml
+src/main/resources/application.properties
