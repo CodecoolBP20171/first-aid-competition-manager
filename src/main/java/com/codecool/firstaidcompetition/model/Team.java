@@ -37,7 +37,6 @@ public class Team {
     @OneToOne(mappedBy = "team")
     private Protest protest;
 
-    @JsonIgnore
     @ManyToOne
     private Competition competition;
 

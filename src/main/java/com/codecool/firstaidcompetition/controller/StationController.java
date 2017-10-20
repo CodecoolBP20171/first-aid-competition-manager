@@ -17,8 +17,6 @@ import java.io.IOException;
 @RequestMapping("/station")
 public class StationController {
 
-    private static final Logger logger = LoggerFactory.getLogger(StationController.class);
-
     private final StationService stationService;
 
     @Autowired
@@ -28,7 +26,6 @@ public class StationController {
 
     @GetMapping(value = {"/", ""})
     public Iterable<Station> getAll() {
-        logger.info("Get all stations from the db");
         return stationService.findAll();
     }
 
@@ -37,7 +34,6 @@ public class StationController {
         isValidStationId(id);
         Station station = stationService.findById(id);
 
-        logger.info("Get Station with id {} from the db", id);
         return station;
     }
 
@@ -45,7 +41,6 @@ public class StationController {
     public ResponseEntity<String> save(@RequestBody Station station) {
         stationService.save(station);
 
-        logger.info("Add Station to the db");
         return new ResponseEntity<>("Created a new station", HttpStatus.OK);
     }
 
@@ -54,7 +49,6 @@ public class StationController {
         isValidStationId(id);
         stationService.update(id, station);
 
-        logger.info("Update Station with {} id in the db", id);
         return new ResponseEntity<>("Updated existing station", HttpStatus.OK);
     }
 
@@ -63,7 +57,6 @@ public class StationController {
         isValidStationId(id);
         stationService.delete(id);
 
-        logger.info("Delete Station with {} id from the db", id);
         return new ResponseEntity<>("Deleted station", HttpStatus.OK);
     }
 

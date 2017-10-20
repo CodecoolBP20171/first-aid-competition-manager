@@ -28,12 +28,12 @@ public class Competition {
     private Date dateOfEvent;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH)
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "owner_id")
     private User owner;
 
     @JsonBackReference
-    @OneToMany(mappedBy = "competition", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "competition", cascade = CascadeType.REMOVE)
     private List<Station> stations = new ArrayList<>();
 
     @JsonIgnore
@@ -46,7 +46,6 @@ public class Competition {
     public Competition(String name, String location, String dateOfEvent, User owner) {
         this.name = name;
         this.location = location;
-        // Is it OK?
         this.dateOfEvent = convertStringToDate(dateOfEvent);
         this.owner = owner;
     }
@@ -95,10 +94,6 @@ public class Competition {
     public void setDateOfEvent(String dateOfEvent) {
         this.dateOfEvent = convertStringToDate(dateOfEvent);
     }
-
-    /*public void setDateOfEvent(Date dateOfEvent) {
-        this.dateOfEvent = dateOfEvent;
-    }*/
 
     public User getOwner() {
         return owner;

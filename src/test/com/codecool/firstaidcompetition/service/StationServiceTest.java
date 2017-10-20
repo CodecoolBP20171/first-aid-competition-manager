@@ -12,20 +12,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.*;
 
 // Helper: https://stackoverflow.com/questions/37727311/how-do-i-junit-test-a-spring-autowired-constructor
 @RunWith(MockitoJUnitRunner.class)
@@ -57,6 +49,20 @@ public class StationServiceTest {
         Mockito.when(stationRepository.findOne(1L)).thenReturn(newStation1);
 
         exercise = new Exercise("Exercise 1.0", "Exszerszájz");
+    }
+
+    @Test
+    public void saveStation_WhenSave_ThenReturnNothing() {
+        doNothing().when(stationRepository).save(newStation2);
+        stationService.save(newStation2);
+        verify(stationRepository, times(10)).save(newStation2);
+    }
+
+    @Test
+    public void deleteStation_WhenDelete_ThenReturnNothing() {
+        doNothing().when(stationRepository).delete(1L);
+        stationService.delete(1L);
+        verify(stationRepository, times(1)).delete(1L);
     }
 
     @Test

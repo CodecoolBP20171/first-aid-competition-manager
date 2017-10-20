@@ -10,7 +10,6 @@ import java.util.List;
 @Entity(name = "stations")
 public class Station {
 
-    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
