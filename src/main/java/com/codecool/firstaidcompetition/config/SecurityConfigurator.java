@@ -34,9 +34,9 @@ public class SecurityConfigurator extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.authorizeRequests()
                 .antMatchers("/station/**").hasRole("ADMIN")
-                .antMatchers(HttpMethod.POST, "/competition/rest/add").hasRole("ADMIN")
-                .antMatchers(HttpMethod.PATCH, "/competition/rest/{id}").hasRole("ADMIN")
-                .antMatchers(HttpMethod.DELETE, "/competition/rest/{id}").hasRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/competition/add").hasRole("ADMIN")
+                .antMatchers(HttpMethod.PATCH, "/competition/{id}").hasRole("ADMIN")
+                .antMatchers(HttpMethod.DELETE, "/competition/{id}").hasRole("ADMIN")
                 .anyRequest().permitAll()
                 .and()
                 .httpBasic()

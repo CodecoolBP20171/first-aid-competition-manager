@@ -9,10 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 @Service
 public class CompetitionService {
 
@@ -35,8 +31,10 @@ public class CompetitionService {
     }
 
     public void addNewCompetitionService(Competition competition) {
-        User authenticatedUser = userService.getAuthenticatedUser();
-        competition.setOwner(authenticatedUser);
+        // Currently the authentication from DB is out of order
+//        User authenticatedUser = userService.getAuthenticatedUser();
+//        competition.setOwner(authenticatedUser);
+        competition.setOwner(null);
         competitionRepository.save(competition);
         logger.info("Save competition to the db, " +
                         "[name: {}; location: {}; date: {}, owner: {}]",
@@ -44,17 +42,10 @@ public class CompetitionService {
                 competition.getOwner());
     }
 
-    public void editCompetitionService(Competition competition) {
-        Competition competitionEdit = competitionRepository.findOne(competition.getId());
-        competitionEdit.setName(competition.getName());
-        competitionEdit.setLocation(competition.getLocation());
-        //Convert date to string
-        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = competition.getDateOfEvent();
-        String compDate = df.format(date);
-        competitionEdit.setDateOfEvent(compDate);
-        competitionRepository.save(competitionEdit);
-        logger.info("Edited competition with id: " + competitionEdit.getId());
+    public void editCompetitionService(long id, Competition competition) {
+        competition.setId(id);
+        competitionRepository.save(competition);
+        logger.info("Edited competition with id: " + competition.getId());
     }
 
     public void deleteCompetitionService(long id) {
