@@ -1,5 +1,6 @@
 package com.codecool.firstaidcompetition.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
@@ -8,15 +9,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-//@NamedQueries({
-//        @NamedQuery(name = "findAllUsers", query = "select user from users user"),
-//        @NamedQuery(name = "findUserById", query = "select user from users user where user.id = :userId"),
-//        @NamedQuery(name = "findUserByFullName", query = "select user from users user where user.fullName = :userFullName"),
-//        @NamedQuery(name = "findUserByUserName", query = "select user from users user where user.userName = :userUserName"),
-//        @NamedQuery(name = "findUserByEmail", query = "select user from users user where user.email = :userEmail")
-//})
 @Entity(name = "users")
 public class User {
+    @JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -30,6 +25,7 @@ public class User {
     @Column(name = "email", length = 100)
     private String email;
 
+    @JsonIgnore
     @Column(name = "password")
     private String password;
 
