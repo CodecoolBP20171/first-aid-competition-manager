@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @WebMvcTest(StationController.class)
 @WithMockUser
-public class StationControllerTest {
+public class StationControllerUnitTest {
 
     private static final String contentType = MediaType.APPLICATION_JSON_UTF8_VALUE;
 
@@ -88,9 +88,16 @@ public class StationControllerTest {
 
     @Test
     public void putStation_WhenUpdateWithNull_ThenReturn4xxError() throws Exception {
-        ResultActions perform = mockMvc.perform(put("/station/" + 999));
+        ResultActions perform = mockMvc.perform(put("/station/" + 3));
         perform
             .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void putStation_WhenGetWrongId_ThenReturn4xxError() throws Exception {
+        ResultActions perform = mockMvc.perform(put("/station/" + 999));
+        perform
+                .andExpect(status().is4xxClientError());
     }
 
     @Test
@@ -114,7 +121,7 @@ public class StationControllerTest {
     }
 
     @Test
-    public void deleteStation_WhenDeleteNotExisting_ThenReturnWith4xxError() throws Exception {
+    public void deleteStation_WhenDeleteNonExisting_ThenReturnWith4xxError() throws Exception {
         ResultActions perform = mockMvc.perform(delete("/station/" + 999));
         perform
             .andExpect(status().is4xxClientError())
