@@ -5,6 +5,7 @@ import com.codecool.firstaidcompetition.model.Competition;
 import com.codecool.firstaidcompetition.model.Station;
 import com.codecool.firstaidcompetition.repository.CompetitionRepository;
 import com.codecool.firstaidcompetition.repository.StationRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,25 +15,19 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.mock.http.MockHttpOutputMessage;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
@@ -45,8 +40,6 @@ public class StationControllerIntegrationTest {
 
     private static final String contentType = MediaType.APPLICATION_JSON_UTF8_VALUE;
 
-    private HttpMessageConverter jsonConverter;
-
     private Station station1;
     private Station station2;
     private Station station3;
@@ -57,15 +50,6 @@ public class StationControllerIntegrationTest {
     private StationRepository stationRepository;
     @Autowired
     private CompetitionRepository competitionRepository;
-
-    @Autowired
-    void setConverters(HttpMessageConverter<?>[] converters) {
-        jsonConverter = Arrays.asList(converters).stream()
-                .filter(hmc -> hmc instanceof MappingJackson2HttpMessageConverter)
-                .findAny()
-                .orElse(null);
-        assertNotNull("the JSON message converter must not be null", jsonConverter);
-    }
 
     @Before
     public void setup() {
@@ -98,20 +82,14 @@ public class StationControllerIntegrationTest {
         station1.setNumber(222);
         station1.setCompetition(newComp);
 
-        ObjectMapper mapper = new ObjectMapper();       // another JSON parser!
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd");
-
-        mapper.setDateFormat(df);
-        String result = mapper.writeValueAsString(station1);
+        String stationJson = parseStationWithDate(station1);
 
         ResultActions perform = mockMvc.perform(put("/station/" + station1.getId())
-                .contentType(contentType).content(result));
-
+                .contentType(contentType).content(stationJson));
         perform
                 .andExpect(status().is2xxSuccessful());
 
         Station updatedStat = stationRepository.findOne(station1.getId());
-
         assertEquals(station1.getId(), updatedStat.getId());
         assertEquals(station1.getNumber(), updatedStat.getNumber());
         assertEquals(station1.getName(), updatedStat.getName());
@@ -139,10 +117,10 @@ public class StationControllerIntegrationTest {
     @Test
     public void putStation_WhenUpdateNonExisting_ThenReturn4xxError() throws Exception {
         Station newStat = new Station("new station", 44, "desc", null);
-        String stationJson = json(newStat);
+        String stationJson = parseStationWithDate(newStat);
+
         ResultActions perform = mockMvc.perform(put("/station/" + 999)
                 .contentType(contentType).content(stationJson));
-
         perform
                 .andExpect(status().is4xxClientError())
                 .andExpect(status().isNotFound());
@@ -157,6 +135,7 @@ public class StationControllerIntegrationTest {
 
         long size = stationRepository.findAll().spliterator().getExactSizeIfKnown();
         assertEquals(2, size);
+        assertNull(stationRepository.findOne(station1.getId()));
     }
 
     @Test
@@ -170,10 +149,10 @@ public class StationControllerIntegrationTest {
     @Test
     public void postStation_WhenSaveStation_ThenReturnWith2xx() throws Exception {
         Station newStat = new Station("new station", 44, "desc", null);
-        String stationJson = json(newStat);
+        String stationJson = parseStationWithDate(newStat);
+
         ResultActions perform = mockMvc.perform(post("/station/")
                 .contentType(contentType).content(stationJson));
-
         perform
                 .andExpect(status().is2xxSuccessful());
 
@@ -226,11 +205,13 @@ public class StationControllerIntegrationTest {
                 .andExpect(jsonPath("$[2].competition.id", is((int) station3.getCompetition().getId())));
     }
 
-    private String json(Object o) throws IOException {
-        MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
-        jsonConverter.write(
-                o, MediaType.APPLICATION_JSON_UTF8, mockHttpOutputMessage);
-        return mockHttpOutputMessage.getBodyAsString();
+    // Another (much easier) JSON parser, parse Date object properly to Json
+    private String parseStationWithDate(Station station) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+
+        mapper.setDateFormat(df);
+        return mapper.writeValueAsString(station);
     }
 
 }
