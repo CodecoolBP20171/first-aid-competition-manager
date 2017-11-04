@@ -1,9 +1,7 @@
 package com.codecool.firstaidcompetition.service;
 
 import com.codecool.firstaidcompetition.model.Competition;
-import com.codecool.firstaidcompetition.model.Exercise;
 import com.codecool.firstaidcompetition.model.Station;
-import com.codecool.firstaidcompetition.repository.CompetitionRepository;
 import com.codecool.firstaidcompetition.repository.StationRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,24 +14,25 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
 
 // Helper: https://stackoverflow.com/questions/37727311/how-do-i-junit-test-a-spring-autowired-constructor
 @RunWith(MockitoJUnitRunner.class)
 public class StationServiceTest {
 
-    @InjectMocks private StationService stationService;
+    @InjectMocks // mock autowired constructor
+    private StationService stationService;
 
-    @Mock private StationRepository stationRepository;
-    @Mock private CompetitionRepository competitionRepository;
+    @Mock
+    private StationRepository stationRepository;
 
     private Station newStation1;
     private Station newStation2;
     private List<Station> stationList;
 
     private Competition competition;
-    private Exercise exercise;
 
     @Before
     public void updateDb() {
@@ -47,31 +46,42 @@ public class StationServiceTest {
 
         Mockito.when(stationRepository.findAll()).thenReturn(stationList);
         Mockito.when(stationRepository.findOne(1L)).thenReturn(newStation1);
-
-        exercise = new Exercise("Exercise 1.0", "Exszerszájz");
     }
 
     @Test
-    public void saveStation_WhenSave_ThenReturnNothing() {
-        doNothing().when(stationRepository).save(newStation2);
+    public void update_WhenUpdate_ThenReturnNothing() {
+        when(stationRepository.save(newStation2)).thenReturn(null);
+
+        newStation2.setName("changed");
+        stationService.update(newStation2.getId(), newStation2);
+    }
+
+    @Test
+    public void save_WhenSave_ThenReturnNothing() {
+        when(stationRepository.save(newStation2)).thenReturn(null);
         stationService.save(newStation2);
-        verify(stationRepository, times(10)).save(newStation2);
     }
 
     @Test
-    public void deleteStation_WhenDelete_ThenReturnNothing() {
+    public void delete_WhenDelete_ThenReturnNothing() {
         doNothing().when(stationRepository).delete(1L);
         stationService.delete(1L);
-        verify(stationRepository, times(1)).delete(1L);
     }
 
     @Test
-    public void findStation_WhenGetById_ThenReturnOneStation() {
+    public void findById_WhenGetNonExistingId_ThenReturnNull() {
+        assertNull(stationService.findById(5L));
+        assertNull(stationService.findById(1500L));
+    }
+
+    @Test
+    public void findById_WhenGetStationById_ThenReturnOneStation() {
         assertEquals(newStation1, stationService.findById(1L));
     }
 
     @Test
-    public void findStations_WhenFindAll_ThenReturnWithList() {
+    public void findAll_WhenFindStations_ThenReturnWithList() {
+        assertTrue(stationService.findAll() != null);
         assertEquals(stationList, stationService.findAll());
     }
 
