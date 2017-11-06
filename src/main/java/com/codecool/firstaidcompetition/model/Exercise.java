@@ -1,12 +1,11 @@
 package com.codecool.firstaidcompetition.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @NamedQueries({
         @NamedQuery(name = "findAllExercise", query = "select exer from exercise exer"),
@@ -24,19 +23,18 @@ public class Exercise {
     @Column(length = 1000)
     private String description;
 
-    @JsonIgnore
     @OneToOne(mappedBy = "exercise", cascade = CascadeType.REMOVE)
     private Protest protest;
 
     @ManyToOne
     private Station station;
 
-    @JsonIgnore
+    @JsonBackReference
     @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
-            name="tasks_of_exercises",
-            joinColumns=@JoinColumn(name="exercise_id", referencedColumnName="id"),
-            inverseJoinColumns=@JoinColumn(name="task_id", referencedColumnName="id"))
+            name = "tasks_of_exercises",
+            joinColumns = @JoinColumn(name = "exercise_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "task_id", referencedColumnName = "id"))
     private List<Task> tasks = new ArrayList<>();
 
     public Exercise() {}
@@ -60,10 +58,6 @@ public class Exercise {
         this.station = station;
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -74,6 +68,10 @@ public class Exercise {
 
     public List<Task> getTasks() {
         return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
     }
 
     public void addTask(Task task) {
