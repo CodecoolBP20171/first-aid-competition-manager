@@ -24,7 +24,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
@@ -72,6 +74,95 @@ public class ExerciseControllerIntegrationTest {
     }
 
     @Test
+    public void putStation_WhenUpdateExisting_ThenReturn2xx() throws Exception {
+        Station newStation = new Station("newStation", 2, "new station's description", null);
+        stationRepository.save(newStation);
+
+        exercise1.setDescription("new desc");
+        exercise1.setName("updated name");
+        exercise1.setStation(newStation);
+
+        String exerciseJSON = parseJSON(exercise1);
+
+        ResultActions perform = mockMvc.perform(put("/exercise/" + exercise1.getId())
+                .contentType(contentType).content(exerciseJSON));
+        perform
+                .andExpect(status().is2xxSuccessful());
+
+        Exercise updatedExercise = exerciseRepository.findOne(exercise1.getId());
+        assertEquals(exercise1.getId(), updatedExercise.getId());
+        assertEquals(exercise1.getName(), updatedExercise.getName());
+        assertEquals(exercise1.getDescription(), updatedExercise.getDescription());
+
+        assertEquals(newStation.getId(), updatedExercise.getStation().getId());
+        assertEquals(newStation.getName(), updatedExercise.getStation().getName());
+        assertEquals(null, updatedExercise.getStation().getCompetition());
+    }
+
+    @Test
+    public void putExercise_WhenBodyIsEmpty_ThenReturn4xxError() throws Exception {
+        ResultActions perform = mockMvc.perform(put("/station/" + exercise2.getId()));
+        perform
+                .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void putExercise_WhenUpdateNonExisting_ThenReturn4xxError() throws Exception {
+        Exercise newExercise = new Exercise("new", "new desc", station);
+        String exerciseJson = parseJSON(newExercise);
+
+        ResultActions perform = mockMvc.perform(put("/exercise/" + 999)
+                .contentType(contentType).content(exerciseJson));
+        perform
+                .andExpect(status().is4xxClientError())
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void deleteExercise_WhenDeleteExisting_ThenReturnWith2xx() throws Exception {
+        ResultActions perform = mockMvc.perform(delete("/exercise/" + exercise3.getId()));
+        perform
+                .andExpect(status().isOk())
+                .andExpect(status().is2xxSuccessful());
+
+        long size = exerciseRepository.findAll().spliterator().getExactSizeIfKnown();
+        assertEquals(2, size);
+        assertNull(exerciseRepository.findOne(exercise3.getId()));
+    }
+
+    @Test
+    public void deleteExercise_WhenDeleteNonExisting_ThenReturnWith4xxError() throws Exception {
+        ResultActions perform = mockMvc.perform(delete("/exercise/" + 999));
+        perform
+                .andExpect(status().is4xxClientError())
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void postExercise_WhenSaveExercise_ThenReturnWith2xx() throws Exception {
+        Exercise newExercise = new Exercise("new", "new desc", station);
+        String exerciseJson = parseJSON(newExercise);
+
+        ResultActions perform = mockMvc.perform(post("/exercise/")
+                .contentType(contentType).content(exerciseJson));
+        perform
+                .andExpect(status().is2xxSuccessful());
+
+        long expectedId = exercise3.getId() + 1;
+        assertEquals(newExercise.getName(), exerciseRepository.findOne(expectedId).getName());
+        assertEquals(newExercise.getDescription(), exerciseRepository.findOne(expectedId).getDescription());
+        assertEquals(station.getId(), exerciseRepository.findOne(expectedId).getStation().getId());
+    }
+
+    @Test
+    public void postExercise_WhenSaveNull_ThenReturnWith4xx() throws Exception {
+        ResultActions perform = mockMvc.perform(post("/exercise/"));
+        perform
+                .andExpect(status().is4xxClientError());
+    }
+
+
+    @Test
     public void getExercise_WhenGetNonExistingId_ThenReturn4xxError() throws Exception {
         ResultActions perform = mockMvc.perform(get("/exercise/" + 999));
         perform
@@ -115,7 +206,7 @@ public class ExerciseControllerIntegrationTest {
                 .andExpect(jsonPath("$.station.description", is(exercise1.getStation().getDescription())));
     }
 
-    private String jsonParser(Exercise exercise) throws JsonProcessingException {
+    private String parseJSON(Exercise exercise) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.writeValueAsString(exercise);
     }
