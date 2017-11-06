@@ -43,7 +43,6 @@ public class ExerciseControllerUnitTest {
     private Exercise exercise2;
     private Exercise exercise3;
 
-
     @Before
     public void setup() {
         station = new Station("Station 1", 1, "Description", null);
