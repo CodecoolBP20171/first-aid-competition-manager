@@ -30,7 +30,7 @@ public class Exercise {
     private Station station;
 
     @JsonBackReference
-    @ManyToMany(cascade = CascadeType.REMOVE)
+    @ManyToMany
     @JoinTable(
             name = "tasks_of_exercises",
             joinColumns = @JoinColumn(name = "exercise_id", referencedColumnName = "id"),
