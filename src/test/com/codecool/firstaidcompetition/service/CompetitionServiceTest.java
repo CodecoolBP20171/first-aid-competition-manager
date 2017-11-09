@@ -67,12 +67,12 @@ public class CompetitionServiceTest {
     }
 
     @Test
-    public void findById_WhenGetStationById_ThenReturnOneStation() {
+    public void findById_WhenGetCompetitionById_ThenReturnOneCompetition() {
         assertEquals(competition1, competitionService.getCompetitionByIdService(1L));
     }
 
     @Test
-    public void findAll_WhenFindStations_ThenReturnWithList() {
+    public void findAll_WhenFindCompetitions_ThenReturnWithList() {
         assertTrue(competitionService.getAllCompetitionsService() != null);
         assertEquals(competitionList, competitionService.getAllCompetitionsService());
     }

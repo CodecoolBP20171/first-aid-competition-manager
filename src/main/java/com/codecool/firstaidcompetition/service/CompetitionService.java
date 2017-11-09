@@ -1,10 +1,7 @@
 package com.codecool.firstaidcompetition.service;
 
-import com.codecool.firstaidcompetition.controller.CompetitionController;
 import com.codecool.firstaidcompetition.model.Competition;
-import com.codecool.firstaidcompetition.model.User;
 import com.codecool.firstaidcompetition.repository.CompetitionRepository;
-import com.codecool.firstaidcompetition.repository.StationRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +13,12 @@ public class CompetitionService {
     private static final Logger logger = LoggerFactory.getLogger(CompetitionService.class);
 
     private final CompetitionRepository competitionRepository;
-//    private final StationRepository stationRepository;
     private final UserServiceImpl userService;
 
     @Autowired
     public CompetitionService(CompetitionRepository competitionRepository, UserServiceImpl userService) {
         this.competitionRepository = competitionRepository;
         this.userService = userService;
-//        this.stationRepository = stationRepository;
     }
 
     public void save(Competition competition) {
@@ -45,7 +40,6 @@ public class CompetitionService {
         competition.setOwner(null);
 
         competitionRepository.save(competition);
-//        competition.getStations().forEach(stationRepository::save);
         logger.info("Save competition to the db, " +
                         "[name: {}; location: {}; date: {}, owner: {}]",
                 competition.getName(), competition.getLocation(), competition.getDateOfEvent(),

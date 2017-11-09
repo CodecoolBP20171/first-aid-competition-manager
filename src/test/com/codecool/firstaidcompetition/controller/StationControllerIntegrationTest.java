@@ -208,7 +208,7 @@ public class StationControllerIntegrationTest {
     // Another (much easier) JSON parser, parse Date object properly to Json
     private String parseStationWithDate(Station station) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
         mapper.setDateFormat(df);
         return mapper.writeValueAsString(station);

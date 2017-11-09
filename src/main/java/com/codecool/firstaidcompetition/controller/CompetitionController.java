@@ -39,7 +39,7 @@ public class CompetitionController {
         return new ResponseEntity<>("Created new competition!", HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PATCH)
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<String> editCompetitionRest(@PathVariable("id") long id, @RequestBody Competition competition) throws CompetitionNotFoundException {
         isValidCompetitionId(id);
         competitionService.editCompetitionService(id, competition);
